@@ -30,6 +30,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Anton', sans-serif;
 }
 
+.center {
+    margin: auto;
+}
+
 /*------------------------------------------------------------------
 [2.Input & Labels ]
 */
@@ -54,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
     border-right: none;
     border-bottom: 2px solid rgba(0,0,0, 0.7);
     font-size: 32px;
-    width: 100%;
+    width: 95%;
     color: #FFF;
     display: block;
 }
@@ -108,6 +112,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-black {
     background: rgb(240, 8, 143);
     color: rgb(255, 255, 255);
+    margin-right: 50px;
     padding: 10px 30px !important;
 }
 .btn-black:hover {
@@ -632,4 +637,26 @@ h1, h2, h3, h4, h5, h6 {
 .bootstrap-select.btn-group .dropdown-menu li.selected a {
     color:#FFF;
     background:#000;
+}
+
+/* STICKY BOTTOM */
+
+.fixed-bottom {
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    align-items: center;
+    position: absolute;
+    z-index: 15;
+}
+
+.fixed-bottom p {
+    color: rgb(199, 239, 255);
+    float: right;
+    margin-top: 10px;
+}
+
+.marz {
+    width: 75px;
+    display: inline;
+    float: left;
 }
