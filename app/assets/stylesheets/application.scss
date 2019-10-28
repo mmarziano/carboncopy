@@ -671,7 +671,17 @@ h1, h2, h3, h4, h5, h6 {
 /* Receipt Image */
 
 .receipt {
-    width: 300px;
+    width: 400px;
     height: auto;
     margin: auto;
+}
+
+/* Card Styling */
+
+.card {
+    margin-top: 50px;
+    padding: 50px;
+    background-color: rgba(255,255,255, 0.1);
+    box-shadow: 0 1px 6px rgba(255, 18, 164, 0.12), 0 1px 4px rgba(138, 4, 104, 0.24);
+    border: none;
 }
