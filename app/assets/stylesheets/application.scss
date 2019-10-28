@@ -30,8 +30,15 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Anton', sans-serif;
 }
 
+.decorative {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 36px;
+    color: #333;
+}
+
 .center {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*------------------------------------------------------------------
@@ -659,4 +666,12 @@ h1, h2, h3, h4, h5, h6 {
     width: 75px;
     display: inline;
     float: left;
+}
+
+/* Receipt Image */
+
+.receipt {
+    width: 300px;
+    height: auto;
+    margin: auto;
 }
