@@ -23,7 +23,7 @@ body {
     font-size: 13px;
     font-family: 'Archivo Narrow', sans-serif;
     color: #333;
-    background: #000;
+    background: #fff;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
 */
 .formLabel {
     display: block;
-    color: rgba(255, 255, 255, 1);
+    color: #000;
     position: absolute;
     font-size: 32px;
     line-height: 1.2;
@@ -52,7 +52,7 @@ h1, h2, h3, h4, h5, h6 {
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+    border-bottom: 2px solid rgba(0,0,0, 0.7);
     font-size: 32px;
     width: 100%;
     color: #FFF;
@@ -105,23 +105,23 @@ h1, h2, h3, h4, h5, h6 {
 .btn-rounded {
     border-radius: 30px;
 }
-.btn-white {
-    background: #FFF;
-    color: #777;
+.btn-black {
+    background: rgb(240, 8, 143);
+    color: rgb(255, 255, 255);
     padding: 10px 30px !important;
 }
-.btn-white:hover {
+.btn-black:hover {
     background: #EEE;
-    color: #333;
+    color: rgb(10, 98, 121);
 }
-.btn-white-transparent {
-    border: 2px solid #FFF;
+.btn-black-transparent {
+    border: 2px solid #000;
     background: none;
-    color: #FFF;
+    color: #000;
     padding: 10px 30px !important;
 }
-.btn-white-transparent:hover {
-    background: #FFF;
+.btn-black-transparent:hover {
+    background: #ccc;
     color: #777;
 }
 
@@ -172,8 +172,8 @@ h1, h2, h3, h4, h5, h6 {
     content: '';
     top: 0;
     right: 0;
-    width: 40%;
-    background: #000;
+    width: 70%;
+    background: #fff;
 }
 
 /*------------------------------------------------------------------
@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6 {
 */
 .marz-signup-left {
     padding: 60px 30px 30px;
-    background-image: image-url("techbackground.jpg") no-repeat;
+    background-image: image-url("techbackground.jpg") no-repeat fixed center;
 }
 .marz-signup-left p {
     font-size: 18px;
@@ -199,6 +199,7 @@ h1, h2, h3, h4, h5, h6 {
 [5.1.1. Logo / .marz-signup-logo]
 */
 .marz-signup-logo {
+    width: 100%;
     margin-bottom: 20px;
 }
 
@@ -250,8 +251,8 @@ h1, h2, h3, h4, h5, h6 {
 [5.2. Right Panel / .marz-signup-right]
 */
 .marz-signup-right {
-    color: #FFF;
-    background: rgb(0, 0, 0);
+    color: #000;
+    background: #fff;
     position: relative;
     overflow-y: auto;
     padding: 60px 30px 0 0
