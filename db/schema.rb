@@ -48,6 +48,10 @@ ActiveRecord::Schema.define(version: 2019_10_28_235022) do
     t.string "category_label_10"
     t.decimal "category_amt_10", precision: 8, scale: 2
     t.string "notes"
+    t.string "payment_method"
+    t.string "payment_method_note"
+    t.string "received_by"
+    t.date "receipt_date"
     t.integer "organization_id"
     t.integer "recipient_id"
     t.datetime "created_at", null: false

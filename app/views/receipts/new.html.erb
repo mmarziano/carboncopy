@@ -1,0 +1,26 @@
+<div class="card" id="login-card-back"> 
+    <%= form_for @receipt do |f| %>
+        <%= f.label :category_label_1 %>
+        <%= f.text_field :category_label_1, class: "form-control"%></br>
+        <%= f.label :category_label_1 %>
+        <%= f.text_field :category_label_1, class: "form-control"%></br>
+        <%= f.label :category_amt_1 %>
+        <%= f.text_field :category_amt_1, class: "form-control"%></br>
+        <%= f.label :category_label_2 %>
+        <%= f.text_field :category_label_2, class: "form-control"%></br>
+        <%= f.label :category_amt_2 %>
+        <%= f.text_field :category_amt_2, class: "form-control"%></br>
+        <%= f.label :category_label_3 %>
+        <%= f.text_field :category_label_3, class: "form-control"%></br>
+        <%= f.label :category_amt_3 %>
+        <%= f.text_field :category_amt_3, class: "form-control"%></br>
+        <%= f.label :category_label_4 %>
+        <%= f.text_field :category_label_4, class: "form-control"%></br>
+        <%= f.label :category_amt_4 %>
+        <%= f.text_field :category_amt_4, class: "form-control"%></br>
+        <%= f.label :notes %>
+        <%= f.text_area :notes, class: "form-control"%></br>
+        
+    <%= f.submit class: "btn btn-outline-light" %>
+    <% end %>
+</div>

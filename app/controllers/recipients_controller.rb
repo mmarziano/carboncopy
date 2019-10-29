@@ -1,4 +1,6 @@
 class RecipientsController < ApplicationController
+    layout 'application'
+
     def index
     end 
 
