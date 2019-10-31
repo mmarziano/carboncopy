@@ -16,3 +16,23 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require_tree .
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    attachListeners();
+});
+
+function attachListeners() {
+    let quickStart = document.querySelector('#start-button');
+    quickStart.addEventListener('click', function(item) {
+       startReceipt();
+    })
+    quickStart.addEventListener('mouseout', function(item) {
+        quickStart.setAttribute("style", "color:rgb(10, 98, 121)");
+     })
+
+}
+
+function startReceipt() {
+   let card = document.querySelector('.card')
+   card.classList.add('hidden');
+}
