@@ -333,115 +333,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-left:0;
 }
 
-/*------------------------------------------------------------------
-[5.2.2.2 Confirm Step / .step-confirm]
-*/
-.step-confirm .form-group {
-    opacity: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 20px 0;
-}
-.step-confirm.step-active .form-group {
-    animation: animateInput .3s forwards;
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
-}
-.step-confirm .form-group:nth-of-type(1) {
-    animation-delay: .1s;
-}
-.step-confirm .form-group:nth-of-type(2) {
-    animation-delay: .3s;
-}
-.step-confirm .form-group:nth-of-type(3) {
-    animation-delay: .5s;
-}
-.step-confirm .form-group:nth-of-type(4) {
-    animation-delay: .7s;
-}
-.step-confirm .form-group:nth-of-type(5) {
-    animation-delay: .9s;
-}
-.step-confirm .control-label {
-    text-align: left;
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: normal;
-    font-size: 20px;
-}
-.step-confirm input {
-    box-shadow: none;
-    background: none;
-    border: none;
-    box-shadow: none;
-    color: rgba(255, 255, 255, 1);
-    font-size: 20px;
-    padding: 10px 20px;
-    height: auto;
-    transition: all .35s ease;
-    font-weight: 600;
-}
-.step-confirm input:hover {} .step-confirm input:focus {
-    box-shadow: none;
-    background: rgba(255, 255, 255, 0.5);
-    color: #333;
-}
-.step-confirm .input-container {
-    position: relative;
-}
-.step-confirm .input-container>a {
-    position: absolute;
-    top: 15px;
-    right: 0;
-    color: #FFF;
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8)
-}
-.step-confirm .input-container>a:hover {
-    color: rgba(255, 255, 255, 1);
-    text-decoration: none;
-}
-.step-confirm .input-container>a.showPass {
-    right: 60px;
-}
-.step-confirm-buttons {
-    text-align: right;
-    margin-top: 35px;
-}
-.step-confirm-buttons a {
-    display: block;
-    margin-bottom: 10px;
-}
-.step-confirm-buttons>div {
-    display: inline-block;
-    text-align: center;
-    padding-bottom: 10px;
-}
-.step-confirm .confirm-input-error,
-.step-confirm .confirm-input-error:focus {
-    background: #b74950 !important;
-    color: #FFF;
-}
-
-.step-confirm .bootstrap-select button {
-    border-bottom:none;
-    font-weight: 600;
-    font-size: 20px;
-    padding: 10px 20px;
-}
-
-.step-confirm .bootstrap-select.btn-group .dropdown-toggle .caret {
-    display:none;
-}
-
-.agreement {
-    font-size: 14px;
-}
-.agreement a {
-    color: #FFF;
-    text-decoration: underline;
-    font-weight: 600;
-}
-
 
 /*------------------------------------------------------------------
 [5.2.3 Buttons / .button-container]
@@ -687,6 +578,7 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
 }
 
+
 /* ----------------------------------------------------------------
 	Flip Cards
 -----------------------------------------------------------------*/
@@ -823,4 +715,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .show {
     display: visible;
+}
+
+.org-search-form {
+
 }

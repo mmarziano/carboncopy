@@ -33,6 +33,9 @@ function attachListeners() {
 }
 
 function startReceipt() {
-   let card = document.querySelector('.card')
-   card.classList.add('hidden');
+   let flipcard = document.querySelector('.flip-card')
+   flipcard.classList.add('hidden');
+   let orgSearch = document.querySelector('#org-search');
+    orgSearch.classList.remove('hidden');
+    orgSearch.classList.add('show');
 }

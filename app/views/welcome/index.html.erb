@@ -1,6 +1,6 @@
 
-    <div class="col-lg-10 mb-10">
-        <div class="card flip-card">
+    <div class="col-lg-10 mb-10 card">
+        <div class="flip-card">
             <div class="flip-card-front text-center" id="start">
                      <img class="receipt" src="assets/receipt.png" alt="receipt">
                      <h3 class="card-title decorative" id="start">Issue Quick Receipt</h3>
@@ -10,6 +10,13 @@
                     <button type="button" class="btn btn-outline-light btn-lg" id="start-button">Start</button>
                 </div>
             </div>
+        </div>
+        <div id="org-search" class="hidden">
+            <h3>Search for Business/Organization</h3><br>
+            <%= form_tag('search', method: 'get', class: 'org-search-form') do %>
+                <%= text_field_tag :name, params[:name], options = {style:"border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"} %>
+                <%= submit_tag("Search") %>
+            <% end %>
         </div>
     </div>
 

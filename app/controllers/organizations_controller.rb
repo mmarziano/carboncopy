@@ -31,6 +31,10 @@ class OrganizationsController < ApplicationController
     def destroy
     end
 
+    def search
+        raise params.inspect
+    end 
+
     private 
 
     def organization_params
