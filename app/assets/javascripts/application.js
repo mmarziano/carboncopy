@@ -48,17 +48,13 @@ function searchResults(data) {
     data.map((item) => orgs.push(item));
     let query = document.querySelector('#name').value
     let result = orgs.find((item) => item.name.toLowerCase() === query.toLowerCase());
-    console.log(result)
     let search = document.querySelector('#search-results')
     let ul = document.createElement('ul');
     let li = document.createElement('li');
+    li.innerText = result.name;
     search.appendChild(ul);
-    
-    for (let i = 0; i < orgs.length; i++) {
-        ul.appendChild('li');
-        li.innerText(orgs[i].name);
-    }
-    
+    ul.appendChild(li);
+    search.classList.remove('hidden')
 }
 
 function getOrganizations() {
