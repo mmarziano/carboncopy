@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+
 window.addEventListener('DOMContentLoaded', (event) => {
     attachListeners();
 });
@@ -26,9 +27,11 @@ function attachListeners() {
     quickStart.addEventListener('click', function(item) {
        startReceipt();
     })
-    quickStart.addEventListener('mouseout', function(item) {
-        quickStart.setAttribute("style", "color:rgb(10, 98, 121)");
-     })
+    let search = document.querySelector('#submit-search');
+    search.addEventListener('click', function(e) {
+       e.preventDefault();
+       getOrganizations();
+    })
 
 }
 
@@ -38,4 +41,29 @@ function startReceipt() {
    let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
     orgSearch.classList.add('show');
+}
+
+function searchResults(data) {
+    let orgs = [];
+    data.map((item) => orgs.push(item));
+    let query = document.querySelector('#name').value
+    let result = orgs.find((item) => item.name.toLowerCase() === query.toLowerCase());
+    console.log(result)
+    let search = document.querySelector('#search-results')
+    let ul = document.createElement('ul');
+    let li = document.createElement('li');
+    search.appendChild(ul);
+    
+    for (let i = 0; i < orgs.length; i++) {
+        ul.appendChild('li');
+        li.innerText(orgs[i].name);
+    }
+    
+}
+
+function getOrganizations() {
+    let url = 'http://localhost:3000/organizations';
+    return fetch(url)
+    .then(response => response.json())
+    .then(json => searchResults(json))
 }

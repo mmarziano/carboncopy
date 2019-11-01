@@ -32,7 +32,13 @@ class OrganizationsController < ApplicationController
     end
 
     def search
-        raise params.inspect
+        organization = Organization.query_by_name(params[:name].titlecase)
+        if organization
+            render json: organization
+        else 
+            render organization.errors.full_messages
+        end
+        
     end 
 
     private 
@@ -40,5 +46,6 @@ class OrganizationsController < ApplicationController
     def organization_params
         params.require(:organization).permit(:name, :address_1, :address_2, :city, :state, :zipcode, :phone, :billing_email, :audit_email)
     end 
-  
+
+    
 end

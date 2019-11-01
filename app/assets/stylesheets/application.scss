@@ -537,26 +537,9 @@ h1, h2, h3, h4, h5, h6 {
     background:#000;
 }
 
-/* STICKY BOTTOM */
-
-.fixed-bottom {
-    background-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-    align-items: center;
-    position: absolute;
-    z-index: 15;
-}
-
-.fixed-bottom p {
-    color: rgb(199, 239, 255);
-    float: right;
-    margin-top: 10px;
-}
-
-.marz {
-    width: 75px;
-    display: inline;
-    float: left;
+.marz-button {
+    background-color:  rgb(240, 8, 143);
+    color: #fff;
 }
 
 /* Receipt Image */
@@ -707,6 +690,7 @@ h1, h2, h3, h4, h5, h6 {
 #start-button {
     color:rgb(240, 8, 143);
     font-size: 24px;
+    margin-left: 10px;
 }
 
 .hidden {
@@ -718,5 +702,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .org-search-form {
-
+    animation-name: animateInput;
+    animation-duration: 1s;
 }

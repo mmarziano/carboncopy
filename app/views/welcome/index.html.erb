@@ -14,10 +14,13 @@
         <div id="org-search" class="hidden">
             <h3>Search for Business/Organization</h3><br>
             <%= form_tag('search', method: 'get', class: 'org-search-form') do %>
-                <%= text_field_tag :name, params[:name], options = {style:"border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"} %>
-                <%= submit_tag("Search") %>
+                <%= text_field_tag :name, params[:name], options = {style:"border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"}%>
+                <%= submit_tag("Search", class: "btn marz-button", id: "submit-search") %>
             <% end %>
         </div>
+        <div id="search-results" class="hidden"></div>
+
+                
     </div>
 
 
