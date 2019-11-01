@@ -44,13 +44,13 @@ function startReceipt() {
 }
 
 function searchResults(data) {
+    let div = document.querySelector('#search-results');
     let orgs = [];
     data.map((item) => orgs.push(item));
     let query = document.querySelector('#name').value
-    let result = orgs.find((item) => item.name.toLowerCase() === query.toLowerCase());
-    let div = document.querySelector('#search-results');
+    let result = orgs.find((item) => item.name.toLowerCase().includes(query.toLowerCase()));
     let tbl = document.createElement('table');
-    tbl.setAttribute('class', 'table');
+    tbl.setAttribute('class', 'table table-striped');
     div.appendChild(tbl);
     generateTableHead(tbl, Object.keys(result));
     generateTable(tbl, result);
