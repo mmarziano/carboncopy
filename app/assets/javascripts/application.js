@@ -48,13 +48,13 @@ function searchResults(data) {
     data.map((item) => orgs.push(item));
     let query = document.querySelector('#name').value
     let result = orgs.find((item) => item.name.toLowerCase() === query.toLowerCase());
-    let search = document.querySelector('#search-results')
-    let ul = document.createElement('ul');
-    let li = document.createElement('li');
-    li.innerText = result.name;
-    search.appendChild(ul);
-    ul.appendChild(li);
-    search.classList.remove('hidden')
+    let div = document.querySelector('#search-results');
+    let tbl = document.createElement('table');
+    tbl.setAttribute('class', 'table');
+    div.appendChild(tbl);
+    generateTableHead(tbl, Object.keys(result));
+    generateTable(tbl, result);
+    div.classList.remove('hidden')
 }
 
 function getOrganizations() {
@@ -63,3 +63,23 @@ function getOrganizations() {
     .then(response => response.json())
     .then(json => searchResults(json))
 }
+
+function generateTableHead(tbl, data) {
+    let thead = tbl.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(key);
+      th.appendChild(text);
+      row.appendChild(th);
+    }
+  }
+
+  function generateTable(table, data) {
+      let row = table.insertRow();
+      for (key in data) {
+        let cell = row.insertCell();
+        let text = document.createTextNode(data[key]);
+        cell.appendChild(text);
+      }
+  }
