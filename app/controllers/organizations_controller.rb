@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
     def index
         organizations = Organization.all
-        render json: organizations, only: [:name, :address_1, :city, :zipcode, :billing_email]
+        render json: organizations, only: [:id, :name, :address, :city, :zipcode, :billing_email]
     end 
 
     def new

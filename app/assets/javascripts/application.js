@@ -50,9 +50,12 @@ function searchResults(data) {
     let orgs = [];
     data.map((item) => orgs.push(item));
     let query = document.querySelector('#name').value
-    let result = orgs.find((item) => item.name.toLowerCase().includes(query.toLowerCase()));
-    let tblheadings = Object.keys(result).map((key) => key.charAt(0).toUpperCase() + key.slice(1));
-    tblheadings.push('Actions');
+    let result = orgs.filter(function(item) {
+        if (item.name.toLowerCase().includes(query.toLowerCase())) {
+            return item;
+        };    
+    }); 
+    let tblheadings = ['Name', 'Address', 'City', 'Zipcode', 'Billing Email', 'Actions']
     let tbl = document.createElement('table');
     tbl.setAttribute('class', 'table table-striped');
     div.appendChild(tbl);
@@ -81,11 +84,16 @@ function generateTableHead(tbl, data) {
 
   function generateTable(table, data) {
       let tbody = table.appendChild(document.createElement('tbody'));
-      let row = tbody.insertRow();
-      data.actions = 'Select';
-      for (key in data) {
-        let cell = row.insertCell();
-        let text = document.createTextNode(data[key]);
-        cell.appendChild(text);
-      }
-  }
+      
+      for (let i = 0; i < data.length; i++) {
+        let row = tbody.insertRow();
+        for (let key in data[i]) {
+            data[i].actions = 'Select';
+            let cell = row.insertCell();
+            let text = document.createTextNode(data[i][key]);
+            if (text !== 'null') {
+                cell.appendChild(text);
+            };
+        };
+      };
+  };
