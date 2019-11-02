@@ -136,6 +136,10 @@ function generateTableHead(tbl, data) {
   };
 
   function authenticate(data) {
+    let card = document.querySelector('#card-results');
+    card.classList.add('hidden');
+    let header = document.createElement('h3');
+    header.innerHTML = data.name;
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.add('hidden');
     let div = document.querySelector('#search-results');
@@ -143,6 +147,7 @@ function generateTableHead(tbl, data) {
     let pin = document.querySelector('#authenticate-pin');
         pin.classList.remove('hidden');
         pin.classList.add('show');
+        pin.appendChild(header)
 
   }
 
