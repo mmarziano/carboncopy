@@ -44,7 +44,8 @@ gem 'jquery-rails'
 gem 'active_model_serializers'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'roo', '~> 2.8', '>= 2.8.2'
+gem 'rubyzip'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

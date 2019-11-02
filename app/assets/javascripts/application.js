@@ -82,7 +82,7 @@ function generateTableHead(tbl, data) {
   function generateTable(table, data) {
       let tbody = table.appendChild(document.createElement('tbody'));
       let row = tbody.insertRow();
-      data.actions = '\u2611' + '\u2612';
+      data.actions = 'Select';
       for (key in data) {
         let cell = row.insertCell();
         let text = document.createTextNode(data[key]);

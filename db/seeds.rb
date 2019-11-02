@@ -5,3 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'roo'
+
+#load the excel file
+excel_file = Roo::Spreadsheet.open('./public/data/privateschoollist.xlsx')
+#navigate to specific sheet
+excel_file.sheet(0)
+#select row range you wish to iterate over
+2.upto(2779) do |line|
+  name = excel_file.cell(line, 'A')
+  address = excel_file.cell(line, 'B')
+  city = excel_file.cell(line, 'C')
+  state = excel_file.cell(line, 'D')
+  zipcode = excel_file.cell(line, 'E')
+  Organization.create!(name: name, address: address, city: city, state: state, zipcode: zipcode)
+end
