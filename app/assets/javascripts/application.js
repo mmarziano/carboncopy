@@ -24,7 +24,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 function attachListeners() {
     let quickStart = document.querySelector('#start-button');
-    quickStart.addEventListener('click', function(item) {
+    quickStart.addEventListener('click', function(e) {
+        e.preventDefault();
         startReceipt();
     })
     let search = document.querySelector('#submit-search');
@@ -34,6 +35,12 @@ function attachListeners() {
        div.innerHTML = "";
        getOrganizations();
     })
+    let reset = document.querySelector('#reset');
+    reset.addEventListener('click', function(e){
+        e.preventDefault();
+        restartReceipt();
+    })
+
 }
 
 function startReceipt() {
@@ -44,7 +51,25 @@ function startReceipt() {
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
     orgSearch.classList.add('show');
+    
 }
+
+function restartReceipt() {
+    let flipcard = document.querySelector('.flip-card')
+    flipcard.classList.add('hidden');
+    let reset = document.querySelector('#reset');
+    reset.classList.remove('hidden');
+    let orgSearch = document.querySelector('#org-search');
+    orgSearch.classList.remove('hidden');
+    orgSearch.classList.add('show');
+    let card = document.querySelector('#card-results');
+    card.classList.add('hidden');
+    let query = document.querySelector('#name')
+    query.value = '';
+    let pin = document.querySelector('#authenticate-pin');
+    pin.classList.add('hidden');
+}
+
 
 function searchResults(data) {
     let card = document.querySelector('#card-results');
