@@ -1,5 +1,6 @@
 
     <div class="col-lg-10 mb-10 card">
+        <a href='#' onclick="startReceipt()" id="reset" class="hidden" style="float: right;">Reset</a>
         <div class="flip-card">
             <div class="flip-card-front text-center" id="start">
                      <img class="receipt" src="assets/receipt.png" alt="receipt">
@@ -18,11 +19,21 @@
                 <%= submit_tag("Search", class: "btn marz-button", id: "submit-search") %>
             <% end %>
         </div>
+        <div id="authenticate-pin" class="hidden">
+            <h3>Supply PIN To Issue Receipt</h3><br>
+            <%= form_tag('search', method: 'get', class: 'org-search-form') do %>
+                <%= text_field_tag :pin, params[:pin], options = {style:"border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"}%>
+                <%= submit_tag("Submit", class: "btn marz-button", id: "submit-pin") %>
+            <% end %>
+    </div>         
+
     </div>
 
     <div class="col-lg-10 mb-10 hidden" id="card-results">
         <div id="search-results" class="table hidden"></div>
     </div>
+
+
 
 
 

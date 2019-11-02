@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 function attachListeners() {
     let quickStart = document.querySelector('#start-button');
     quickStart.addEventListener('click', function(item) {
-       startReceipt();
+        startReceipt();
     })
     let search = document.querySelector('#submit-search');
     search.addEventListener('click', function(e) {
@@ -34,13 +34,14 @@ function attachListeners() {
        div.innerHTML = "";
        getOrganizations();
     })
-
 }
 
 function startReceipt() {
-   let flipcard = document.querySelector('.flip-card')
-   flipcard.classList.add('hidden');
-   let orgSearch = document.querySelector('#org-search');
+    let flipcard = document.querySelector('.flip-card')
+    flipcard.classList.add('hidden');
+    let reset = document.querySelector('#reset');
+    reset.classList.remove('hidden');
+    let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
     orgSearch.classList.add('show');
 }
@@ -88,8 +89,13 @@ function generateTableHead(tbl, data) {
       let tbody = table.appendChild(document.createElement('tbody'));
       for (let i = 0; i < data.length; i++) {
         let link = document.createElement('a');
+        link.setAttribute('style', 'color: rgb(240, 8, 143)')
         link.href =  `/organizations/${data[i].id}`;
         link.innerHTML = `${data[i].name}` 
+        link.addEventListener('click', function(e){
+            e.preventDefault();
+            authenticate(data[i]);
+        });
         let row = tbody.insertRow();
         for (let key in data[i]) {
             let cell = row.insertCell();
@@ -103,3 +109,16 @@ function generateTableHead(tbl, data) {
         };
       };
   };
+
+  function authenticate(data) {
+    let orgSearch = document.querySelector('#org-search');
+    orgSearch.classList.add('hidden');
+    let div = document.querySelector('#search-results');
+    div.classList.add('hidden');
+    let pin = document.querySelector('#authenticate-pin');
+        pin.classList.remove('hidden');
+        pin.classList.add('show');
+
+  }
+
+  
