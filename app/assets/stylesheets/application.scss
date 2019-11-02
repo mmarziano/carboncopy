@@ -20,7 +20,7 @@
 @import url('https://fonts.googleapis.com/css?family=Anton|Archivo+Narrow|Shadows+Into+Light&display=swap');
 
 body {
-    font-size: 13px;
+    font-size: 15px;
     font-family: 'Archivo Narrow', sans-serif;
     color: #333;
     background: #fff;
@@ -29,6 +29,13 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Anton', sans-serif;
 }
+
+th {
+    font-family: 'Shadows Into Light', sans-serif;
+    color: rgb(240, 8, 143);
+    font-size: 18px;
+}
+
 
 .decorative {
     font-family: 'Shadows Into Light', cursive;

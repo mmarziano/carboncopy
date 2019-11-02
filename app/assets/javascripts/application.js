@@ -30,6 +30,8 @@ function attachListeners() {
     let search = document.querySelector('#submit-search');
     search.addEventListener('click', function(e) {
        e.preventDefault();
+       let div = document.querySelector('#search-results');
+       div.innerHTML = "";
        getOrganizations();
     })
 
@@ -49,10 +51,12 @@ function searchResults(data) {
     data.map((item) => orgs.push(item));
     let query = document.querySelector('#name').value
     let result = orgs.find((item) => item.name.toLowerCase().includes(query.toLowerCase()));
+    let tblheadings = Object.keys(result).map((key) => key.charAt(0).toUpperCase() + key.slice(1));
+    tblheadings.push('Actions');
     let tbl = document.createElement('table');
     tbl.setAttribute('class', 'table table-striped');
     div.appendChild(tbl);
-    generateTableHead(tbl, Object.keys(result));
+    generateTableHead(tbl, tblheadings);
     generateTable(tbl, result);
     div.classList.remove('hidden')
 }
@@ -76,7 +80,9 @@ function generateTableHead(tbl, data) {
   }
 
   function generateTable(table, data) {
-      let row = table.insertRow();
+      let tbody = table.appendChild(document.createElement('tbody'));
+      let row = tbody.insertRow();
+      data.actions = '\u2611' + '\u2612';
       for (key in data) {
         let cell = row.insertCell();
         let text = document.createTextNode(data[key]);
