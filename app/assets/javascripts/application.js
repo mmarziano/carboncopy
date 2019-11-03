@@ -66,6 +66,8 @@ function restartReceipt() {
     card.classList.add('hidden');
     let query = document.querySelector('#name')
     query.value = '';
+    let selected = document.querySelector('#selected');
+    selected.remove();
     let pin = document.querySelector('#authenticate-pin');
     pin.classList.add('hidden');
 }
@@ -136,18 +138,20 @@ function generateTableHead(tbl, data) {
   };
 
   function authenticate(data) {
+    let pin = document.querySelector('#authenticate-pin'); 
     let card = document.querySelector('#card-results');
-    card.classList.add('hidden');
-    let header = document.createElement('h3');
-    header.innerHTML = data.name;
+        card.classList.add('hidden');
+    let header = document.createElement('h4');
+        header.setAttribute('id', 'selected');
+        header.innerHTML = data.name;
     let orgSearch = document.querySelector('#org-search');
-    orgSearch.classList.add('hidden');
+        orgSearch.classList.add('hidden');
     let div = document.querySelector('#search-results');
-    div.classList.add('hidden');
-    let pin = document.querySelector('#authenticate-pin');
-        pin.classList.remove('hidden');
-        pin.classList.add('show');
-        pin.appendChild(header)
+        div.classList.add('hidden');
+
+    pin.classList.remove('hidden');
+    pin.classList.add('show');
+    pin.appendChild(header)
 
   }
 

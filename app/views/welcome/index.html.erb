@@ -21,7 +21,7 @@
         </div>
         <div id="authenticate-pin" class="hidden">
             <h3>Supply PIN To Issue Receipt</h3><br>
-            <%= form_tag('search', method: 'get', class: 'org-search-form') do %>
+            <%= form_tag('search', method: 'get', class: 'pin') do %>
                 <%= text_field_tag :pin, params[:pin], options = {style:"border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 50%;"}%>
                 <%= submit_tag("Submit", class: "btn marz-button", id: "submit-pin") %>
             <% end %>
