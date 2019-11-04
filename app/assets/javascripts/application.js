@@ -120,6 +120,19 @@ function createOrganization(){
     orgSearch.classList.add('hidden');
     let form = document.querySelector('#create_org');
     form.classList.remove('hidden');
+    let url = 'http://localhost:3000/organizations';
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: new FormData(document.querySelector('#create_org_form'))
+        }
+        fetch(url, options)
+        .then(response => response.json())
+        .then(info => console.log(info)) 
+    
 }
 
 function generateTableHead(tbl, data) {

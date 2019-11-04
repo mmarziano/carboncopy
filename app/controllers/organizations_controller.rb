@@ -10,10 +10,12 @@ class OrganizationsController < ApplicationController
 
     def create
         organization = Organization.new(organization_params)
+
         if organization.save
             render json: organization
         else 
-            render organization.errors.full_messages
+            msg = organization.errors.full_messages if organization.errors.any?
+            render msg
         end
     end 
 
@@ -48,7 +50,7 @@ class OrganizationsController < ApplicationController
     private 
 
     def organization_params
-        params.require(:organization).permit(:name, :address_1, :address_2, :city, :state, :zipcode, :phone, :billing_email, :audit_email)
+        params.require(:organization).permit(:name, :address, :address, :city, :state, :zipcode, :phone, :billing_email, :audit_email, :pin)
     end 
 
     

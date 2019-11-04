@@ -28,7 +28,7 @@
                    <p class="alert alert-success"><%= notice %></p>
                 <% end %>
                 <% if alert %>
-                    <p class="alert alert-danger"><%= alert %></p>
+                    <p class="alert alert-danger">ERROR(S): <%= j flash[:error].join('; ') %></p>
                 <% end %>
               
                   <div id="main">
