@@ -48,18 +48,53 @@ function attachListeners() {
 
 }
 
+function hideSearch() {
+    let orgSearch = document.querySelector('#org-search');
+    orgSearch.classList.add('hidden');
+}
+
+function showSearch() {
+    let orgSearch = document.querySelector('#org-search');
+    orgSearch.classList.remove('hidden');
+}
+
+function hideCreateOrgForm() {
+    let newOrg = document.querySelector('#create_new');
+    newOrg.classList.add('hidden');
+}
+
+function showCreateOrgForm() {
+    let newOrg = document.querySelector('#create_new');
+    newOrg.classList.remove('hidden');
+}
+
+function hideResetLink() {
+    let reset = document.querySelector('#reset');
+    reset.classList.add('hidden');
+}
+
+function showResetLink() {
+    let reset = document.querySelector('#reset');
+    reset.classList.remove('hidden');
+}
+
+function showError(){
+    let error = document.querySelector('#error');
+    error.classList.remove('hidden');
+}
+
+function hideError(){
+    let error = document.querySelector('#error');
+    error.classList.add('hidden');
+}
+
 function startReceipt() {
     let flipcard = document.querySelector('.flip-card')
     flipcard.classList.add('hidden');
-    let reset = document.querySelector('#reset');
-    reset.classList.remove('hidden');
-    let newOrg = document.querySelector('#create_new');
-    newOrg.classList.remove('hidden');
-    let orgSearch = document.querySelector('#org-search');
-    orgSearch.classList.remove('hidden');
-    orgSearch.classList.add('show');
-    let error = document.querySelector('#error');
-    error.classList.add('hidden');
+    showResetLink();
+    showCreateOrgForm();
+    showSearch();
+    hideError();
 }
 
 function restartReceipt() {
@@ -67,13 +102,9 @@ function restartReceipt() {
     flipcard.classList.add('hidden');
     let form = document.querySelector('#create_org');
     form.classList.add('hidden');
-    let reset = document.querySelector('#reset');
-    reset.classList.remove('hidden');
-    let newOrg = document.querySelector('#create_new');
-    newOrg.classList.remove('hidden');
-    let orgSearch = document.querySelector('#org-search');
-    orgSearch.classList.remove('hidden');
-    orgSearch.classList.add('show');
+    showResetLink();
+    showCreateOrgForm();
+    showSearch();
     let card = document.querySelector('#card-results');
     card.classList.add('hidden');
     let query = document.querySelector('#name')
