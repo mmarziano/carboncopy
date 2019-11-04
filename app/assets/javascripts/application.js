@@ -58,7 +58,7 @@ function startReceipt() {
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
     orgSearch.classList.add('show');
-    let error = document.querySelector('.error');
+    let error = document.querySelector('#error');
     error.classList.add('hidden');
 }
 
@@ -132,13 +132,9 @@ function createOrganization(){
         }
         return fetch(url, options)
         .then(response => response.json())
-        .then(info => renderError(info)) 
+        .then(info => console.log(info)) 
 }
 
-function renderError(msg) {
-    alert('here')
-
-}
 
 function generateTableHead(tbl, data) {
     let thead = tbl.createTHead();
@@ -165,7 +161,7 @@ function generateTableHead(tbl, data) {
         let row = tbody.insertRow();
         for (let key in data[i]) {
             let cell = row.insertCell();
-            if (key !== 'id' && key !== 'name') {
+            if (key !== 'id' && key !== 'name' && key !== 'pin') {
                 let text = document.createTextNode(data[i][key]);
                 cell.appendChild(text);
             } 
@@ -190,15 +186,15 @@ function generateTableHead(tbl, data) {
 
     pin.classList.remove('hidden');
     pin.classList.add('show');
-    pin.appendChild(header)
+    pin.appendChild(header);
+    let orgPin = () => data.pin;
     let orgId = document.querySelector('#organization_id');
-    orgId.value = data.id;
-    
+        orgId.value = data.id;
     let submitPin = document.querySelector('#submit-pin');
     submitPin.addEventListener('click', function(e){
         e.preventDefault();
         let userPin = document.querySelector('#pin').value;
-        if (data.pin === userPin.toString()) {
+        if (orgPin() === userPin.toString()) {
             alert("You're right!")
         } else {
             alert("Wrong!")
