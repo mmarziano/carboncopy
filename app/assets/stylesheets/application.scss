@@ -422,7 +422,10 @@ td {
     }
 }
 
-
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ } 
 
 /*------------------------------------------------------------------
 [8. Responsive Styles]
@@ -726,6 +729,6 @@ td {
 }
 
 .pin {
-    animation-name: animateInput;
+    animation-name: fadeIn;
     animation-duration: 0.5s;
 }

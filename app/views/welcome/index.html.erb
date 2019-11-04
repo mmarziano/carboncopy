@@ -1,5 +1,7 @@
 
     <div class="col-lg-10 mb-10 card">
+        <%#---Receipt start---%>
+        
         <a href='/' id="reset" class="hidden" style="float: right;">Reset</a>
         <div class="flip-card">
             <div class="flip-card-front text-center" id="start">
@@ -12,6 +14,9 @@
                 </div>
             </div>
         </div>
+        
+        <%# ---Organization search---%>
+
         <div id="org-search" class="hidden">
             <h3>Search for Business/Organization</h3><br>
             <%= form_tag('search', method: 'get', class: 'org-search-form') do %>
@@ -19,6 +24,9 @@
                 <%= submit_tag("Search", class: "btn marz-button", id: "submit-search") %>
             <% end %>
         </div>
+
+        <%# ---Pin authentication input---%>
+
         <div id="authenticate-pin" class="hidden">
             <h3>Supply PIN To Issue Receipt</h3><br>
             <%= form_tag('validate', method: 'get', class: 'pin') do %>
@@ -26,8 +34,33 @@
                 <%= text_field_tag :pin, params[:pin], options = {style:"border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 50%;"}%>
                 <%= submit_tag("Submit", class: "btn marz-button", id: "submit-pin") %>
             <% end %>
-    </div>         
+        </div> 
 
+        <%# ---Create New Organization--- %>
+
+        <div id="create_org" class="hidden">
+            <%= form_for Organization.new, html: {id: :create_org_form } do |f| %>
+                <%= f.label :name %>
+                <%= f.text_field :name, class: "form-control"%></br>
+                <%= f.label :addresss %>
+                <%= f.text_field :address, class: "form-control"%></br>
+                <%= f.label :city %>
+                <%= f.text_field :city, class: "form-control"%></br>
+                <%= f.label :state %>
+                <%= f.text_field :state, class: "form-control"%></br>
+                <%= f.label :zipcode %>
+                <%= f.text_field :zipcode, class: "form-control"%></br>
+                <%= f.label :phone %>
+                <%= f.text_field :phone, class: "form-control"%></br>
+                <%= f.label :billing_email %>
+                <%= f.text_field :billing_email, class: "form-control"%></br>
+                <%= f.label :audit_email %>
+                <%= f.text_field :audit_email, class: "form-control"%></br>
+                <%= f.label :pin %>
+                <%= f.text_field :pin, class: "form-control"%></br>
+                <%= f.submit class: "btn btn-outline-light", id: "create_org_submit" %>
+            <% end %>        
+        </div>
     </div>
 
     <div class="col-lg-10 mb-10 hidden" id="card-results">

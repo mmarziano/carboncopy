@@ -83,7 +83,10 @@ function searchResults(data) {
     let result = orgs.filter(function(item) {
         if (item.name.toLowerCase().includes(query.toLowerCase())) {
             return item;
-        };    
+        } else {
+            createOrganization();
+        }    
+
     }); 
     let tblheadings = ['', 'Name', 'Address', 'City', 'State', 'Zipcode']
     let tbl = document.createElement('table');
@@ -99,6 +102,10 @@ function getOrganizations() {
     return fetch(url)
     .then(response => response.json())
     .then(json => searchResults(json))
+}
+
+function createOrganization(){
+    
 }
 
 function generateTableHead(tbl, data) {
