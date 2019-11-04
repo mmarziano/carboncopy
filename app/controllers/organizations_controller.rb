@@ -14,8 +14,8 @@ class OrganizationsController < ApplicationController
         if organization.save
             render json: organization
         else 
-            msg = organization.errors.full_messages if organization.errors.any?
-            render msg
+            flash[:alert] = organization.errors.full_messages if organization.errors.any?
+            redirect_to '/'
         end
     end 
 

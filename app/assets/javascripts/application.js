@@ -58,7 +58,8 @@ function startReceipt() {
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
     orgSearch.classList.add('show');
-    
+    let error = document.querySelector('.error');
+    error.classList.add('hidden');
 }
 
 function restartReceipt() {
@@ -129,10 +130,14 @@ function createOrganization(){
             },
             body: new FormData(document.querySelector('#create_org_form'))
         }
-        fetch(url, options)
+        return fetch(url, options)
         .then(response => response.json())
-        .then(info => console.log(info)) 
-    
+        .then(info => renderError(info)) 
+}
+
+function renderError(msg) {
+    alert('here')
+
 }
 
 function generateTableHead(tbl, data) {

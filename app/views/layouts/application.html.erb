@@ -25,10 +25,19 @@
                 <div class="marz-signup-right col-md-9 col-sm-9" style="height: 867px;">
 
                 <% if notice %>
-                   <p class="alert alert-success"><%= notice %></p>
+                  <div class="col-lg-10 mb-10 error">
+                    <p class="alert alert-success"><%= notice %></p>
+                  </div>
                 <% end %>
                 <% if alert %>
-                    <p class="alert alert-danger">ERROR(S): <%= j flash[:error].join('; ') %></p>
+                  <div class="col-lg-10 mb-10 error">
+                    <p class="alert alert-danger">The following errors have prevented this action:</p>
+                      <ul>
+                        <% alert.each do |a| %>
+                        <li><%= a %></li>
+                        <% end %>
+                      </ul>
+                  </div>
                 <% end %>
               
                   <div id="main">
