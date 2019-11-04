@@ -26,7 +26,7 @@ function attachListeners() {
     let quickStart = document.querySelector('#start-button');
     quickStart.addEventListener('click', function(e) {
         e.preventDefault();
-        startReceipt();
+        start();
     })
     let search = document.querySelector('#submit-search');
     search.addEventListener('click', function(e) {
@@ -38,7 +38,7 @@ function attachListeners() {
     let reset = document.querySelector('#reset');
     reset.addEventListener('click', function(e){
         e.preventDefault();
-        restartReceipt();
+        restart();
     })
     let newOrg = document.querySelector('#create_new');
     newOrg.addEventListener('click', function(e){
@@ -118,7 +118,17 @@ function showResults() {
     card.classList.remove('hidden');
 }
 
-function startReceipt() {
+function showReceiptForm() {
+    let receipt = document.querySelector('#receipt');
+    receipt.classList.remove('hidden');
+}
+
+function hideReceiptForm() {
+    let receipt = document.querySelector('#receipt');
+    receipt.classList.add('hidden');
+}
+
+function start() {
     hideCard();
     showResetLink();
     showCreateOrgForm();
@@ -126,7 +136,7 @@ function startReceipt() {
     hideError();
 }
 
-function restartReceipt() {
+function restart() {
     hideCard();
     let form = document.querySelector('#create_org');
     form.classList.add('hidden');
@@ -237,16 +247,28 @@ function generateTableHead(tbl, data) {
     let orgPin = () => data.pin;
     let orgId = document.querySelector('#organization_id');
         orgId.value = data.id;
+    let org = () => data;    
     let submitPin = document.querySelector('#submit-pin');
     submitPin.addEventListener('click', function(e){
         e.preventDefault();
         let userPin = document.querySelector('#pin').value;
         if (orgPin() === userPin.toString()) {
-            alert("You're right!")
+            startReceipt(org());
         } else {
             alert("Wrong!")
         }
     }); 
+  }
+
+  function startReceipt(org) {
+    showReceiptForm();
+    hideCard();
+    hidePin();
+    hideResetLink();
+    hideCreateOrgForm();
+    hideSearch();
+    hideError();
+    
   }
 
   

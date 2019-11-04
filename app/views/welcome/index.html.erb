@@ -63,6 +63,53 @@
                 <%= f.submit class: "btn marz-button", id: "create_org_submit" %>
             <% end %>        
         </div>
+
+        <%# ---Create Receipt---%>
+
+        <div id="receipt" class="hidden">
+        <h3>Receipt Details</h3>
+        <%= form_for Receipt.new, html: {id: :receipt_form } do |f| %>
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control"%></br>
+            <%= f.label :email %>
+            <%= f.text_field :email, class: "form-control"%></br>
+            <%= f.label :phone %>
+            <%= f.text_field :phone, class: "form-control"%></br>
+            <%= f.label :secondary_name %>
+            <%= f.text_field :secondary_name, class: "form-control"%></br>
+            <%= f.label :secondary_id %>
+            <%= f.text_field :secondary_id, class: "form-control"%></br>
+            <%= f.label :category_label_1 %>
+            <%= f.text_field :category_amt_1, class: "form-control"%></br>
+            <%= f.label :category_label_2 %>
+            <%= f.text_field :category_amt_2, class: "form-control"%></br>
+            <%= f.label :category_label_3 %>
+            <%= f.text_field :category_amt_3, class: "form-control"%></br>
+            <%= f.label :category_label_4 %>
+            <%= f.text_field :category_amt_4, class: "form-control"%></br>
+            <%= f.label :category_label_5 %>
+            <%= f.text_field :category_amt_5, class: "form-control"%></br>
+            <%= f.label :category_label_6 %>
+            <%= f.text_field :category_amt_6, class: "form-control"%></br>
+            <%= f.label :category_label_7 %>
+            <%= f.text_field :category_amt_7, class: "form-control"%></br>
+            <%= f.label :category_label_8 %>
+            <%= f.text_field :category_amt_8, class: "form-control"%></br>
+            <%= f.label :category_label_9 %>
+            <%= f.text_field :category_amt_9, class: "form-control"%></br>
+            <%= f.label :category_label_10 %>
+            <%= f.text_field :category_amt_10, class: "form-control"%></br>
+            <%= f.label :payment_method %>
+            <%= f.text_field :payment_method, class: "form-control"%></br>
+            <%= f.label :payment_method_note %>
+            <%= f.text_field :payment_method_note, class: "form-control"%></br>
+            <%= f.label :notes %>
+            <%= f.text_field :notes, class: "form-control"%></br>
+            <%= f.label :received_by %>
+            <%= f.text_field :received_by, class: "form-control"%></br>
+            <%= f.submit class: "btn marz-button", id: "create_org_submit" %>
+        <% end %>      
+        </div> 
     </div>
 
     <div class="col-lg-10 mb-10 hidden" id="card-results">
