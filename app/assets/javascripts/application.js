@@ -64,6 +64,8 @@ function startReceipt() {
 function restartReceipt() {
     let flipcard = document.querySelector('.flip-card')
     flipcard.classList.add('hidden');
+    let form = document.querySelector('#create_org');
+    form.classList.add('hidden');
     let reset = document.querySelector('#reset');
     reset.classList.remove('hidden');
     let newOrg = document.querySelector('#create_new');
@@ -79,6 +81,7 @@ function restartReceipt() {
     selected.remove();
     let pin = document.querySelector('#authenticate-pin');
     pin.classList.add('hidden');
+    
 }
 
 
