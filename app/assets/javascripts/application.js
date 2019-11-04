@@ -128,6 +128,82 @@ function hideReceiptForm() {
     receipt.classList.add('hidden');
 }
 
+function showReceipt() {
+    let receipt = document.querySelector('#receipt_form');
+    receipt.classList.remove('hidden');
+}
+
+function hideReceipt() {
+    let receipt = document.querySelector('#new_receipt_form');
+    receipt.classList.add('hidden');
+}
+
+function hideReceiptFormElements() {
+    let elements = [];
+    let name = document.querySelector('#receipt_name');
+    elements.push(name);
+    let email = document.querySelector('#receipt_email');
+    elements.push(email);
+    let phone = document.querySelector('#receipt_phone');
+    elements.push(phone);
+    let secondName = document.querySelector('#receipt_secondary_name');
+    elements.push(secondName);
+    let id = document.querySelector('#receipt_secondary_id');
+    elements.push(id);
+    let cat1 = document.querySelector('#receipt_category_label_1');
+    elements.push(cat1);
+    let amt1 = document.querySelector('#receipt_category_amt_1');
+    elements.push(amt1);
+    let cat2 = document.querySelector('#receipt_category_label_2');
+    elements.push(cat2);
+    let amt2 = document.querySelector('#receipt_category_amt_2');
+    elements.push(amt2);
+    let cat3 = document.querySelector('#receipt_category_label_3');
+    elements.push(cat3);
+    let amt3 = document.querySelector('#receipt_category_amt_3');
+    elements.push(amt3);
+    let cat4 = document.querySelector('#receipt_category_label_4');
+    elements.push(cat4);
+    let amt4 = document.querySelector('#receipt_category_amt_4');
+    elements.push(amt4);
+    let cat5 = document.querySelector('#receipt_category_label_5');
+    elements.push(cat5);
+    let amt5 = document.querySelector('#receipt_category_amt_5');
+    elements.push(amt5);
+    let cat6 = document.querySelector('#receipt_category_label_6');
+    elements.push(cat6);
+    let amt6 = document.querySelector('#receipt_category_amt_6');
+    elements.push(amt6);
+    let cat7 = document.querySelector('#receipt_category_label_7');
+    elements.push(cat7);
+    let amt7 = document.querySelector('#receipt_category_amt_7');
+    elements.push(amt7);
+    let cat8 = document.querySelector('#receipt_category_label_8');
+    elements.push(cat8);
+    let amt8 = document.querySelector('#receipt_category_amt_8');
+    elements.push(amt8);
+    let cat9 = document.querySelector('#receipt_category_label_9');
+    elements.push(cat9);
+    let amt9 = document.querySelector('#receipt_category_amt_9');
+    elements.push(amt9);
+    let cat10 = document.querySelector('#receipt_category_label_10');
+    elements.push(cat10);
+    let amt10 = document.querySelector('#receipt_category_amt_10');
+    elements.push(amt10);
+    let method = document.querySelector('#receipt_payment_method');
+    elements.push(method);
+    let methodNote = document.querySelector('#receipt_payment_method_note');
+    elements.push(methodNote);
+    let notes = document.querySelector('#receipt_notes');
+    elements.push(notes);
+    let receivedBy = document.querySelector('#receipt_received_by');
+    elements.push(receivedBy);
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].classList.add('hidden');
+    }
+
+}
+
 function start() {
     hideCard();
     showResetLink();
@@ -262,6 +338,7 @@ function generateTableHead(tbl, data) {
 
   function startReceipt(org) {
     showReceiptForm();
+    hideReceiptFormElements();
     hideCard();
     hidePin();
     hideResetLink();
