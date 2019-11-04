@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_10_28_235022) do
     t.string "state"
     t.string "zipcode"
     t.string "phone"
+    t.string "pin"
     t.string "billing_email"
     t.string "audit_email"
     t.datetime "created_at", null: false

@@ -7,6 +7,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.2]
       t.string :state
       t.string :zipcode
       t.string :phone
+      t.string :pin
       t.string :billing_email
       t.string :audit_email
       t.timestamps

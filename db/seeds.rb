@@ -18,5 +18,6 @@ excel_file.sheet(0)
   city = excel_file.cell(line, 'C')
   state = excel_file.cell(line, 'D')
   zipcode = excel_file.cell(line, 'E')
-  Organization.create!(name: name, address: address, city: city, state: state, zipcode: zipcode)
+  pin = '1234'
+  Organization.create!(name: name, address: address, city: city, state: state, zipcode: zipcode, pin: pin)
 end
