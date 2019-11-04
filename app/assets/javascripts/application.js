@@ -48,6 +48,16 @@ function attachListeners() {
 
 }
 
+function showCard() {
+    let flipcard = document.querySelector('.flip-card')
+    flipcard.classList.remove('hidden');
+}
+
+function hideCard() {
+    let flipcard = document.querySelector('.flip-card')
+    flipcard.classList.add('hidden');
+}
+
 function hideSearch() {
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.add('hidden');
@@ -88,9 +98,28 @@ function hideError(){
     error.classList.add('hidden');
 }
 
+function hidePin() {
+    let pin = document.querySelector('#authenticate-pin');
+    pin.classList.add('hidden');
+}
+
+function showPin() {
+    let pin = document.querySelector('#authenticate-pin');
+    pin.classList.remove('hidden');
+}
+
+function hideResults() {
+    let card = document.querySelector('#card-results');
+    card.classList.add('hidden');
+}
+
+function showResults() {
+    let card = document.querySelector('#card-results');
+    card.classList.remove('hidden');
+}
+
 function startReceipt() {
-    let flipcard = document.querySelector('.flip-card')
-    flipcard.classList.add('hidden');
+    hideCard();
     showResetLink();
     showCreateOrgForm();
     showSearch();
@@ -98,28 +127,23 @@ function startReceipt() {
 }
 
 function restartReceipt() {
-    let flipcard = document.querySelector('.flip-card')
-    flipcard.classList.add('hidden');
+    hideCard();
     let form = document.querySelector('#create_org');
     form.classList.add('hidden');
     showResetLink();
     showCreateOrgForm();
     showSearch();
-    let card = document.querySelector('#card-results');
-    card.classList.add('hidden');
+    hideResults();
     let query = document.querySelector('#name')
     query.value = '';
     let selected = document.querySelector('#selected');
     selected.remove();
-    let pin = document.querySelector('#authenticate-pin');
-    pin.classList.add('hidden');
-    
+    hidePin();
 }
 
 
 function searchResults(data) {
-    let card = document.querySelector('#card-results');
-    card.classList.remove('hidden');
+    showResults();
     let div = document.querySelector('#search-results');
     let orgs = [];
     data.map((item) => orgs.push(item));
@@ -146,10 +170,8 @@ function getOrganizations() {
 }
 
 function createOrganization(){
-    let pin = document.querySelector('#authenticate-pin');
-    pin.classList.add('hidden');
-    let orgSearch = document.querySelector('#org-search');
-    orgSearch.classList.add('hidden');
+    hidePin();
+    hideSearch();
     let form = document.querySelector('#create_org');
     form.classList.remove('hidden');
     let url = 'http://localhost:3000/organizations';
@@ -204,19 +226,13 @@ function generateTableHead(tbl, data) {
   };
 
   function authenticate(data) {
-    let pin = document.querySelector('#authenticate-pin'); 
-    let card = document.querySelector('#card-results');
-        card.classList.add('hidden');
+    showPin();
+    hideResults();
     let header = document.createElement('h4');
         header.setAttribute('id', 'selected');
         header.innerHTML = data.name;
-    let orgSearch = document.querySelector('#org-search');
-        orgSearch.classList.add('hidden');
-    let div = document.querySelector('#search-results');
-        div.classList.add('hidden');
-
-    pin.classList.remove('hidden');
-    pin.classList.add('show');
+    hideSearch();
+    let pin = document.querySelector('#authenticate-pin'); 
     pin.appendChild(header);
     let orgPin = () => data.pin;
     let orgId = document.querySelector('#organization_id');
