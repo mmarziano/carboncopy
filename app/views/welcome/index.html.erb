@@ -1,8 +1,9 @@
 
     <div class="col-lg-10 mb-10 card">
         <%#---Receipt start---%>
-        
+
         <a href='/' id="reset" class="hidden" style="float: right;">Reset</a>
+        <a href='/' id="create_new" class="hidden" style="float: right; margin-right: 10px">Create New</a>
         <div class="flip-card">
             <div class="flip-card-front text-center" id="start">
                      <img class="receipt" src="assets/receipt.png" alt="receipt">
@@ -39,6 +40,7 @@
         <%# ---Create New Organization--- %>
 
         <div id="create_org" class="hidden">
+            <h3>Create New Business/Organization</h3>
             <%= form_for Organization.new, html: {id: :create_org_form } do |f| %>
                 <%= f.label :name %>
                 <%= f.text_field :name, class: "form-control"%></br>
@@ -58,7 +60,7 @@
                 <%= f.text_field :audit_email, class: "form-control"%></br>
                 <%= f.label :pin %>
                 <%= f.text_field :pin, class: "form-control"%></br>
-                <%= f.submit class: "btn btn-outline-light", id: "create_org_submit" %>
+                <%= f.submit class: "btn marz-button", id: "create_org_submit" %>
             <% end %>        
         </div>
     </div>

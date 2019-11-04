@@ -40,6 +40,11 @@ function attachListeners() {
         e.preventDefault();
         restartReceipt();
     })
+    let newOrg = document.querySelector('#create_new');
+    newOrg.addEventListener('click', function(e){
+        e.preventDefault();
+        createOrganization();
+    })
 
 }
 
@@ -48,6 +53,8 @@ function startReceipt() {
     flipcard.classList.add('hidden');
     let reset = document.querySelector('#reset');
     reset.classList.remove('hidden');
+    let newOrg = document.querySelector('#create_new');
+    newOrg.classList.remove('hidden');
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
     orgSearch.classList.add('show');
@@ -59,6 +66,8 @@ function restartReceipt() {
     flipcard.classList.add('hidden');
     let reset = document.querySelector('#reset');
     reset.classList.remove('hidden');
+    let newOrg = document.querySelector('#create_new');
+    newOrg.classList.remove('hidden');
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
     orgSearch.classList.add('show');
@@ -83,10 +92,7 @@ function searchResults(data) {
     let result = orgs.filter(function(item) {
         if (item.name.toLowerCase().includes(query.toLowerCase())) {
             return item;
-        } else {
-            createOrganization();
-        }    
-
+        } 
     }); 
     let tblheadings = ['', 'Name', 'Address', 'City', 'State', 'Zipcode']
     let tbl = document.createElement('table');
@@ -105,7 +111,12 @@ function getOrganizations() {
 }
 
 function createOrganization(){
-    
+    let pin = document.querySelector('#authenticate-pin');
+    pin.classList.add('hidden');
+    let orgSearch = document.querySelector('#org-search');
+    orgSearch.classList.add('hidden');
+    let form = document.querySelector('#create_org');
+    form.classList.remove('hidden');
 }
 
 function generateTableHead(tbl, data) {
