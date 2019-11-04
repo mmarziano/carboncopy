@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
     def index
         organizations = Organization.all
-        render json: organizations, only: [:id, :name, :address, :city, :state, :zipcode]
+        render json: organizations, only: [:id, :name, :address, :city, :state, :zipcode, :pin]
     end 
 
     def new
@@ -38,7 +38,11 @@ class OrganizationsController < ApplicationController
         else 
             render organization.errors.full_messages
         end
-        
+    end 
+
+    def validate
+        organization = Organization.find_by(id: params[:organization_id])
+        render json: organization
     end 
 
     private 

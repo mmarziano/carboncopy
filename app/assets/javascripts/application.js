@@ -152,7 +152,16 @@ function generateTableHead(tbl, data) {
     pin.classList.remove('hidden');
     pin.classList.add('show');
     pin.appendChild(header)
-
+    let orgId = document.querySelector('#organization_id');
+    orgId.value = data.id;
+    let submitPin = document.querySelector('#submit-pin');
+    submitPin.addEventListener('click', function(e){
+        if (data.pin === orgId.value.toString()) {
+            alert("You're right!")
+        } else {
+            alert("Wrong!")
+        }
+    }); 
   }
 
   
