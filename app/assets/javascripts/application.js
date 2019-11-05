@@ -365,6 +365,8 @@ function generateTableHead(tbl, data) {
     step = 0;
     let next = document.querySelector('#next');
     next.classList.remove('hidden');
+    let previous = document.querySelector('#previous');
+    previous.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
         if (step > 27) {
@@ -372,7 +374,9 @@ function generateTableHead(tbl, data) {
             let next = document.querySelector('#next');
             next.classList.add('hidden')
             button.classList.remove('hidden')
+        // } else if (step > )    
         } else {
+            previous.classList.remove('hidden'); 
             let elements = hideReceiptFormElements();
             let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
             receipt[`${key}`] = elements[step].value;
@@ -380,19 +384,19 @@ function generateTableHead(tbl, data) {
             step++;
         }
     })
-    let previous = document.querySelector('#previous');
-    previous.classList.remove('hidden');
     previous.addEventListener('click', function(e){
         e.preventDefault();
-        if (step > 27) {
+        if (step < 0) {
+            previous.classList.add('hidden');
+            step = 0;    
+        } else if (step > 27) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.remove('hidden')
             button.classList.add('hidden')
             step--;
-        } else if (step <= 0) {
-            previous.classList.add('hidden');    
         } else {
+            previous.classList.remove('hidden'); 
             let elements = hideReceiptFormElements();
             elements[step].classList.remove('hidden')
             step--;
