@@ -20,6 +20,7 @@
 
 window.addEventListener('DOMContentLoaded', (event) => {
     attachListeners();
+    hideError();
 });
 
 function attachListeners() {
@@ -94,8 +95,8 @@ function showError(){
 }
 
 function hideError(){
-    let error = document.querySelector('#error');
-    error.classList.add('hidden');
+        let error = document.querySelector('#error');
+        error.classList.add('hidden');
 }
 
 function hidePin() {
@@ -220,6 +221,7 @@ function restart() {
     showCreateOrgForm();
     showSearch();
     hideResults();
+    hideError();
     let query = document.querySelector('#name')
     query.value = '';
     let selected = document.querySelector('#selected');
@@ -337,17 +339,26 @@ function generateTableHead(tbl, data) {
   }
 
   function startReceipt(org) {
+    let steps = 0;
     showReceiptForm();   
     let elements = hideReceiptFormElements();
-    console.log(elements);
     hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
     hideSearch();  
     hideError();
+    let next = document.querySelector('#next');
+    next.classList.remove('hidden');
+    next.addEventListener('click', function(e){
+        e.preventDefault();
+        advanceStep(elements, steps);
+    })
     let name = document.querySelector('#receipt_name');
     name.classList.remove('hidden');
   }
 
+  function advanceStep(elements, steps) {
+      alert('here')
+  }
   
