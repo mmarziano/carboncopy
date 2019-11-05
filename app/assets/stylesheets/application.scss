@@ -724,10 +724,17 @@ td {
 }
 
 .inputs {
+    height: 50px;
     border: none; 
     border-bottom: 2px solid rgb(240, 8, 143);
     animation-name: animateInput;
     animation-duration: 1s;
+}
+
+#receipt label {
+    font-family: 'Shadows Into Light', cursive;
+    color: rgb(240, 8, 143);
+    font-size: 24px;
 }
 
 .org-search-form {

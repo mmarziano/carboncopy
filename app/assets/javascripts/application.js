@@ -140,6 +140,17 @@ function hideReceipt() {
     receipt.classList.add('hidden');
 }
 
+function showAddCategoryButton() {
+    let button = document.querySelector('#add-category');
+    button.classList.remove('hidden');
+}
+
+function hideAddCategoryButton() {
+    let button = document.querySelector('#addd-category');
+    button.classList.add('hidden');
+}
+
+
 function hideReceiptFormElements() {
     let elements = [];
     let name = document.querySelector('#name-group');
@@ -379,6 +390,8 @@ function generateTableHead(tbl, data) {
             next.classList.remove('hidden')
             button.classList.add('hidden')
             step--;
+        } else if (step <= 0) {
+            previous.classList.add('hidden');    
         } else {
             let elements = hideReceiptFormElements();
             elements[step].classList.remove('hidden')
