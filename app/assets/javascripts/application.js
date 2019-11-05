@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+let step = 0;
 
 window.addEventListener('DOMContentLoaded', (event) => {
     attachListeners();
@@ -46,7 +47,13 @@ function attachListeners() {
         e.preventDefault();
         createOrganization();
     })
-
+    let next = document.querySelector('#next');
+    next.classList.remove('hidden');
+    next.addEventListener('click', function(e){
+        e.preventDefault();
+        let elements = hideReceiptFormElements();
+        advanceStep(elements, step);
+    })
 }
 
 function showCard() {
@@ -338,27 +345,72 @@ function generateTableHead(tbl, data) {
     }); 
   }
 
-  function startReceipt(org) {
-    let steps = 0;
+  function startReceipt(org, step) {
     showReceiptForm();   
-    let elements = hideReceiptFormElements();
     hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
     hideSearch();  
     hideError();
-    let next = document.querySelector('#next');
-    next.classList.remove('hidden');
-    next.addEventListener('click', function(e){
-        e.preventDefault();
-        advanceStep(elements, steps);
-    })
+    let elements = hideReceiptFormElements();
     let name = document.querySelector('#receipt_name');
     name.classList.remove('hidden');
+    
+    let val = name;
+    createReceiptObject(val);
   }
 
-  function advanceStep(elements, steps) {
-      alert('here')
+  function advanceStep(elements, step) {
+      step += 1
+      elements[step].classList.remove('hidden');
+      let input = elements[step].value;
+      console.log(input);
   }
+
+  function displayNext(element) {
+      element.classList.remove('hidden')
+  }
+
+class  Receipt {
+    constructor(obj) {
+        this.name = obj.name;
+        this.email = obj.email;
+        this.phone = obj.phone;
+        this.secondName = obj.secondName;
+        this.accountId = obj.accountId;
+        this.cat1 = obj.cat1;
+        this.amt1 = obj.amt1;
+        this.cat2 = obj.cat2;
+        this.amt2 = obj.amt2;
+        this.cat3 = obj.cat3;
+        this.amt3 = obj.amt3;
+        this.cat4 = obj.cat4;
+        this.amt4 = obj.amt4;
+        this.cat5 = obj.cat5;
+        this.amt5 = obj.amt5;
+        this.cat6 = obj.cat6;
+        this.amt6 = obj.amt6;
+        this.cat7 = obj.cat7;
+        this.amt7 = obj.amt7;
+        this.cat8 = obj.cat8;
+        this.amt8 = obj.amt8;
+        this.cat9 = obj.cat9;
+        this.amt9 = obj.amt9;
+        this.cat10 = obj.cat10;
+        this.amt10 = obj.amt10;
+        this.paymentMethod = obj.paymentMethod;
+        this.paymentMethodNotes = obj.paymentMethodNotes;
+        this.notes = obj.notes;
+        this.receivedBy = obj.receivedBy;
+    }
+
+}
+  function createReceiptObject(val) {
+        console.log(val)
+  }
+
+
+
+
   
