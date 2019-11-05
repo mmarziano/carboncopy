@@ -351,9 +351,9 @@ function generateTableHead(tbl, data) {
     let elements = hideReceiptFormElements();
     let name = document.querySelector('#receipt_name');
     name.classList.remove('hidden');
+    step = 0;
     let next = document.querySelector('#next');
     next.classList.remove('hidden');
-    step = 0;
     next.addEventListener('click', function(e){
         e.preventDefault();
         receipt.name = name.value;
@@ -361,18 +361,24 @@ function generateTableHead(tbl, data) {
         displayNext(elements[step+1]);
         step++;
     })
-  }
-
-  function advanceStep(elements, step) {
-      step += 1
-      elements[step].classList.remove('hidden');
-      let input = elements[step].value;
-      console.log(input);
+    let previous = document.querySelector('#previous');
+    previous.classList.remove('hidden');
+    previous.addEventListener('click', function(e){
+        e.preventDefault();
+        receipt.name = name.value;
+        let elements = hideReceiptFormElements();
+        displayPrevious(elements[step-1]);
+        step--;
+    })
   }
 
   function displayNext(element) {
       element.classList.remove('hidden')
   }
+
+  function displayPrevious(element) {
+    element.classList.remove('hidden')
+}
 
 class  Receipt {
     constructor(obj) {
