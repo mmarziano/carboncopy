@@ -69,65 +69,123 @@
         <div id="receipt" class="hidden">
         <h3>Receipt Details</h3>
         <%= form_for Receipt.new, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
-            <%= f.label :name, 'Recipient Name' %>
-            <%= f.text_field :name, class: "form-control inputs"%></br>
-            <%= f.label :email, 'Recipient Email' %>
-            <%= f.text_field :email, class: "form-control inputs"%></br>
-            <%= f.label :phone, 'Recipient Phone Number' %>
-            <%= f.text_field :phone, class: "form-control inputs"%></br>
-            <%= f.label :secondary_name, 'Optional: Payment applied towards...' %>
-            <%= f.text_field :secondary_name, class: "form-control inputs"%></br>
-            <%= f.label :secondary_id, 'Optional: Account ID' %>
-            <%= f.text_field :secondary_id, class: "form-control inputs"%></br>
-            <%= f.label :category_label_1, 'Category Description' %>
-            <%= f.text_field :category_label_1, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_1, 'Payment Amount' %>
-            <%= f.text_field :category_amt_1, class: "form-control inputs"%></br>
-            <%= f.label :category_label_2, 'Category Description' %>
-            <%= f.text_field :category_label_2, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_2, 'Payment Amount' %>
-            <%= f.text_field :category_amt_2, class: "form-control inputs"%></br>
-            <%= f.label :category_label_3, 'Category Description' %>
-            <%= f.text_field :category_label_3, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_3, 'Payment Amount' %>
-            <%= f.text_field :category_amt_3, class: "form-control inputs"%></br>
-            <%= f.label :category_label_4, 'Category Description' %>
-            <%= f.text_field :category_label_4, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_4, 'Payment Amount' %>
-            <%= f.text_field :category_amt_4, class: "form-control inputs"%></br>
-            <%= f.label :category_label_5, 'Category Description' %>
-            <%= f.text_field :category_label_5, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_5, 'Payment Amount' %>
-            <%= f.text_field :category_amt_5, class: "form-control inputs"%></br>
-            <%= f.label :category_label_6, 'Category Description' %>
-            <%= f.text_field :category_label_6, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_6, 'Payment Amount' %>
-            <%= f.text_field :category_amt_6, class: "form-control inputs"%></br>
-            <%= f.label :category_label_7, 'Category Description' %>
-            <%= f.text_field :category_label_7, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_7, 'Payment Amount' %>
-            <%= f.text_field :category_amt_7, class: "form-control inputs"%></br>
-            <%= f.label :category_label_8, 'Category Description' %>
-            <%= f.text_field :category_label_8, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_8, 'Payment Amount' %>
-            <%= f.text_field :category_amt_8, class: "form-control inputs"%></br>
-            <%= f.label :category_label_9, 'Category Description' %>
-            <%= f.text_field :category_label_9, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_9, 'Payment Amount' %>
-            <%= f.text_field :category_amt_9, class: "form-control inputs"%></br>
-            <%= f.label :category_label_10, 'Category Description' %>
-            <%= f.text_field :category_label_10, class: "form-control inputs"%></br>
-            <%= f.label :category_amt_10, 'Payment Amount' %>
-            <%= f.text_field :category_amt_10, class: "form-control inputs"%></br>
-            <%= f.label :payment_method, 'Payment Method' %>
-            <%= f.text_field :payment_method, class: "form-control inputs"%></br>
-            <%= f.label :payment_method_note, 'Optional: Payment Method Details' %>
-            <%= f.text_field :payment_method_note, class: "form-control inputs"%></br>
-            <%= f.label :notes, 'Notes' %>
-            <%= f.text_area :notes, class: "form-control inputs"%></br>
-            <%= f.label :received_by, "Received By" %>
-            <%= f.text_field :received_by, class: "form-control inputs"%></br>
-            <%= f.submit class: "btn marz-button hidden", id: "create_receipt_submit" %>
+            <div id="name-group">
+                <%= f.label :name, 'Recipient Name' %>
+                <%= f.text_field :name, class: "form-control inputs"%></br>
+            </div>
+            <div id="email-group">
+                <%= f.label :email, 'Recipient Email' %>
+                <%= f.text_field :email, class: "form-control inputs"%></br>
+            </div>
+            <div id="phone-group">
+                <%= f.label :phone, 'Recipient Phone Number' %>
+                <%= f.text_field :phone, class: "form-control inputs"%></br>
+            </div>
+            <div id="secondary-name-group">
+                <%= f.label :secondary_name, 'Optional: Payment applied towards...' %>
+                <%= f.text_field :secondary_name, class: "form-control inputs"%></br>
+            </div>
+            <div id="secondary-id-group">
+                <%= f.label :secondary_id, 'Optional: Account ID' %>
+                <%= f.text_field :secondary_id, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-1-group">
+                <%= f.label :category_label_1, 'Category Description' %>
+                <%= f.text_field :category_label_1, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-1-group">
+                <%= f.label :category_amt_1, 'Payment Amount' %>
+                <%= f.text_field :category_amt_1, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-2-group">
+                <%= f.label :category_label_2, 'Category Description' %>
+                <%= f.text_field :category_label_2, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-2-group">
+                <%= f.label :category_amt_2, 'Payment Amount' %>
+                <%= f.text_field :category_amt_2, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-3-group">
+                <%= f.label :category_label_3, 'Category Description' %>
+                <%= f.text_field :category_label_3, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-3-group">
+                <%= f.label :category_amt_3, 'Payment Amount' %>
+                <%= f.text_field :category_amt_3, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-4-group">
+                <%= f.label :category_label_4, 'Category Description' %>
+                <%= f.text_field :category_label_4, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-4-group">
+                <%= f.label :category_amt_4, 'Payment Amount' %>
+                <%= f.text_field :category_amt_4, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-5-group">
+                <%= f.label :category_label_5, 'Category Description' %>
+                <%= f.text_field :category_label_5, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-5-group">
+                <%= f.label :category_amt_5, 'Payment Amount' %>
+                <%= f.text_field :category_amt_5, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-6-group">
+                <%= f.label :category_label_6, 'Category Description' %>
+                <%= f.text_field :category_label_6, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-6-group">
+                <%= f.label :category_amt_6, 'Payment Amount' %>
+                <%= f.text_field :category_amt_6, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-7-group">
+                <%= f.label :category_label_7, 'Category Description' %>
+                <%= f.text_field :category_label_7, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-7-group">
+                <%= f.label :category_amt_7, 'Payment Amount' %>
+                <%= f.text_field :category_amt_7, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-8-group">
+                <%= f.label :category_label_8, 'Category Description' %>
+                <%= f.text_field :category_label_8, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-8-group">
+                <%= f.label :category_amt_8, 'Payment Amount' %>
+                <%= f.text_field :category_amt_8, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-9-group">
+                <%= f.label :category_label_9, 'Category Description' %>
+                <%= f.text_field :category_label_9, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-9-group">
+                <%= f.label :category_amt_9, 'Payment Amount' %>
+                <%= f.text_field :category_amt_9, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-10-group">
+                <%= f.label :category_label_10, 'Category Description' %>
+                <%= f.text_field :category_label_10, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-10-group">
+                <%= f.label :category_amt_10, 'Payment Amount' %>
+                <%= f.text_field :category_amt_10, class: "form-control inputs"%></br>
+            </div>
+            <div id="payment-method-group">
+                <%= f.label :payment_method, 'Payment Method' %>
+                <%= f.text_field :payment_method, class: "form-control inputs"%></br>
+            </div>
+            <div id="payment-method-note-group">
+                <%= f.label :payment_method_note, 'Optional: Payment Method Details' %>
+                <%= f.text_field :payment_method_note, class: "form-control inputs"%></br>
+            </div>
+            <div id="notes-group">
+                <%= f.label :notes, 'Notes' %>
+                <%= f.text_area :notes, class: "form-control inputs"%></br>
+            </div>
+            <div id="received-by-group">
+                <%= f.label :received_by, "Received By" %>
+                <%= f.text_field :received_by, class: "form-control inputs"%></br>
+            </div>
+                <%= f.submit class: "btn marz-button hidden", id: "create_receipt_submit" %>
         <% end %>      
             <a href='/' id="next" class="hidden" style="float: right; margin-right: 10px">Next Step &#10509;</a>
             <a href='/' id="previous" class="hidden" style="float: right; margin-right: 10px">&#10508; Previous Step</a>

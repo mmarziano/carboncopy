@@ -142,63 +142,63 @@ function hideReceipt() {
 
 function hideReceiptFormElements() {
     let elements = [];
-    let name = document.querySelector('#receipt_name');
+    let name = document.querySelector('#name-group');
     elements.push(name);
-    let email = document.querySelector('#receipt_email');
+    let email = document.querySelector('#email-group');
     elements.push(email);
-    let phone = document.querySelector('#receipt_phone');
+    let phone = document.querySelector('#phone-group');
     elements.push(phone);
-    let secondName = document.querySelector('#receipt_secondary_name');
+    let secondName = document.querySelector('#secondary-name-group');
     elements.push(secondName);
-    let id = document.querySelector('#receipt_secondary_id');
+    let id = document.querySelector('#secondary-id-group');
     elements.push(id);
-    let cat1 = document.querySelector('#receipt_category_label_1');
+    let cat1 = document.querySelector('#category-label-1-group');
     elements.push(cat1);
-    let amt1 = document.querySelector('#receipt_category_amt_1');
+    let amt1 = document.querySelector('#category-amt-1-group');
     elements.push(amt1);
-    let cat2 = document.querySelector('#receipt_category_label_2');
+    let cat2 = document.querySelector('#category-label-2-group');
     elements.push(cat2);
-    let amt2 = document.querySelector('#receipt_category_amt_2');
+    let amt2 = document.querySelector('#category-amt-2-group');
     elements.push(amt2);
-    let cat3 = document.querySelector('#receipt_category_label_3');
+    let cat3 = document.querySelector('#category-label-3-group');
     elements.push(cat3);
-    let amt3 = document.querySelector('#receipt_category_amt_3');
+    let amt3 = document.querySelector('#category-amt-3-group');
     elements.push(amt3);
-    let cat4 = document.querySelector('#receipt_category_label_4');
+    let cat4 = document.querySelector('#category-label-4-group');
     elements.push(cat4);
-    let amt4 = document.querySelector('#receipt_category_amt_4');
+    let amt4 = document.querySelector('#category-amt-4-group');
     elements.push(amt4);
-    let cat5 = document.querySelector('#receipt_category_label_5');
+    let cat5 = document.querySelector('#category-label-5-group');
     elements.push(cat5);
-    let amt5 = document.querySelector('#receipt_category_amt_5');
+    let amt5 = document.querySelector('#category-amt-5-group');
     elements.push(amt5);
-    let cat6 = document.querySelector('#receipt_category_label_6');
+    let cat6 = document.querySelector('#category-label-6-group');
     elements.push(cat6);
-    let amt6 = document.querySelector('#receipt_category_amt_6');
+    let amt6 = document.querySelector('#category-amt-6-group');
     elements.push(amt6);
-    let cat7 = document.querySelector('#receipt_category_label_7');
+    let cat7 = document.querySelector('#category-label-7-group');
     elements.push(cat7);
-    let amt7 = document.querySelector('#receipt_category_amt_7');
+    let amt7 = document.querySelector('#category-amt-7-group');
     elements.push(amt7);
-    let cat8 = document.querySelector('#receipt_category_label_8');
+    let cat8 = document.querySelector('#category-label-8-group');
     elements.push(cat8);
-    let amt8 = document.querySelector('#receipt_category_amt_8');
+    let amt8 = document.querySelector('#category-amt-8-group');
     elements.push(amt8);
-    let cat9 = document.querySelector('#receipt_category_label_9');
+    let cat9 = document.querySelector('#category-label-9-group');
     elements.push(cat9);
-    let amt9 = document.querySelector('#receipt_category_amt_9');
+    let amt9 = document.querySelector('#category-amt-9-group');
     elements.push(amt9);
-    let cat10 = document.querySelector('#receipt_category_label_10');
+    let cat10 = document.querySelector('#category-label-10-group');
     elements.push(cat10);
-    let amt10 = document.querySelector('#receipt_category_amt_10');
+    let amt10 = document.querySelector('#category-amt-10-group');
     elements.push(amt10);
-    let method = document.querySelector('#receipt_payment_method');
+    let method = document.querySelector('#payment-method-group');
     elements.push(method);
-    let methodNote = document.querySelector('#receipt_payment_method_note');
+    let methodNote = document.querySelector('#payment-method-note-group');
     elements.push(methodNote);
-    let notes = document.querySelector('#receipt_notes');
+    let notes = document.querySelector('#notes-group');
     elements.push(notes);
-    let receivedBy = document.querySelector('#receipt_received_by');
+    let receivedBy = document.querySelector('#received-by-group');
     elements.push(receivedBy);
     for (let i = 0; i < elements.length; i++) {
         elements[i].classList.add('hidden');
@@ -349,7 +349,7 @@ function generateTableHead(tbl, data) {
     hideSearch();  
     hideError();
     let elements = hideReceiptFormElements();
-    let name = document.querySelector('#receipt_name');
+    let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
     step = 0;
     let next = document.querySelector('#next');
@@ -385,8 +385,6 @@ function generateTableHead(tbl, data) {
             step--;
         }  
     })
-
-
   }
 
   function displayNext(element) {
