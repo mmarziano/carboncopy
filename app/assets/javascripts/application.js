@@ -201,7 +201,7 @@ function hideReceiptFormElements() {
     for (let i = 0; i < elements.length; i++) {
         elements[i].classList.add('hidden');
     }
-
+    return elements;
 }
 
 function start() {
@@ -337,15 +337,17 @@ function generateTableHead(tbl, data) {
   }
 
   function startReceipt(org) {
-    showReceiptForm();
-    hideReceiptFormElements();
+    showReceiptForm();   
+    let elements = hideReceiptFormElements();
+    console.log(elements);
     hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
-    hideSearch();
+    hideSearch();  
     hideError();
-    
+    let name = document.querySelector('#receipt_name');
+    name.classList.remove('hidden');
   }
 
   
