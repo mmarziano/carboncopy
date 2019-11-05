@@ -354,16 +354,18 @@ function generateTableHead(tbl, data) {
     step = 0;
     let next = document.querySelector('#next');
     next.classList.remove('hidden');
-    next.addEventListener('click', function(e){
+    next.addEventListener('click', function(e, element){
         e.preventDefault();
-        receipt.name = name.value;
         let elements = hideReceiptFormElements();
+        let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
+        receipt[`${key}`] = elements[step].value;
+        console.log(receipt)
         displayNext(elements[step+1]);
         step++;
     })
     let previous = document.querySelector('#previous');
     previous.classList.remove('hidden');
-    previous.addEventListener('click', function(e){
+    previous.addEventListener('click', function(e, element){
         e.preventDefault();
         receipt.name = name.value;
         let elements = hideReceiptFormElements();
@@ -385,32 +387,32 @@ class  Receipt {
         this.name = obj.name;
         this.email = obj.email;
         this.phone = obj.phone;
-        this.secondName = obj.secondName;
-        this.accountId = obj.accountId;
-        this.cat1 = obj.cat1;
-        this.amt1 = obj.amt1;
-        this.cat2 = obj.cat2;
-        this.amt2 = obj.amt2;
-        this.cat3 = obj.cat3;
-        this.amt3 = obj.amt3;
-        this.cat4 = obj.cat4;
-        this.amt4 = obj.amt4;
-        this.cat5 = obj.cat5;
-        this.amt5 = obj.amt5;
-        this.cat6 = obj.cat6;
-        this.amt6 = obj.amt6;
-        this.cat7 = obj.cat7;
-        this.amt7 = obj.amt7;
-        this.cat8 = obj.cat8;
-        this.amt8 = obj.amt8;
-        this.cat9 = obj.cat9;
-        this.amt9 = obj.amt9;
-        this.cat10 = obj.cat10;
-        this.amt10 = obj.amt10;
-        this.paymentMethod = obj.paymentMethod;
-        this.paymentMethodNotes = obj.paymentMethodNotes;
+        this.secondary_name = obj.secondary_name;
+        this.secondary_id = obj.secondary_id;
+        this.category_label_1 = obj.category_label_1;
+        this.category_amt_1 = obj.category_amt_1;
+        this.category_label_2 = obj.category_label_2;
+        this.category_amt_2 = obj.category_amt_2;
+        this.category_label_3 = obj.category_label_3;
+        this.category_amt_3 = obj.category_amt_3;
+        this.category_label_4 = obj.category_label_4;
+        this.category_amt_4 = obj.category_amt_4;
+        this.category_label_5 = obj.category_label_5;
+        this.category_amt_5 = obj.category_amt_5;
+        this.category_label_6 = obj.category_label_6;
+        this.category_amt_6 = obj.category_amt_6;
+        this.category_label_7 = obj.category_label_7;
+        this.category_amt_7 = obj.category_amt_7;
+        this.category_label_8 = obj.category_label_8;
+        this.category_amt_8 = obj.category_amt_8;
+        this.category_label_9 = obj.category_label_9;
+        this.category_amt_9 = obj.category_amt_9;
+        this.category_label_10 = obj.category_label_10;
+        this.category_amt_10 = obj.category_amt_10;
+        this.payment_method = obj.payment_method;
+        this.payment_method_note = obj.payment_method_note;
         this.notes = obj.notes;
-        this.receivedBy = obj.receivedBy;
+        this.received_by = obj.received_by;
     }
 
 }
