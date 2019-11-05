@@ -47,13 +47,7 @@ function attachListeners() {
         e.preventDefault();
         createOrganization();
     })
-    let next = document.querySelector('#next');
-    next.classList.remove('hidden');
-    next.addEventListener('click', function(e){
-        e.preventDefault();
-        let elements = hideReceiptFormElements();
-        advanceStep(elements, step);
-    })
+    
 }
 
 function showCard() {
@@ -346,6 +340,7 @@ function generateTableHead(tbl, data) {
   }
 
   function startReceipt(org, step) {
+    let receipt = {};
     showReceiptForm();   
     hideCard();
     hidePin();
@@ -356,9 +351,16 @@ function generateTableHead(tbl, data) {
     let elements = hideReceiptFormElements();
     let name = document.querySelector('#receipt_name');
     name.classList.remove('hidden');
-    
-    let val = name;
-    createReceiptObject(val);
+    let next = document.querySelector('#next');
+    next.classList.remove('hidden');
+    step = 0;
+    next.addEventListener('click', function(e){
+        e.preventDefault();
+        receipt.name = name.value;
+        let elements = hideReceiptFormElements();
+        displayNext(elements[step+1]);
+        step++;
+    })
   }
 
   function advanceStep(elements, step) {
