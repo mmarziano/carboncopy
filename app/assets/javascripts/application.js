@@ -143,10 +143,14 @@ function hideReceipt() {
 function showAddCategoryButton() {
     let button = document.querySelector('#add-category');
     button.classList.remove('hidden');
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('here')
+    })
 }
 
 function hideAddCategoryButton() {
-    let button = document.querySelector('#addd-category');
+    let button = document.querySelector('#add-category');
     button.classList.add('hidden');
 }
 
@@ -374,9 +378,17 @@ function generateTableHead(tbl, data) {
             let next = document.querySelector('#next');
             next.classList.add('hidden')
             button.classList.remove('hidden')
-        // } else if (step > )    
+        } else if (step > 4 && step < 22 ) {
+            previous.classList.remove('hidden'); 
+            showAddCategoryButton();
+            let elements = hideReceiptFormElements();
+            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
+            receipt[`${key}`] = elements[step].value;
+            elements[step+1].classList.remove('hidden')
+            step = 24;
         } else {
             previous.classList.remove('hidden'); 
+            hideAddCategoryButton();
             let elements = hideReceiptFormElements();
             let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
             receipt[`${key}`] = elements[step].value;
