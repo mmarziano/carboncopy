@@ -354,24 +354,39 @@ function generateTableHead(tbl, data) {
     step = 0;
     let next = document.querySelector('#next');
     next.classList.remove('hidden');
-    next.addEventListener('click', function(e, element){
+    next.addEventListener('click', function(e){
         e.preventDefault();
-        let elements = hideReceiptFormElements();
-        let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
-        receipt[`${key}`] = elements[step].value;
-        console.log(receipt)
-        displayNext(elements[step+1]);
-        step++;
+        if (step > 27) {
+            let button = document.querySelector('#create_receipt_submit');
+            let next = document.querySelector('#next');
+            next.classList.add('hidden')
+            button.classList.remove('hidden')
+        } else {
+            let elements = hideReceiptFormElements();
+            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
+            receipt[`${key}`] = elements[step].value;
+            elements[step+1].classList.remove('hidden')
+            step++;
+        }
     })
     let previous = document.querySelector('#previous');
     previous.classList.remove('hidden');
-    previous.addEventListener('click', function(e, element){
+    previous.addEventListener('click', function(e){
         e.preventDefault();
-        receipt.name = name.value;
-        let elements = hideReceiptFormElements();
-        displayPrevious(elements[step-1]);
-        step--;
+        if (step > 27) {
+            let button = document.querySelector('#create_receipt_submit');
+            let next = document.querySelector('#next');
+            next.classList.remove('hidden')
+            button.classList.add('hidden')
+            step--;
+        } else {
+            let elements = hideReceiptFormElements();
+            elements[step].classList.remove('hidden')
+            step--;
+        }  
     })
+
+
   }
 
   function displayNext(element) {
