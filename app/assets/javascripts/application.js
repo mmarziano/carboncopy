@@ -47,8 +47,7 @@ function attachListeners() {
     newOrg.addEventListener('click', function(e){
         e.preventDefault();
         createOrganization();
-    })
-    
+    })    
 }
 
 function showCard() {
@@ -389,9 +388,20 @@ function generateTableHead(tbl, data) {
     hideSearch();  
     hideError();
     showReceiptTypeChoice();
+    let single = document.querySelector('#single-category');
+    single.addEventListener('click', function(e){
+        e.preventDefault();
+        hideOneCategoryReceiptFormElements();
+        startSingleReceipt(org);
+    });
+    let multiple = document.querySelector('#multiple-category');
+    multiple.addEventListener('click', function(e){
+        e.preventDefault();
+        startMultipleReceipt(org);
+    });
   }
 
-  function startReceipt(org, step) {
+  function startSingleReceipt(org) {
     hideReceiptTypeChoice();  
     let receipt = {};
     showReceiptForm();   
@@ -401,7 +411,6 @@ function generateTableHead(tbl, data) {
     hideCreateOrgForm();
     hideSearch();  
     hideError();
-    let elements = hideReceiptFormElements();
     let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
     step = 0;
@@ -409,22 +418,16 @@ function generateTableHead(tbl, data) {
     next.classList.remove('hidden');
     let previous = document.querySelector('#previous');
     previous.classList.remove('hidden');
-    let button = document.querySelector('#add-category');
-    button.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
-        if (step > 27) {
+        if (step > 9) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.add('hidden')
             button.classList.remove('hidden')
         } else {
-            hideAddCategoryButton();
-            if (step > 4 && step < 23) {
-                showAddCategoryButton();
-            }
             previous.classList.remove('hidden'); 
-            let elements = hideReceiptFormElements();
+            let elements = hideOneCategoryReceiptFormElements();
             let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
             receipt[`${key}`] = elements[step].value;
             elements[step+1].classList.remove('hidden')
@@ -436,7 +439,7 @@ function generateTableHead(tbl, data) {
         if (step < 0) {
             previous.classList.add('hidden');
             step = 0;    
-        } else if (step > 27) {
+        } else if (step > 9) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.remove('hidden')
@@ -444,30 +447,10 @@ function generateTableHead(tbl, data) {
             step--;
         } else {
             previous.classList.remove('hidden'); 
-            let elements = hideReceiptFormElements();
+            let elements = hideOneCategoryReceiptFormElements();
             elements[step].classList.remove('hidden')
             step--;
         }  
-    })
-    button.addEventListener('click', function(e){
-        e.preventDefault();
-        if (step > 4 && step < 23) {
-            let elements = hideReceiptFormElements();
-            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
-            receipt[`${key}`] = elements[step].value;
-            elements[step+1].classList.remove('hidden');
-            step++
-        }
-                
-        // } else {
-        //     previous.classList.remove('hidden'); 
-        //     hideAddCategoryButton();
-        //     let elements = hideReceiptFormElements();
-        //     let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
-        //     receipt[`${key}`] = elements[step].value;
-        //     elements[step+1].classList.remove('hidden')
-        //     step++;
-        // }
     })
   }
 
