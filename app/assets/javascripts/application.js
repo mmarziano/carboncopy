@@ -151,6 +151,21 @@ function hideReceiptTypeChoice() {
     div.classList.add('hidden');
 }
 
+function showResetReceipt(input) {
+    let org = () => input;
+    let reset = document.querySelector('#reset-receipt');
+    reset.classList.remove('hidden');
+    reset.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectType(org());
+    })
+}
+
+function hideResetReceipt() {
+    let reset = document.querySelector('#reset-receipt');
+    reset.classList.add('hidden');
+}
+
 function hideOneCategoryReceiptFormElements() {
     let elements = [];
     let name = document.querySelector('#name-group');
@@ -175,8 +190,8 @@ function hideOneCategoryReceiptFormElements() {
     elements.push(notes);
     let receivedBy = document.querySelector('#received-by-group');
     elements.push(receivedBy);
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].classList.add('hidden');
+    for (i = 0; i < elements.length; i++) {
+        elements[i].classList.add('hidden')
     }
     return elements;
 }
@@ -241,7 +256,7 @@ function hideMultiCategoryReceiptFormElements() {
     elements.push(notes);
     let receivedBy = document.querySelector('#received-by-group');
     elements.push(receivedBy);
-    for (let i = 0; i < elements.length; i++) {
+    for (i = 0; i < elements.length; i++) {
         elements[i].classList.add('hidden');
     }
     return elements;
@@ -381,12 +396,17 @@ function generateTableHead(tbl, data) {
   }
 
   function selectType(org) {
+    console.log(org)
     hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
     hideSearch();  
     hideError();
+    hideResetReceipt();
+    hideReceiptForm();
+    hideOneCategoryReceiptFormElements();
+    hideMultiCategoryReceiptFormElements();
     showReceiptTypeChoice();
     let single = document.querySelector('#single-category');
     single.addEventListener('click', function(e){
@@ -411,9 +431,10 @@ function generateTableHead(tbl, data) {
     hideCreateOrgForm();
     hideSearch();  
     hideError();
+    showResetReceipt(org);
     let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
-    step = 0;
+    let step = 0;
     let next = document.querySelector('#next');
     next.classList.remove('hidden');
     let previous = document.querySelector('#previous');
@@ -448,6 +469,60 @@ function generateTableHead(tbl, data) {
         } else {
             previous.classList.remove('hidden'); 
             let elements = hideOneCategoryReceiptFormElements();
+            elements[step].classList.remove('hidden')
+            step--;
+        }  
+    })
+  }
+
+  function startMultipleReceipt(org) {
+    hideReceiptTypeChoice();  
+    let receipt = {};
+    showReceiptForm();   
+    hideCard();
+    hidePin();
+    hideResetLink();
+    hideCreateOrgForm();
+    hideSearch();  
+    hideError();
+    showResetReceipt(org);
+    let name = document.querySelector('#name-group');
+    name.classList.remove('hidden');
+    let step = 0;
+    let next = document.querySelector('#next');
+    next.classList.remove('hidden');
+    let previous = document.querySelector('#previous');
+    previous.classList.remove('hidden');
+    next.addEventListener('click', function(e){
+        e.preventDefault();
+        if (step > 27) {
+            let button = document.querySelector('#create_receipt_submit');
+            let next = document.querySelector('#next');
+            next.classList.add('hidden')
+            button.classList.remove('hidden')
+        } else {
+            previous.classList.remove('hidden'); 
+            let elements = hideMultiCategoryReceiptFormElements();
+            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
+            receipt[`${key}`] = elements[step].value;
+            elements[step+1].classList.remove('hidden')
+            step++;
+        }
+    })
+    previous.addEventListener('click', function(e){
+        e.preventDefault();
+        if (step < 0) {
+            previous.classList.add('hidden');
+            step = 0;    
+        } else if (step > 27) {
+            let button = document.querySelector('#create_receipt_submit');
+            let next = document.querySelector('#next');
+            next.classList.remove('hidden')
+            button.classList.add('hidden')
+            step--;
+        } else {
+            previous.classList.remove('hidden'); 
+            let elements = hideMultiCategoryReceiptFormElements();
             elements[step].classList.remove('hidden')
             step--;
         }  
