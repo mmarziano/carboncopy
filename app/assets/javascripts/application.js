@@ -18,6 +18,7 @@
 //= require_tree .
 
 let step = 0;
+let receipt = {};
 
 window.addEventListener('DOMContentLoaded', (event) => {
     attachListeners();
@@ -140,22 +141,48 @@ function hideReceipt() {
     receipt.classList.add('hidden');
 }
 
-function showAddCategoryButton() {
-    let button = document.querySelector('#add-category');
-    button.classList.remove('hidden');
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('here')
-    })
+
+function showReceiptTypeChoice() {
+    let div = document.querySelector('#choice');
+    div.classList.remove('hidden');
 }
 
-function hideAddCategoryButton() {
-    let button = document.querySelector('#add-category');
-    button.classList.add('hidden');
+function hideReceiptTypeChoice() {
+    let div = document.querySelector('#choice');
+    div.classList.add('hidden');
 }
 
+function hideOneCategoryReceiptFormElements() {
+    let elements = [];
+    let name = document.querySelector('#name-group');
+    elements.push(name);
+    let email = document.querySelector('#email-group');
+    elements.push(email);
+    let phone = document.querySelector('#phone-group');
+    elements.push(phone);
+    let secondName = document.querySelector('#secondary-name-group');
+    elements.push(secondName);
+    let id = document.querySelector('#secondary-id-group');
+    elements.push(id);
+    let cat1 = document.querySelector('#category-label-1-group');
+    elements.push(cat1);
+    let amt1 = document.querySelector('#category-amt-1-group');
+    elements.push(amt1);
+    let method = document.querySelector('#payment-method-group');
+    elements.push(method);
+    let methodNote = document.querySelector('#payment-method-note-group');
+    elements.push(methodNote);
+    let notes = document.querySelector('#notes-group');
+    elements.push(notes);
+    let receivedBy = document.querySelector('#received-by-group');
+    elements.push(receivedBy);
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].classList.add('hidden');
+    }
+    return elements;
+}
 
-function hideReceiptFormElements() {
+function hideMultiCategoryReceiptFormElements() {
     let elements = [];
     let name = document.querySelector('#name-group');
     elements.push(name);
@@ -347,14 +374,25 @@ function generateTableHead(tbl, data) {
         e.preventDefault();
         let userPin = document.querySelector('#pin').value;
         if (orgPin() === userPin.toString()) {
-            startReceipt(org());
+            selectType(org());
         } else {
             alert("Wrong!")
         }
     }); 
   }
 
+  function selectType(org) {
+    hideCard();
+    hidePin();
+    hideResetLink();
+    hideCreateOrgForm();
+    hideSearch();  
+    hideError();
+    showReceiptTypeChoice();
+  }
+
   function startReceipt(org, step) {
+    hideReceiptTypeChoice();  
     let receipt = {};
     showReceiptForm();   
     hideCard();
@@ -371,6 +409,8 @@ function generateTableHead(tbl, data) {
     next.classList.remove('hidden');
     let previous = document.querySelector('#previous');
     previous.classList.remove('hidden');
+    let button = document.querySelector('#add-category');
+    button.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
         if (step > 27) {
@@ -378,17 +418,12 @@ function generateTableHead(tbl, data) {
             let next = document.querySelector('#next');
             next.classList.add('hidden')
             button.classList.remove('hidden')
-        } else if (step > 4 && step < 22 ) {
-            previous.classList.remove('hidden'); 
-            showAddCategoryButton();
-            let elements = hideReceiptFormElements();
-            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
-            receipt[`${key}`] = elements[step].value;
-            elements[step+1].classList.remove('hidden')
-            step = 24;
         } else {
-            previous.classList.remove('hidden'); 
             hideAddCategoryButton();
+            if (step > 4 && step < 23) {
+                showAddCategoryButton();
+            }
+            previous.classList.remove('hidden'); 
             let elements = hideReceiptFormElements();
             let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
             receipt[`${key}`] = elements[step].value;
@@ -413,6 +448,26 @@ function generateTableHead(tbl, data) {
             elements[step].classList.remove('hidden')
             step--;
         }  
+    })
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        if (step > 4 && step < 23) {
+            let elements = hideReceiptFormElements();
+            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
+            receipt[`${key}`] = elements[step].value;
+            elements[step+1].classList.remove('hidden');
+            step++
+        }
+                
+        // } else {
+        //     previous.classList.remove('hidden'); 
+        //     hideAddCategoryButton();
+        //     let elements = hideReceiptFormElements();
+        //     let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
+        //     receipt[`${key}`] = elements[step].value;
+        //     elements[step+1].classList.remove('hidden')
+        //     step++;
+        // }
     })
   }
 
