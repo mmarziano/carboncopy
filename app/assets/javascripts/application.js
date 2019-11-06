@@ -140,6 +140,46 @@ function hideReceipt() {
     receipt.classList.add('hidden');
 }
 
+function showNext() {
+    let next = document.querySelector('#next');
+    next.classList.remove('hidden');
+}
+
+function hideNext() {
+    let next = document.querySelector('#next');
+    next.classList.add('hidden');
+}
+
+function showPrevious() {
+    let previous = document.querySelector('#previous');
+    previous.classList.remove('hidden');
+}
+
+function hidePrevious() {
+    let previous = document.querySelector('#previous');
+    previous.classList.add('hidden');
+}
+
+function showNextMultiple() {
+    let next = document.querySelector('#next-multiple');
+    next.classList.remove('hidden');
+}
+
+function hideNextMultiple() {
+    let next = document.querySelector('#next-multiple');
+    next.classList.add('hidden');
+}
+
+function showPreviousMultiple() {
+    let previous = document.querySelector('#previous-multiple');
+    previous.classList.remove('hidden');
+}
+
+function hidePreviousMultiple() {
+    let previous = document.querySelector('#previous-multiple');
+    previous.classList.add('hidden');
+}
+
 
 function showReceiptTypeChoice() {
     let div = document.querySelector('#choice');
@@ -157,8 +197,14 @@ function showResetReceipt(input) {
     reset.classList.remove('hidden');
     reset.addEventListener('click', function(e) {
         e.preventDefault();
+        hideNext();
+        hidePrevious();
+        hideNextMultiple();
+        hidePreviousMultiple();
+        resetStep();
         selectType(org());
     })
+    
 }
 
 function hideResetReceipt() {
@@ -220,34 +266,6 @@ function hideMultiCategoryReceiptFormElements() {
     elements.push(cat3);
     let amt3 = document.querySelector('#category-amt-3-group');
     elements.push(amt3);
-    let cat4 = document.querySelector('#category-label-4-group');
-    elements.push(cat4);
-    let amt4 = document.querySelector('#category-amt-4-group');
-    elements.push(amt4);
-    let cat5 = document.querySelector('#category-label-5-group');
-    elements.push(cat5);
-    let amt5 = document.querySelector('#category-amt-5-group');
-    elements.push(amt5);
-    let cat6 = document.querySelector('#category-label-6-group');
-    elements.push(cat6);
-    let amt6 = document.querySelector('#category-amt-6-group');
-    elements.push(amt6);
-    let cat7 = document.querySelector('#category-label-7-group');
-    elements.push(cat7);
-    let amt7 = document.querySelector('#category-amt-7-group');
-    elements.push(amt7);
-    let cat8 = document.querySelector('#category-label-8-group');
-    elements.push(cat8);
-    let amt8 = document.querySelector('#category-amt-8-group');
-    elements.push(amt8);
-    let cat9 = document.querySelector('#category-label-9-group');
-    elements.push(cat9);
-    let amt9 = document.querySelector('#category-amt-9-group');
-    elements.push(amt9);
-    let cat10 = document.querySelector('#category-label-10-group');
-    elements.push(cat10);
-    let amt10 = document.querySelector('#category-amt-10-group');
-    elements.push(amt10);
     let method = document.querySelector('#payment-method-group');
     elements.push(method);
     let methodNote = document.querySelector('#payment-method-note-group');
@@ -395,8 +413,12 @@ function generateTableHead(tbl, data) {
     }); 
   }
 
+  function resetStep() {
+      step = 0;
+      return step;
+  }
+
   function selectType(org) {
-    console.log(org)
     hideCard();
     hidePin();
     hideResetLink();
@@ -412,16 +434,16 @@ function generateTableHead(tbl, data) {
     single.addEventListener('click', function(e){
         e.preventDefault();
         hideOneCategoryReceiptFormElements();
-        startSingleReceipt(org);
+        startSingleReceipt(org, resetStep());
     });
     let multiple = document.querySelector('#multiple-category');
     multiple.addEventListener('click', function(e){
         e.preventDefault();
-        startMultipleReceipt(org);
+        startMultipleReceipt(org, resetStep());
     });
   }
 
-  function startSingleReceipt(org) {
+  function startSingleReceipt(org, start) {
     hideReceiptTypeChoice();  
     let receipt = {};
     showReceiptForm();   
@@ -432,9 +454,9 @@ function generateTableHead(tbl, data) {
     hideSearch();  
     hideError();
     showResetReceipt(org);
+    let step = start;
     let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
-    let step = 0;
     let next = document.querySelector('#next');
     next.classList.remove('hidden');
     let previous = document.querySelector('#previous');
@@ -453,6 +475,7 @@ function generateTableHead(tbl, data) {
             receipt[`${key}`] = elements[step].value;
             elements[step+1].classList.remove('hidden')
             step++;
+
         }
     })
     previous.addEventListener('click', function(e){
@@ -475,7 +498,7 @@ function generateTableHead(tbl, data) {
     })
   }
 
-  function startMultipleReceipt(org) {
+  function startMultipleReceipt(org, start) {
     hideReceiptTypeChoice();  
     let receipt = {};
     showReceiptForm();   
@@ -486,16 +509,17 @@ function generateTableHead(tbl, data) {
     hideSearch();  
     hideError();
     showResetReceipt(org);
+    
+    let step = start;
     let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
-    let step = 0;
-    let next = document.querySelector('#next');
+    let next = document.querySelector('#next-multiple');
     next.classList.remove('hidden');
-    let previous = document.querySelector('#previous');
+    let previous = document.querySelector('#previous-multiple');
     previous.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
-        if (step > 27) {
+        if (step > 13) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.add('hidden')
