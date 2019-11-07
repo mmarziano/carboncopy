@@ -446,6 +446,7 @@ function generateTableHead(tbl, data) {
   function startSingleReceipt(org, start) {
     hideReceiptTypeChoice();  
     let receipt = {};
+    let getReceipt = () => {return receipt};
     showReceiptForm();   
     hideCard();
     hidePin();
@@ -466,16 +467,18 @@ function generateTableHead(tbl, data) {
         if (step > 9) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
-            next.classList.add('hidden')
-            button.classList.remove('hidden')
+            next.classList.add('hidden');
+            button.classList.remove('hidden');
         } else {
             previous.classList.remove('hidden'); 
             let elements = hideOneCategoryReceiptFormElements();
-            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
-            receipt[`${key}`] = elements[step].value;
+            let k = elements[step].getAttribute('id').split('-');
+            k.pop();
+            let key = k.join('_')
+            receipt[`${key}`] = elements[step].children[1].value;
+            console.log(receipt)
             elements[step+1].classList.remove('hidden')
             step++;
-
         }
     })
     previous.addEventListener('click', function(e){
@@ -496,11 +499,17 @@ function generateTableHead(tbl, data) {
             step--;
         }  
     })
+    let button = document.querySelector('#create_receipt_submit');
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        previewReceipt(getReceipt());
+    })
   }
 
   function startMultipleReceipt(org, start) {
     hideReceiptTypeChoice();  
     let receipt = {};
+    let getReceipt = () => receipt;
     showReceiptForm();   
     hideCard();
     hidePin();
@@ -527,8 +536,10 @@ function generateTableHead(tbl, data) {
         } else {
             previous.classList.remove('hidden'); 
             let elements = hideMultiCategoryReceiptFormElements();
-            let key = elements[step].getAttribute('id').split('_').slice(1).join('_');
-            receipt[`${key}`] = elements[step].value;
+            let k = elements[step].getAttribute('id').split('-');
+            k.pop();
+            let key = k.join('_')
+            receipt[`${key}`] = elements[step].children[1].value;
             elements[step+1].classList.remove('hidden')
             step++;
         }
@@ -550,6 +561,12 @@ function generateTableHead(tbl, data) {
             elements[step].classList.remove('hidden')
             step--;
         }  
+    })
+    let button = document.querySelector('#create_receipt_submit');
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        console.log(getReceipt())
+        // previewReceipt(getReceipt());
     })
   }
 
@@ -595,8 +612,8 @@ class  Receipt {
     }
 
 }
-  function createReceiptObject(val) {
-        console.log(val)
+  function previewReceipt(receipt) {
+        console.log(receipt)
   }
 
 
