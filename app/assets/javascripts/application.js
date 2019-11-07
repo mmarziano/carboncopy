@@ -639,7 +639,13 @@ class  Receipt {
     div.appendChild(p)
     div.appendChild(city)
     preview.appendChild(div)
-   
+    let body = document.createElement('div');
+    body.setAttribute('class', 'receipt-body');
+    let recipient = document.createElement('h3');
+    recipient.setAttribute('style', "color:rgb(240, 8, 143)");
+    recipient.innerText = "Recipient Name:"
+    preview.appendChild(body);
+    body.appendChild(recipient)
   }
 
 
