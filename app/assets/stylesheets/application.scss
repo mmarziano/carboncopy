@@ -694,7 +694,7 @@ td {
     border: none; 
     border-bottom: 2px solid rgb(240, 8, 143);
     animation-name: animateInput;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
 }
 
 #receipt label {
@@ -705,7 +705,7 @@ td {
 
 .org-search-form {
     animation-name: animateInput;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
 }
 
 .pin {
@@ -793,8 +793,8 @@ td {
 #preview-receipt span {
     width: 100%;
     border: none;
-    background-color: #f3f3f3;
-    box-shadow: 0 1px 6px rgba(29, 29, 29, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    background-color: #f8f8f8;
+    // box-shadow: 0 1px 6px rgba(29, 29, 29, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     border-bottom: 1px dotted rgb(240, 8, 143);
     margin-left: 10px;
     padding: 5px;

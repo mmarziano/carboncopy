@@ -619,7 +619,19 @@ class  Receipt {
     }
 
 }
-  function previewReceipt(org, receipt) {  
+  function previewReceipt(org, receipt) {
+    if (receipt.category_label_2 == undefined) {
+        receipt.category_label_2 = "None specified";
+    }  
+    if (receipt.category_label_3 == undefined) {
+        receipt.category_label_3 = "None specified";
+    } 
+    if (receipt.category_amt_2 == undefined) {
+        receipt.category_amt_2 = 0.00;
+    }  
+    if (receipt.category_amt_3 == undefined) {
+        receipt.category_amt_3 = 0.00;
+    } 
     hideCard();
     hidePin();
     hideResetLink();
@@ -731,7 +743,7 @@ class  Receipt {
     methodNotes.append(methodnotesspan);
     let notes = document.createElement('h4');
     notes.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
-    notes.innerText = `Receipt Notes: ${receipt.notes}`
+    notes.innerText = `Receipt Notes:`
     let notesspan = span();
     notesspan.innerText = receipt.notes;
     notes.append(notesspan);
@@ -739,15 +751,19 @@ class  Receipt {
     total.setAttribute('class', "summary");
     total.innerText = "$" + parseFloat(receipt.category_amt_1) + parseFloat(receipt.category_amt_2) + parseFloat(receipt.category_amt_3);
     let receivedBy = document.createElement('h4');
-    receivedBy.setAttribute('style', "color:#fff");
-    receivedBy.setAttribute('class', 'underline')
-    receivedBy.innerText = `Received By: ${receipt.received_by}`
+    receivedBy.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    receivedBy.innerText = `Received By: `
+    let receivedByspan = span();
+    receivedByspan.innerText = receipt.received_by;
+    receivedBy.append(receivedByspan);
     let date = document.createElement('h4');
-    date.setAttribute('style', "color:#fff");
-    date.setAttribute('class', 'underline');
-    date.innerText = `Issued On: ${receipt.receipt_date}`;
-    total.appendChild(receivedBy);
-    total.appendChild(date);
+    date.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    date.innerText = `Issued On:`;
+    let datespan = span();
+    datespan.innerText = receipt.receipt_date;
+    date.append(datespan);
+
+
     preview.appendChild(body);
     body.appendChild(recipient);
     body.appendChild(email);
@@ -763,6 +779,8 @@ class  Receipt {
     body.appendChild(method);
     body.appendChild(methodNotes);
     body.appendChild(notes);
+    body.appendChild(receivedBy);
+    body.appendChild(date);
     preview.appendChild(total);
     
   }
