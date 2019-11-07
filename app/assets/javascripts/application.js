@@ -702,7 +702,9 @@ class  Receipt {
     amt1.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     amt1.innerText = `Payment Amount: `
     let amt1span = span();
-    amt1span.innerText = `$${receipt.category_amt_1}`;
+    let amount1 = parseFloat(receipt.category_amt_1).toFixed(2);
+    amount1
+    amt1span.innerText = `$${amount1}`;
     amt1.append(amt1span);
     let cat2 = document.createElement('h4');
     cat2.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
@@ -714,7 +716,9 @@ class  Receipt {
     amt2.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     amt2.innerText = `2nd Payment Amount:`
     let amt2span = span();
-    amt2span.innerText = `$${receipt.category_amt_2}`;
+    let amount2 = parseFloat(receipt.category_amt_2).toFixed(2)
+    amount2
+    amt2span.innerText = `$${amount2}`;
     amt2.append(amt2span);
     let cat3 = document.createElement('h4');
     cat3.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
@@ -726,7 +730,9 @@ class  Receipt {
     amt3.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     amt3.innerText = `3rd Payment Amount:`
     let amt3span = span();
-    amt3span.innerText = `$${receipt.category_amt_3}`;
+    let amount3 = parseFloat(receipt.category_amt_3).toFixed(2);
+    amount3
+    amt3span.innerText = `$${amount3}`;
     amt3.append(amt3span);
     let method = document.createElement('h4');
     method.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
@@ -746,11 +752,10 @@ class  Receipt {
     let notesspan = span();
     notesspan.innerText = receipt.notes;
     notes.append(notesspan);
-    let total = document.createElement('div');
-    total.setAttribute('class', "summary");
-    let sum = parseFloat(receipt.category_amt_1) + parseFloat(receipt.category_amt_2) + parseFloat(receipt.category_amt_3);
-    sum.toFixed(2);
-    total.innerText = `$${sum}`;
+    let footer = document.createElement('div');
+    footer.setAttribute('class', "summary");
+    let sum = parseFloat(amount1) + parseFloat(amount2) + parseFloat(amount3);
+    sum
     let receivedBy = document.createElement('h4');
     receivedBy.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     receivedBy.innerText = `Received By: `
@@ -763,8 +768,11 @@ class  Receipt {
     let datespan = span();
     datespan.innerText = receipt.receipt_date;
     date.append(datespan);
-
-
+    let total = document.createElement('h1');
+    total.setAttribute('class', 'total');
+    total.innerText = "Total: "
+    total.append(` $${sum}`);
+    footer.append(total)
     preview.appendChild(body);
     body.appendChild(recipient);
     body.appendChild(email);
@@ -782,7 +790,7 @@ class  Receipt {
     body.appendChild(notes);
     body.appendChild(receivedBy);
     body.appendChild(date);
-    preview.appendChild(total);
+    preview.appendChild(footer);
     
   }
 
