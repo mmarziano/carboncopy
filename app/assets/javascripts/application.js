@@ -527,7 +527,7 @@ function generateTableHead(tbl, data) {
     previous.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
-        if (step > 13) {
+        if (step > 14) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.add('hidden')
@@ -540,8 +540,15 @@ function generateTableHead(tbl, data) {
             let key = k.join('_')
             receipt[`${key}`] = elements[step].children[1].value;
             console.log(receipt)
-            elements[step+1].classList.remove('hidden')
-            step++;
+            if (step !== 14) {
+                elements[step+1].classList.remove('hidden')
+                step++;
+            } else {
+                let button = document.querySelector('#create_receipt_submit');
+                let next = document.querySelector('#next');
+                next.classList.add('hidden')
+                button.classList.remove('hidden')
+            }
         }
     })
     previous.addEventListener('click', function(e){
