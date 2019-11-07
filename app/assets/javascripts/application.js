@@ -607,10 +607,11 @@ class  Receipt {
         this.payment_method_note = obj.payment_method_note;
         this.notes = obj.notes;
         this.received_by = obj.received_by;
+        this.receipt_date = obj.receipt_date;
     }
 
 }
-  function previewReceipt(org, receipt) {
+  function previewReceipt(org, receipt) {  
     hideCard();
     hidePin();
     hideResetLink();
@@ -621,6 +622,7 @@ class  Receipt {
     hideReceiptForm();
     hideOneCategoryReceiptFormElements();
     hideMultiCategoryReceiptFormElements();
+    receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
     let preview = document.querySelector('#preview-receipt');
     preview.classList.remove('hidden');
     let div = document.createElement('div');
@@ -655,51 +657,55 @@ class  Receipt {
     let secondary = document.createElement('h4');
     secondary.setAttribute('style', "color:rgb(240, 8, 143)");
     secondary.setAttribute('class', 'underline')
-    secondary.innerText = "Payment Applied Towards:"
+    secondary.innerText = `Payment Applied Towards: ${receipt.secondary_name}`
     let id = document.createElement('h4');
     id.setAttribute('style', "color:rgb(240, 8, 143)");
     id.setAttribute('class', 'underline')
-    id.innerText = "Account ID:"
+    id.innerText = `Account ID: ${receipt.secondary_id}`
     let cat1 = document.createElement('h4');
     cat1.setAttribute('style', "color:rgb(240, 8, 143)");
     cat1.setAttribute('class', 'underline')
-    cat1.innerText = "Payment Category:"
+    cat1.innerText = `Payment Category: ${receipt.category_label_1}`
     let amt1 = document.createElement('h4');
     amt1.setAttribute('style', "color:rgb(240, 8, 143)");
     amt1.setAttribute('class', 'underline')
-    amt1.innerText = "Payment Amount:"
+    amt1.innerText = `Payment Amount: ${receipt.category_amt_1}`
     let cat2 = document.createElement('h4');
     cat2.setAttribute('style', "color:rgb(240, 8, 143)");
     cat2.setAttribute('class', 'underline')
-    cat2.innerText = "2nd Payment Category:"
+    cat2.innerText = `2nd Payment Category: ${receipt.category_label_2}`
     let amt2 = document.createElement('h4');
     amt2.setAttribute('style', "color:rgb(240, 8, 143)");
     amt2.setAttribute('class', 'underline')
-    amt2.innerText = "2nd Payment Amount:"
+    amt2.innerText = `2nd Payment Amount: ${receipt.category_amt_2}`
     let cat3 = document.createElement('h4');
     cat3.setAttribute('style', "color:rgb(240, 8, 143)");
     cat3.setAttribute('class', 'underline')
-    cat3.innerText = "3rd Payment Category:"
+    cat3.innerText = `3rd Payment Category: ${receipt.category_label_3}`
     let amt3 = document.createElement('h4');
     amt3.setAttribute('style', "color:rgb(240, 8, 143)");
     amt3.setAttribute('class', 'underline')
-    amt3.innerText = "3rd Payment Amount:"
+    amt3.innerText = `3rd Payment Amount: ${receipt.category_amt_3}`
     let method = document.createElement('h4');
     method.setAttribute('style', "color:rgb(240, 8, 143)");
     method.setAttribute('class', 'underline')
-    method.innerText = "Payment Method:"
+    method.innerText = `Payment Method: ${receipt.payment_method}`
     let methodNotes = document.createElement('h4');
     methodNotes.setAttribute('style', "color:rgb(240, 8, 143)");
     methodNotes.setAttribute('class', 'underline')
-    methodNotes.innerText = "Additional Payment Details:"
-    let Notes = document.createElement('h4');
-    Notes.setAttribute('style', "color:rgb(240, 8, 143)");
-    Notes.setAttribute('class', 'underline')
-    Notes.innerText = "Receipt Notes:"
+    methodNotes.innerText = `Additional Payment Details: ${receipt.payment_method_note}`
+    let notes = document.createElement('h4');
+    notes.setAttribute('style', "color:rgb(240, 8, 143)");
+    notes.setAttribute('class', 'underline')
+    notes.innerText = `Receipt Notes: ${receipt.notes}`
     let receivedBy = document.createElement('h4');
     receivedBy.setAttribute('style', "color:rgb(240, 8, 143)");
     receivedBy.setAttribute('class', 'underline')
-    receivedBy.innerText = "ReceivedBy:"
+    receivedBy.innerText = `Received By: ${receipt.received_by}`
+    let date = document.createElement('h4');
+    date.setAttribute('style', "color:rgb(240, 8, 143)");
+    date.setAttribute('class', 'underline');
+    date.innerText = `Issued On: ${receipt.receipt_date}`;
     preview.appendChild(body);
     body.appendChild(recipient);
     body.appendChild(email);
@@ -712,6 +718,11 @@ class  Receipt {
     body.appendChild(amt2);
     body.appendChild(cat3);
     body.appendChild(amt3);
+    body.appendChild(method);
+    body.appendChild(methodNotes);
+    body.appendChild(notes);
+    body.appendChild(receivedBy);
+    body.appendChild(date);
   }
 
 
