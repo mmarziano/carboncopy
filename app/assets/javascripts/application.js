@@ -546,7 +546,6 @@ function generateTableHead(tbl, data) {
             k.pop();
             let key = k.join('_')
             receipt[`${key}`] = elements[step].children[1].value;
-            console.log(receipt)
             if (step !== 14) {
                 elements[step+1].classList.remove('hidden')
                 step++;
@@ -620,16 +619,16 @@ class  Receipt {
 
 }
   function previewReceipt(org, receipt) {
-    if (receipt.category_label_2 == undefined) {
+    if (receipt.category_label_2 === undefined) {
         receipt.category_label_2 = "None specified";
     }  
-    if (receipt.category_label_3 == undefined) {
+    if (receipt.category_label_3 === undefined) {
         receipt.category_label_3 = "None specified";
     } 
-    if (receipt.category_amt_2 == undefined) {
+    if (receipt.category_amt_2 === undefined) {
         receipt.category_amt_2 = 0.00;
     }  
-    if (receipt.category_amt_3 == undefined) {
+    if (receipt.category_amt_3 === undefined) {
         receipt.category_amt_3 = 0.00;
     } 
     hideCard();
@@ -749,7 +748,9 @@ class  Receipt {
     notes.append(notesspan);
     let total = document.createElement('div');
     total.setAttribute('class', "summary");
-    total.innerText = "$" + parseFloat(receipt.category_amt_1) + parseFloat(receipt.category_amt_2) + parseFloat(receipt.category_amt_3);
+    let sum = parseFloat(receipt.category_amt_1) + parseFloat(receipt.category_amt_2) + parseFloat(receipt.category_amt_3);
+    sum.toFixed(2);
+    total.innerText = `$${sum}`;
     let receivedBy = document.createElement('h4');
     receivedBy.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     receivedBy.innerText = `Received By: `
