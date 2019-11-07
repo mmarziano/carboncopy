@@ -476,7 +476,6 @@ function generateTableHead(tbl, data) {
             k.pop();
             let key = k.join('_')
             receipt[`${key}`] = elements[step].children[1].value;
-            console.log(receipt)
             elements[step+1].classList.remove('hidden')
             step++;
         }
@@ -641,11 +640,78 @@ class  Receipt {
     preview.appendChild(div)
     let body = document.createElement('div');
     body.setAttribute('class', 'receipt-body');
-    let recipient = document.createElement('h3');
+    let recipient = document.createElement('h4');
     recipient.setAttribute('style', "color:rgb(240, 8, 143)");
-    recipient.innerText = "Recipient Name:"
+    recipient.setAttribute('class', 'underline')
+    recipient.innerText = `Recipient Name: ${receipt.name}`
+    let email = document.createElement('h4');
+    email.setAttribute('style', "color:rgb(240, 8, 143)");
+    email.setAttribute('class', 'underline')
+    email.innerText = `Email: ${receipt.email}`
+    let phone = document.createElement('h4');
+    phone.setAttribute('style', "color:rgb(240, 8, 143)");
+    phone.setAttribute('class', 'underline')
+    phone.innerText = `Phone: ${receipt.phone}`
+    let secondary = document.createElement('h4');
+    secondary.setAttribute('style', "color:rgb(240, 8, 143)");
+    secondary.setAttribute('class', 'underline')
+    secondary.innerText = "Payment Applied Towards:"
+    let id = document.createElement('h4');
+    id.setAttribute('style', "color:rgb(240, 8, 143)");
+    id.setAttribute('class', 'underline')
+    id.innerText = "Account ID:"
+    let cat1 = document.createElement('h4');
+    cat1.setAttribute('style', "color:rgb(240, 8, 143)");
+    cat1.setAttribute('class', 'underline')
+    cat1.innerText = "Payment Category:"
+    let amt1 = document.createElement('h4');
+    amt1.setAttribute('style', "color:rgb(240, 8, 143)");
+    amt1.setAttribute('class', 'underline')
+    amt1.innerText = "Payment Amount:"
+    let cat2 = document.createElement('h4');
+    cat2.setAttribute('style', "color:rgb(240, 8, 143)");
+    cat2.setAttribute('class', 'underline')
+    cat2.innerText = "2nd Payment Category:"
+    let amt2 = document.createElement('h4');
+    amt2.setAttribute('style', "color:rgb(240, 8, 143)");
+    amt2.setAttribute('class', 'underline')
+    amt2.innerText = "2nd Payment Amount:"
+    let cat3 = document.createElement('h4');
+    cat3.setAttribute('style', "color:rgb(240, 8, 143)");
+    cat3.setAttribute('class', 'underline')
+    cat3.innerText = "3rd Payment Category:"
+    let amt3 = document.createElement('h4');
+    amt3.setAttribute('style', "color:rgb(240, 8, 143)");
+    amt3.setAttribute('class', 'underline')
+    amt3.innerText = "3rd Payment Amount:"
+    let method = document.createElement('h4');
+    method.setAttribute('style', "color:rgb(240, 8, 143)");
+    method.setAttribute('class', 'underline')
+    method.innerText = "Payment Method:"
+    let methodNotes = document.createElement('h4');
+    methodNotes.setAttribute('style', "color:rgb(240, 8, 143)");
+    methodNotes.setAttribute('class', 'underline')
+    methodNotes.innerText = "Additional Payment Details:"
+    let Notes = document.createElement('h4');
+    Notes.setAttribute('style', "color:rgb(240, 8, 143)");
+    Notes.setAttribute('class', 'underline')
+    Notes.innerText = "Receipt Notes:"
+    let receivedBy = document.createElement('h4');
+    receivedBy.setAttribute('style', "color:rgb(240, 8, 143)");
+    receivedBy.setAttribute('class', 'underline')
+    receivedBy.innerText = "ReceivedBy:"
     preview.appendChild(body);
-    body.appendChild(recipient)
+    body.appendChild(recipient);
+    body.appendChild(email);
+    body.appendChild(phone);
+    body.appendChild(secondary);
+    body.appendChild(id);
+    body.appendChild(cat1);
+    body.appendChild(amt1);
+    body.appendChild(cat2);
+    body.appendChild(amt2);
+    body.appendChild(cat3);
+    body.appendChild(amt3);
   }
 
 
