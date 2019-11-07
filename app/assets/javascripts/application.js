@@ -539,6 +539,7 @@ function generateTableHead(tbl, data) {
             k.pop();
             let key = k.join('_')
             receipt[`${key}`] = elements[step].children[1].value;
+            console.log(receipt)
             elements[step+1].classList.remove('hidden')
             step++;
         }
@@ -669,7 +670,7 @@ class  Receipt {
     let amt1 = document.createElement('h4');
     amt1.setAttribute('style', "color:rgb(240, 8, 143)");
     amt1.setAttribute('class', 'underline')
-    amt1.innerText = `Payment Amount: ${receipt.category_amt_1}`
+    amt1.innerText = `Payment Amount: $${receipt.category_amt_1}`
     let cat2 = document.createElement('h4');
     cat2.setAttribute('style', "color:rgb(240, 8, 143)");
     cat2.setAttribute('class', 'underline')
@@ -677,7 +678,7 @@ class  Receipt {
     let amt2 = document.createElement('h4');
     amt2.setAttribute('style', "color:rgb(240, 8, 143)");
     amt2.setAttribute('class', 'underline')
-    amt2.innerText = `2nd Payment Amount: ${receipt.category_amt_2}`
+    amt2.innerText = `2nd Payment Amount: $${receipt.category_amt_2}`
     let cat3 = document.createElement('h4');
     cat3.setAttribute('style', "color:rgb(240, 8, 143)");
     cat3.setAttribute('class', 'underline')
@@ -685,7 +686,7 @@ class  Receipt {
     let amt3 = document.createElement('h4');
     amt3.setAttribute('style', "color:rgb(240, 8, 143)");
     amt3.setAttribute('class', 'underline')
-    amt3.innerText = `3rd Payment Amount: ${receipt.category_amt_3}`
+    amt3.innerText = `3rd Payment Amount: $${receipt.category_amt_3}`
     let method = document.createElement('h4');
     method.setAttribute('style', "color:rgb(240, 8, 143)");
     method.setAttribute('class', 'underline')
@@ -698,6 +699,9 @@ class  Receipt {
     notes.setAttribute('style', "color:rgb(240, 8, 143)");
     notes.setAttribute('class', 'underline')
     notes.innerText = `Receipt Notes: ${receipt.notes}`
+    let total = document.createElement('div');
+    total.setAttribute('class', "summary");
+    total.innerText = "$" + parseFloat(receipt.category_amt_1) + parseFloat(receipt.category_amt_2) + parseFloat(receipt.category_amt_3);
     let receivedBy = document.createElement('h4');
     receivedBy.setAttribute('style', "color:rgb(240, 8, 143)");
     receivedBy.setAttribute('class', 'underline')
@@ -706,6 +710,8 @@ class  Receipt {
     date.setAttribute('style', "color:rgb(240, 8, 143)");
     date.setAttribute('class', 'underline');
     date.innerText = `Issued On: ${receipt.receipt_date}`;
+    total.appendChild(receivedBy);
+    total.appendChild(date);
     preview.appendChild(body);
     body.appendChild(recipient);
     body.appendChild(email);
@@ -721,8 +727,8 @@ class  Receipt {
     body.appendChild(method);
     body.appendChild(methodNotes);
     body.appendChild(notes);
-    body.appendChild(receivedBy);
-    body.appendChild(date);
+    body.appendChild(total);
+    
   }
 
 
