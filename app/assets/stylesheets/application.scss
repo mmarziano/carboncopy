@@ -225,49 +225,7 @@ td {
     margin-bottom: 20px;
 }
 
-/*------------------------------------------------------------------
-[5.1.2. Testimonial Slider / .marz-slider-container]
-*/
-.bx-wrapper {
-    background: none;
-    border: none;
-    box-shadow: none;
-}
-.marz-signup-testimonial {
-    margin-top: 60px;
-    height: 300px;
-}
-.marz-signup-testimonial:after {
-    clear: both;
-    content: '';
-    display: block;
-}
-.marz-signup-testimonial img {
-    height: 60px;
-    float: right;
-}
-.marz-signup-testimonial b {
-    font-size: 16px;
-    color: #999;
-    display: block;
-    margin-top: 20px;
-}
-.marz-signup-testimonial b span {
-    font-size: 14px;
-    color: #CCC;
-    display: block;
-    font-weight: normal;
-    margin-top: 3px;
-}
-.marz-signup-testimonial i {
-    font-size: 30px;
-}
-.marz-signup-testimonial p {
-    color: #666;
-    font-weight: 600;
-    font-size: 20px;
-    margin-top: 15px;
-}
+
 
 /*------------------------------------------------------------------
 [5.2. Right Panel / .marz-signup-right]
@@ -779,4 +737,15 @@ td {
     padding: 10px;
     border: none;
     box-shadow: 0 1px 6px rgba(27, 27, 27, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+.heading {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    padding: 20px;
+    background-color:rgb(240, 8, 143);
+    box-shadow: 0 1px 6px rgba(255, 18, 164, 0.12), 0 1px 4px rgba(138, 4, 104, 0.24);
+    border: none;
 }

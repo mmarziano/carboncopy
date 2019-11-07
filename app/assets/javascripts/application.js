@@ -502,7 +502,7 @@ function generateTableHead(tbl, data) {
     let button = document.querySelector('#create_receipt_submit');
     button.addEventListener('click', function(e){
         e.preventDefault();
-        previewReceipt(getReceipt());
+        previewReceipt(org, getReceipt());
     })
   }
 
@@ -565,8 +565,7 @@ function generateTableHead(tbl, data) {
     let button = document.querySelector('#create_receipt_submit');
     button.addEventListener('click', function(e){
         e.preventDefault();
-        console.log(getReceipt())
-        // previewReceipt(getReceipt());
+        previewReceipt(org, getReceipt());
     })
   }
 
@@ -612,8 +611,35 @@ class  Receipt {
     }
 
 }
-  function previewReceipt(receipt) {
-        console.log(receipt)
+  function previewReceipt(org, receipt) {
+    hideCard();
+    hidePin();
+    hideResetLink();
+    hideCreateOrgForm();
+    hideSearch();  
+    hideError();
+    hideResetReceipt();
+    hideReceiptForm();
+    hideOneCategoryReceiptFormElements();
+    hideMultiCategoryReceiptFormElements();
+    let preview = document.querySelector('#preview-receipt');
+    preview.classList.remove('hidden');
+    let div = document.createElement('div');
+    div.setAttribute('class', 'heading');
+    let h2 = document.createElement('h2');
+    h2.setAttribute('style', 'color:#fff;')
+    h2.innerText = org.name;
+    let p = document.createElement('p');
+    p.innerText = org.address;
+    p.setAttribute('style', 'color: #fff; font-size: 16px;');
+    let city = document.createElement('p');
+    city.innerText = `${org.city}, ${org.state} ${org.zipcode}`;
+    city.setAttribute('style', 'color: #fff; font-size: 16px;');
+    div.appendChild(h2)
+    div.appendChild(p)
+    div.appendChild(city)
+    preview.appendChild(div)
+   
   }
 
 
