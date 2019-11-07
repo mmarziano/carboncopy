@@ -464,7 +464,7 @@ function generateTableHead(tbl, data) {
     previous.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
-        if (step > 9) {
+        if (step > 10) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.add('hidden');
@@ -476,8 +476,15 @@ function generateTableHead(tbl, data) {
             k.pop();
             let key = k.join('_')
             receipt[`${key}`] = elements[step].children[1].value;
-            elements[step+1].classList.remove('hidden')
-            step++;
+            if (step !== 10) {
+                elements[step+1].classList.remove('hidden')
+                step++;
+            } else {
+                let button = document.querySelector('#create_receipt_submit');
+                let next = document.querySelector('#next');
+                next.classList.add('hidden')
+                button.classList.remove('hidden')
+            }    
         }
     })
     previous.addEventListener('click', function(e){
@@ -576,13 +583,6 @@ function generateTableHead(tbl, data) {
     })
   }
 
-  function displayNext(element) {
-      element.classList.remove('hidden')
-  }
-
-  function displayPrevious(element) {
-    element.classList.remove('hidden')
-}
 
 class  Receipt {
     constructor(obj) {
@@ -641,6 +641,7 @@ class  Receipt {
     let p = document.createElement('p');
     p.innerText = org.address;
     p.setAttribute('style', 'color: #fff; font-size: 16px;');
+    let span = () => document.createElement('span');
     let city = document.createElement('p');
     city.innerText = `${org.city}, ${org.state} ${org.zipcode}`;
     city.setAttribute('style', 'color: #fff; font-size: 16px;');
@@ -649,72 +650,100 @@ class  Receipt {
     div.appendChild(city)
     preview.appendChild(div)
     let body = document.createElement('div');
-    body.setAttribute('class', 'receipt-body');
+    body.setAttribute('class', 'receipt-body underline');
     let recipient = document.createElement('h4');
-    recipient.setAttribute('style', "color:rgb(240, 8, 143)");
-    recipient.setAttribute('class', 'underline')
-    recipient.innerText = `Recipient Name: ${receipt.name}`
+    recipient.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    recipient.innerText = `Recipient Name: `
+    let rspan = span()
+    rspan.innerText = receipt.name;
+    recipient.append(rspan);
     let email = document.createElement('h4');
-    email.setAttribute('style', "color:rgb(240, 8, 143)");
-    email.setAttribute('class', 'underline')
-    email.innerText = `Email: ${receipt.email}`
+    email.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    email.innerText = `Email:`
+    let espan = span();
+    espan.innerText = receipt.email;
+    email.append(espan);
     let phone = document.createElement('h4');
-    phone.setAttribute('style', "color:rgb(240, 8, 143)");
-    phone.setAttribute('class', 'underline')
-    phone.innerText = `Phone: ${receipt.phone}`
+    phone.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    phone.innerText = `Phone:`
+    let pspan = span();
+    pspan.innerText = receipt.phone;
+    phone.append(pspan);
     let secondary = document.createElement('h4');
-    secondary.setAttribute('style', "color:rgb(240, 8, 143)");
-    secondary.setAttribute('class', 'underline')
-    secondary.innerText = `Payment Applied Towards: ${receipt.secondary_name}`
+    secondary.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    secondary.innerText = `Payment Applied Towards:`
+    let sspan = span();
+    sspan.innerText = receipt.secondary_name;
+    secondary.append(sspan);
     let id = document.createElement('h4');
-    id.setAttribute('style', "color:rgb(240, 8, 143)");
-    id.setAttribute('class', 'underline')
-    id.innerText = `Account ID: ${receipt.secondary_id}`
+    id.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    id.innerText = `Account ID:`
+    let ispan = span();
+    ispan.innerText = receipt.secondary_id;
+    id.append(ispan);
     let cat1 = document.createElement('h4');
-    cat1.setAttribute('style', "color:rgb(240, 8, 143)");
-    cat1.setAttribute('class', 'underline')
-    cat1.innerText = `Payment Category: ${receipt.category_label_1}`
+    cat1.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    cat1.innerText = `Payment Category:`
+    let cat1span = span();
+    cat1span.innerText = receipt.category_label_1;
+    cat1.append(cat1span);
     let amt1 = document.createElement('h4');
-    amt1.setAttribute('style', "color:rgb(240, 8, 143)");
-    amt1.setAttribute('class', 'underline')
-    amt1.innerText = `Payment Amount: $${receipt.category_amt_1}`
+    amt1.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    amt1.innerText = `Payment Amount: `
+    let amt1span = span();
+    amt1span.innerText = `$${receipt.category_amt_1}`;
+    amt1.append(amt1span);
     let cat2 = document.createElement('h4');
-    cat2.setAttribute('style', "color:rgb(240, 8, 143)");
-    cat2.setAttribute('class', 'underline')
-    cat2.innerText = `2nd Payment Category: ${receipt.category_label_2}`
+    cat2.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    cat2.innerText = `2nd Payment Category: `
+    let cat2span = span();
+    cat2span.innerText = receipt.category_label_2;
+    cat2.append(cat2span);
     let amt2 = document.createElement('h4');
-    amt2.setAttribute('style', "color:rgb(240, 8, 143)");
-    amt2.setAttribute('class', 'underline')
-    amt2.innerText = `2nd Payment Amount: $${receipt.category_amt_2}`
+    amt2.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    amt2.innerText = `2nd Payment Amount:`
+    let amt2span = span();
+    amt2span.innerText = `$${receipt.category_amt_2}`;
+    amt2.append(amt2span);
     let cat3 = document.createElement('h4');
-    cat3.setAttribute('style', "color:rgb(240, 8, 143)");
-    cat3.setAttribute('class', 'underline')
-    cat3.innerText = `3rd Payment Category: ${receipt.category_label_3}`
+    cat3.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    cat3.innerText = `3rd Payment Category: `
+    let cat3span = span();
+    cat3span.innerText = receipt.category_label_3;
+    cat3.append(cat3span);
     let amt3 = document.createElement('h4');
-    amt3.setAttribute('style', "color:rgb(240, 8, 143)");
-    amt3.setAttribute('class', 'underline')
-    amt3.innerText = `3rd Payment Amount: $${receipt.category_amt_3}`
+    amt3.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    amt3.innerText = `3rd Payment Amount:`
+    let amt3span = span();
+    amt3span.innerText = `$${receipt.category_amt_3}`;
+    amt3.append(amt3span);
     let method = document.createElement('h4');
-    method.setAttribute('style', "color:rgb(240, 8, 143)");
-    method.setAttribute('class', 'underline')
-    method.innerText = `Payment Method: ${receipt.payment_method}`
+    method.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    method.innerText = `Payment Method:`
+    let methodspan = span();
+    methodspan.innerText = receipt.payment_method;
+    method.append(methodspan);
     let methodNotes = document.createElement('h4');
-    methodNotes.setAttribute('style', "color:rgb(240, 8, 143)");
-    methodNotes.setAttribute('class', 'underline')
-    methodNotes.innerText = `Additional Payment Details: ${receipt.payment_method_note}`
+    methodNotes.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    methodNotes.innerText = `Additional Payment Details:`
+    let methodnotesspan = span();
+    methodnotesspan.innerText = receipt.payment_method_note;
+    methodNotes.append(methodnotesspan);
     let notes = document.createElement('h4');
-    notes.setAttribute('style', "color:rgb(240, 8, 143)");
-    notes.setAttribute('class', 'underline')
+    notes.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     notes.innerText = `Receipt Notes: ${receipt.notes}`
+    let notesspan = span();
+    notesspan.innerText = receipt.notes;
+    notes.append(notesspan);
     let total = document.createElement('div');
     total.setAttribute('class', "summary");
     total.innerText = "$" + parseFloat(receipt.category_amt_1) + parseFloat(receipt.category_amt_2) + parseFloat(receipt.category_amt_3);
     let receivedBy = document.createElement('h4');
-    receivedBy.setAttribute('style', "color:rgb(240, 8, 143)");
+    receivedBy.setAttribute('style', "color:#fff");
     receivedBy.setAttribute('class', 'underline')
     receivedBy.innerText = `Received By: ${receipt.received_by}`
     let date = document.createElement('h4');
-    date.setAttribute('style', "color:rgb(240, 8, 143)");
+    date.setAttribute('style', "color:#fff");
     date.setAttribute('class', 'underline');
     date.innerText = `Issued On: ${receipt.receipt_date}`;
     total.appendChild(receivedBy);
@@ -734,7 +763,7 @@ class  Receipt {
     body.appendChild(method);
     body.appendChild(methodNotes);
     body.appendChild(notes);
-    body.appendChild(total);
+    preview.appendChild(total);
     
   }
 

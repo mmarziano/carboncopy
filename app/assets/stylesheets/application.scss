@@ -770,18 +770,33 @@ td {
 }
 
 .underline {
-    font-family: 'Archivo Narrow', sans-serif;
-    padding: 5px;
+    padding: 10px;
     width: 100%;
     border-bottom: 1px dotted rgb(240, 8, 143);
     box-shadow: 0 1px 6px rgba(255, 18, 164, 0.12), 0 1px 4px rgba(138, 4, 104, 0.24);
 }
 
+.underline h4 {
+    font-family: 'Archivo Narrow', sans-serif;
+}
+
 .summary {
-    width: 50%;
-    padding: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    padding: 20px;
     background-color: rgb(240, 8, 143);
     margin-top: 10px;
-    float: right;
     color: #fff;
+}
+
+#preview-receipt span {
+    width: 100%;
+    border: none;
+    background-color: #f3f3f3;
+    box-shadow: 0 1px 6px rgba(29, 29, 29, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    border-bottom: 1px dotted rgb(240, 8, 143);
+    margin-left: 10px;
+    padding: 5px;
+    
 }
