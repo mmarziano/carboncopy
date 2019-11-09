@@ -184,6 +184,16 @@ function hidePreviousMultiple() {
     previous.classList.add('hidden');
 }
 
+function showSaveReceipt() {
+    let div = document.querySelector('#save-receipt');
+    div.classList.remove('hidden');
+}
+
+function hideSaveReceipt() {
+    let div = document.querySelector('#save-receipt');
+    div.classList.add('hidden');
+}
+
 
 function showReceiptTypeChoice() {
     let div = document.querySelector('#choice');
@@ -218,6 +228,8 @@ function hideResetReceipt() {
 
 function hideOneCategoryReceiptFormElements() {
     let elements = [];
+    let organization = document.querySelector('#organization-group');
+    elements.push(organization);
     let name = document.querySelector('#name-group');
     elements.push(name);
     let email = document.querySelector('#email-group');
@@ -242,6 +254,38 @@ function hideOneCategoryReceiptFormElements() {
     elements.push(receivedBy);
     for (i = 0; i < elements.length; i++) {
         elements[i].classList.add('hidden')
+    }
+    return elements;
+}
+
+function showOneCategoryReceiptFormElements() {
+    let elements = [];
+    let organization = document.querySelector('#organization-group');
+    elements.push(organization);
+    let name = document.querySelector('#name-group');
+    elements.push(name);
+    let email = document.querySelector('#email-group');
+    elements.push(email);
+    let phone = document.querySelector('#phone-group');
+    elements.push(phone);
+    let secondName = document.querySelector('#secondary-name-group');
+    elements.push(secondName);
+    let id = document.querySelector('#secondary-id-group');
+    elements.push(id);
+    let cat1 = document.querySelector('#category-label-1-group');
+    elements.push(cat1);
+    let amt1 = document.querySelector('#category-amt-1-group');
+    elements.push(amt1);
+    let method = document.querySelector('#payment-method-group');
+    elements.push(method);
+    let methodNote = document.querySelector('#payment-method-note-group');
+    elements.push(methodNote);
+    let notes = document.querySelector('#notes-group');
+    elements.push(notes);
+    let receivedBy = document.querySelector('#received-by-group');
+    elements.push(receivedBy);
+    for (i = 0; i < elements.length; i++) {
+        elements[i].classList.remove('hidden')
     }
     return elements;
 }
@@ -396,8 +440,12 @@ function generateTableHead(tbl, data) {
     hideCreateOrgForm();
     hideSearch();  
     hideError();
+    hideSaveReceipt();
     showResetReceipt(org, receipt);
     let step = 0;
+
+    let organization = document.querySelector('#receipt_organization_id');
+    organization.value = org.id
     let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
     let next = document.querySelector('#next');
@@ -406,7 +454,7 @@ function generateTableHead(tbl, data) {
     previous.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
-        if (step > 10) {
+        if (step > 11) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.add('hidden');
@@ -418,7 +466,7 @@ function generateTableHead(tbl, data) {
             k.pop();
             let key = k.join('_')
             receipt[`${key}`] = elements[step].children[1].value;
-            if (step !== 10) {
+            if (step !== 11) {
                 elements[step+1].classList.remove('hidden')
                 step++;
             } else {
@@ -434,7 +482,7 @@ function generateTableHead(tbl, data) {
         if (step < 0) {
             previous.classList.add('hidden');
             step = 0;    
-        } else if (step > 9) {
+        } else if (step > 10) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.remove('hidden')
@@ -450,8 +498,11 @@ function generateTableHead(tbl, data) {
     let button = document.querySelector('#create_receipt_submit');
     button.addEventListener('click', function(e){
         e.preventDefault();
-        previewReceipt(org, getReceipt());
-    })
+        showOneCategoryReceiptFormElements();
+        console.log(receipt)
+        button.classList.add('hidden');
+        showSaveReceipt(receipt);
+    });
 
   }
 
@@ -594,7 +645,7 @@ class  Receipt {
     button.innerText = "Record Receipt";
     button.addEventListener('click', function(e){
         e.preventDefault();
-        saveReceipt();
+        saveReceipt(receipt);
     })
     footer.append(button);
 
@@ -615,8 +666,19 @@ class  Receipt {
     
   }
 
-function saveReceipt() {
-    alert('heres')
+function saveReceipt(receipt) {
+    let url = 'http://localhost:3000/receipts';
+    options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'x-www-form-urlencoded',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(receipt),
+    }
+    fetch(url, options)
+    .then(response => response.json())
+    .then(info => console.log(info)) 
 }
 
 

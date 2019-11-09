@@ -74,6 +74,10 @@
         <h3>Receipt Details</h3>
         <button type="button" class="btn marz-button btn-lg hidden" id="reset-receipt" style="float:right">Reset Receipt</button></br>
         <%= form_for Receipt.new, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
+            <div id="organization-group" class="hidden">
+                <%= f.label :organization_id, 'Organization' %>
+                <%= f.text_field :organization_id, class: "form-control inputs"%></br>
+            </div>
             <div id="name-group" class="hidden">
                 <%= f.label :name, 'Recipient Name' %>
                 <%= f.text_field :name, class: "form-control inputs"%></br>
@@ -119,11 +123,10 @@
                 <%= f.text_field :received_by, class: "form-control inputs"%></br>
             </div>
                 <%= f.submit 'Preview Receipt', class: "btn marz-button hidden receipt-submit", id: "create_receipt_submit" %>
+                <%= f.submit 'Record Receipt', class: "btn btn-success receipt-submit", id: "save-receipt" %>
         <% end %>    
             <a href='/' id="previous" class="hidden" style="float: left; margin-right: 10px">&#10508; Previous Step</a>  
             <a href='/' id="next" class="hidden" style="float: left; margin-right: 10px">Next Step &#10509;</a>
-            <a href='/' id="previous-multiple" class="hidden" style="float: left; margin-right: 10px">&#10508; Previous Step</a>
-            <a href='/' id="next-multiple" class="hidden" style="float: left; margin-right: 10px">Next Step &#10509;</a>
             
         </div> 
 
