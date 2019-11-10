@@ -76,7 +76,11 @@
         <%= form_for Receipt.new, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
             <div id="organization-group" class="hidden">
                 <%= f.label :organization_id, 'Organization' %>
-                <%= f.text_field :organization_id, class: "form-control inputs"%></br>
+                <%= f.text_field :organization_id, class: "form-control inputs", readonly: true%></br>
+            </div>
+            <div id="date-group" class="hidden">
+                <%= f.label :receipt_date, 'Receipt Issued On' %>
+                <%= f.text_field :receipt_date, class: "form-control inputs", readonly: true%></br>
             </div>
             <div id="name-group" class="hidden">
                 <%= f.label :name, 'Recipient Name' %>

@@ -11,10 +11,6 @@
   </head>
 
   <body>
-
-    <div class="marz-loader-container" style="display: none;">
-      <div class="marz-loader"></div>
-    </div>
     
     <div class="marz-signup-container" style="display: block; height: 867px;">
         <div class="container-fluid">
@@ -23,23 +19,26 @@
                   <%= image_tag ("carboncopylogo-white.png"), :class => "marz-signup-logo" %>
                 </div>
                 <div class="marz-signup-right col-md-9 col-sm-9" style="height: 867px;">
-                <div class="col-lg-10 mb-10 error" id="error">
-                <% if notice %>
+
+                <div id="error">
+                  <% if notice %>
                     <p class="alert alert-success"><%= notice %></p>
-                <% end %>
-                <% if alert %>
-                    <p class="alert alert-danger">The following errors have prevented this action:</p>
-                      <ul>
-                        <% alert.each do |a| %>
-                        <li><%= a %></li>
-                        <% end %>
-                      </ul>
-                <% end %>
+                    <% end %>
+                    <% if alert %>
+                        <p class="alert alert-danger">The following errors have prevented this action:</p>
+                        <ul>
+                            <% alert.each do |a| %>
+                            <li><%= a %></li>
+                            <% end %>
+                        </ul>
+                    <% end %>
                 </div>
+                
                   <div id="main">
                     <%= yield %>
                   </div>
-                </div>
+                
+                  </div>
             </div>
         </div>
     </div>

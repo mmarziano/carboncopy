@@ -22,7 +22,6 @@ let receipt = {};
 
 window.addEventListener('DOMContentLoaded', (event) => {
     attachListeners();
-    hideError();
 });
 
 function attachListeners() {
@@ -30,6 +29,7 @@ function attachListeners() {
     quickStart.addEventListener('click', function(e) {
         e.preventDefault();
         start();
+        hideError();
     })
 
     let search = document.querySelector('#submit-search');
@@ -230,6 +230,8 @@ function hideOneCategoryReceiptFormElements() {
     let elements = [];
     let organization = document.querySelector('#organization-group');
     elements.push(organization);
+    let date = document.querySelector('#date-group');
+    elements.push(date);
     let name = document.querySelector('#name-group');
     elements.push(name);
     let email = document.querySelector('#email-group');
@@ -262,6 +264,8 @@ function showOneCategoryReceiptFormElements() {
     let elements = [];
     let organization = document.querySelector('#organization-group');
     elements.push(organization);
+    let date = document.querySelector('#date-group');
+    elements.push(date);
     let name = document.querySelector('#name-group');
     elements.push(name);
     let email = document.querySelector('#email-group');
@@ -357,8 +361,17 @@ function createOrganization(){
             body: new FormData(document.querySelector('#create_org_form'))
         }
         return fetch(url, options)
-        .then(response => response.json())
-        .then(info => console.log(info)) 
+        .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              showError();
+            }
+        })   
+        .then(info => console.log(info))
+        .catch((error) => {
+            console.log(error)
+          }); 
 }
 
 
@@ -419,7 +432,7 @@ function generateTableHead(tbl, data) {
         if (orgPin() === userPin.toString()) {
             startSingleReceipt(org());
         } else {
-            alert("Wrong!")
+            alert("Sorry! Pin does not match. Please try again.")
         }
     }); 
 
@@ -446,6 +459,8 @@ function generateTableHead(tbl, data) {
 
     let organization = document.querySelector('#receipt_organization_id');
     organization.value = org.id
+    let date = document.querySelector('#receipt_receipt_date');
+    date.value = new Date(Date.now()).toLocaleString();
     let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
     let next = document.querySelector('#next');
@@ -454,7 +469,7 @@ function generateTableHead(tbl, data) {
     previous.classList.remove('hidden');
     next.addEventListener('click', function(e){
         e.preventDefault();
-        if (step > 11) {
+        if (step > 12) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.add('hidden');
@@ -466,7 +481,7 @@ function generateTableHead(tbl, data) {
             k.pop();
             let key = k.join('_')
             receipt[`${key}`] = elements[step].children[1].value;
-            if (step !== 11) {
+            if (step !== 12) {
                 elements[step+1].classList.remove('hidden')
                 step++;
             } else {
@@ -482,7 +497,7 @@ function generateTableHead(tbl, data) {
         if (step < 0) {
             previous.classList.add('hidden');
             step = 0;    
-        } else if (step > 10) {
+        } else if (step > 11) {
             let button = document.querySelector('#create_receipt_submit');
             let next = document.querySelector('#next');
             next.classList.remove('hidden')
@@ -499,7 +514,6 @@ function generateTableHead(tbl, data) {
     button.addEventListener('click', function(e){
         e.preventDefault();
         showOneCategoryReceiptFormElements();
-        console.log(receipt)
         button.classList.add('hidden');
         showSaveReceipt(receipt);
     });
@@ -667,6 +681,7 @@ class  Receipt {
   }
 
 function saveReceipt(receipt) {
+    receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
     let url = 'http://localhost:3000/receipts';
     options = {
         method: 'POST',
@@ -677,9 +692,13 @@ function saveReceipt(receipt) {
         body: JSON.stringify(receipt),
     }
     fetch(url, options)
-    .then(response => response.json())
+    .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          showError();
+        }
+    })   
     .then(info => console.log(info)) 
 }
 
-
-  

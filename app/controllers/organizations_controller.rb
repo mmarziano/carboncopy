@@ -50,7 +50,7 @@ class OrganizationsController < ApplicationController
     private 
 
     def organization_params
-        params.require(:organization).permit(:name, :address, :address, :city, :state, :zipcode, :phone, :billing_email, :audit_email, :pin)
+        params.require(:organization).permit(:name, :address, :city, :state, :zipcode, :phone, :billing_email, :audit_email, :pin)
     end 
 
     

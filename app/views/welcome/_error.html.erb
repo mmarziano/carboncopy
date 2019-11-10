@@ -1,0 +1,21 @@
+<!-- Error Modal -->
+<button id="myBtn">Open Modal</button>
+
+<div id="errorModal" class="modal">
+    <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <% if notice %>
+            <p class="alert alert-success"><%= notice %></p>
+            <% end %>
+            <% if alert %>
+                <p class="alert alert-danger">The following errors have prevented this action:</p>
+                <ul>
+                    <% alert.each do |a| %>
+                    <li><%= a %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</div>
