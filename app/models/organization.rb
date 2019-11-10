@@ -4,7 +4,6 @@ class Organization < ApplicationRecord
     validates :pin, length: { minimum: 6,
         too_short: ": %{count} characters is the minimum required" }
     validates :name, uniqueness: { case_sensitive: false }
-    validates :address, uniqueness: { case_sensitive: false }
     validates_presence_of :billing_email, :presence => true
     
 

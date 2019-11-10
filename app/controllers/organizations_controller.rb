@@ -12,7 +12,7 @@ class OrganizationsController < ApplicationController
         organization = Organization.new(organization_params)
 
         if organization.save
-            render json: organization
+            render partial: 'example', data: @organization
         else 
             flash[:alert] = organization.errors.full_messages if organization.errors.any?
             redirect_to '/'

@@ -73,7 +73,7 @@
         <div id="receipt" class="hidden">
         <h3>Receipt Details</h3>
         <button type="button" class="btn marz-button btn-lg hidden" id="reset-receipt" style="float:right">Reset Receipt</button></br>
-        <%= form_for Receipt.new, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
+        <%= form_for Receipt.new, remote: true, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
             <div id="organization-group" class="hidden">
                 <%= f.label :organization_id, 'Organization' %>
                 <%= f.text_field :organization_id, class: "form-control inputs", readonly: true%></br>

@@ -29,6 +29,7 @@ function attachListeners() {
     quickStart.addEventListener('click', function(e) {
         e.preventDefault();
         start();
+        clearError();
         hideError();
     })
 
@@ -51,7 +52,7 @@ function attachListeners() {
         e.preventDefault();
         createOrganization();
     })    
-  
+
 };
 
 function showCard() {
@@ -102,6 +103,11 @@ function showError(){
 function hideError(){
         let error = document.querySelector('#error');
         error.classList.add('hidden');
+}
+
+function clearError(){
+    let error = document.querySelector('#error');
+    error.innerHTML = '';
 }
 
 function hidePin() {
@@ -455,10 +461,11 @@ function generateTableHead(tbl, data) {
     hideError();
     hideSaveReceipt();
     showResetReceipt(org, receipt);
-    let step = 0;
+    let step = 2;
 
     let organization = document.querySelector('#receipt_organization_id');
-    organization.value = org.id
+    organization.value = org.id;
+    receipt.organization_id = org.id;
     let date = document.querySelector('#receipt_receipt_date');
     date.value = new Date(Date.now()).toLocaleString();
     let name = document.querySelector('#name-group');
@@ -516,6 +523,7 @@ function generateTableHead(tbl, data) {
         showOneCategoryReceiptFormElements();
         button.classList.add('hidden');
         showSaveReceipt(receipt);
+        viewReceipt(receipt)
     });
 
   }
@@ -538,7 +546,8 @@ class  Receipt {
     }
 
 }
-  function previewReceipt(org, receipt) {
+  function viewReceipt(receipt) {
+      console.log(receipt)
     hideCard();
     hidePin();
     hideResetLink();
@@ -548,24 +557,24 @@ class  Receipt {
     hideResetReceipt();
     hideReceiptForm();
     hideOneCategoryReceiptFormElements();
-    receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
+    
     let preview = document.querySelector('#preview-receipt');
     preview.classList.remove('hidden');
     let div = document.createElement('div');
     div.setAttribute('class', 'heading');
-    let h2 = document.createElement('h2');
-    h2.setAttribute('style', 'color:#fff;')
-    h2.innerText = org.name;
-    let p = document.createElement('p');
-    p.innerText = org.address;
-    p.setAttribute('style', 'color: #fff; font-size: 16px;');
-    let span = () => document.createElement('span');
-    let city = document.createElement('p');
-    city.innerText = `${org.city}, ${org.state} ${org.zipcode}`;
-    city.setAttribute('style', 'color: #fff; font-size: 16px;');
-    div.appendChild(h2)
-    div.appendChild(p)
-    div.appendChild(city)
+    // let h2 = document.createElement('h2');
+    // h2.setAttribute('style', 'color:#fff;')
+    // h2.innerText = org.name;
+    // let p = document.createElement('p');
+    // p.innerText = org.address;
+    // p.setAttribute('style', 'color: #fff; font-size: 16px;');
+    // let span = () => document.createElement('span');
+    // let city = document.createElement('p');
+    // city.innerText = `${org.city}, ${org.state} ${org.zipcode}`;
+    // city.setAttribute('style', 'color: #fff; font-size: 16px;');
+    // div.appendChild(h2)
+    // div.appendChild(p)
+    // div.appendChild(city)
     preview.appendChild(div)
     let body = document.createElement('div');
     body.setAttribute('class', 'receipt-body underline');
@@ -686,7 +695,6 @@ function saveReceipt(receipt) {
     options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'x-www-form-urlencoded',
             'Accept': 'application/json'
         },
         body: JSON.stringify(receipt),
@@ -699,6 +707,6 @@ function saveReceipt(receipt) {
           showError();
         }
     })   
-    .then(info => console.log(info)) 
+    .then(info => viewReceipt(info)) 
 }
 
