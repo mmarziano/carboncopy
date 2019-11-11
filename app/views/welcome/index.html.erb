@@ -41,7 +41,7 @@
 
         <div id="create_org" class="hidden">
             <h3>Create New Business/Organization</h3>
-            <%= form_for Organization.new, html: {id: :create_org_form } do |f| %>
+            <%= form_for Organization.new, remote: true, html: {id: :create_org_form } do |f| %>
                 <%= f.label :name %>
                 <%= f.text_field :name, class: "form-control"%></br>
                 <%= f.label :addresss %>

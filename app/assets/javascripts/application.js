@@ -523,7 +523,10 @@ function generateTableHead(tbl, data) {
         showOneCategoryReceiptFormElements();
         button.classList.add('hidden');
         showSaveReceipt(receipt);
-        viewReceipt(receipt)
+        let save = document.querySelector('#save-receipt');
+        save.addEventListener('click', function(e){
+            viewReceipt(org, receipt);
+        })
     });
 
   }
@@ -544,10 +547,24 @@ class  Receipt {
         this.received_by = obj.received_by;
         this.receipt_date = obj.receipt_date;
     }
-
 }
-  function viewReceipt(receipt) {
-      console.log(receipt)
+
+class  Organization {
+    constructor(obj) {
+        this.name = obj.name;
+        this.address = obj.address;
+        this.audit_email = obj.audit_email;
+        this.billing_email = obj.billing_email;
+        this.id = obj.id;
+        this.city = obj.city;
+        this.phone = obj.phone;
+        this.pin = obj.pin;
+        this.state = obj.state;
+        this.zipcode = obj.zipcode;
+    }
+}
+
+  function viewReceipt(org, receipt) {
     hideCard();
     hidePin();
     hideResetLink();
@@ -557,24 +574,23 @@ class  Receipt {
     hideResetReceipt();
     hideReceiptForm();
     hideOneCategoryReceiptFormElements();
-    
     let preview = document.querySelector('#preview-receipt');
     preview.classList.remove('hidden');
     let div = document.createElement('div');
     div.setAttribute('class', 'heading');
-    // let h2 = document.createElement('h2');
-    // h2.setAttribute('style', 'color:#fff;')
-    // h2.innerText = org.name;
-    // let p = document.createElement('p');
-    // p.innerText = org.address;
-    // p.setAttribute('style', 'color: #fff; font-size: 16px;');
-    // let span = () => document.createElement('span');
-    // let city = document.createElement('p');
-    // city.innerText = `${org.city}, ${org.state} ${org.zipcode}`;
-    // city.setAttribute('style', 'color: #fff; font-size: 16px;');
-    // div.appendChild(h2)
-    // div.appendChild(p)
-    // div.appendChild(city)
+    let h2 = document.createElement('h2');
+    h2.setAttribute('style', 'color:#fff;')
+    h2.innerText = org.name;
+    let p = document.createElement('p');
+    p.innerText = org.address;
+    p.setAttribute('style', 'color: #fff; font-size: 16px;');
+    let span = () => document.createElement('span');
+    let city = document.createElement('p');
+    city.innerText = `${org.city}, ${org.state} ${org.zipcode}`;
+    city.setAttribute('style', 'color: #fff; font-size: 16px;');
+    div.appendChild(h2)
+    div.appendChild(p)
+    div.appendChild(city)
     preview.appendChild(div)
     let body = document.createElement('div');
     body.setAttribute('class', 'receipt-body underline');
@@ -663,12 +679,12 @@ class  Receipt {
     total.append(` $${sum}`);
     footer.append(total)
     let button = document.createElement('button');
-    button.setAttribute('class', 'btn btn-success');
+    button.setAttribute('class', 'btn btn-info');
     button.setAttribute('id', 'save-receipt')
-    button.innerText = "Record Receipt";
+    button.innerText = "Email Receipt";
     button.addEventListener('click', function(e){
         e.preventDefault();
-        saveReceipt(receipt);
+        
     })
     footer.append(button);
 
@@ -710,3 +726,32 @@ function saveReceipt(receipt) {
     .then(info => viewReceipt(info)) 
 }
 
+function findOrg(input) {
+    let id = input.organization_id
+    let url = `http://localhost:3000/organizations/${id}`;
+    return fetch(url)
+    .then(response => response.json())
+    .then(info => console.log(info))
+}
+
+
+function listReceipts(data) {
+    console.log(data)
+    showResults();
+    let div = document.querySelector('#search-results');
+    let receipts = [];
+    data.map((item) => receipts.push(item));
+    let query = document.querySelector('#name').value
+    let result = receipts.filter(function(item) {
+        if (item.organization_id === organization.id) {
+            return item;
+        } 
+    }); 
+    let tblheadings = ['', 'Name', 'Address', 'City', 'State', 'Zipcode']
+    let tbl = document.createElement('table');
+    tbl.setAttribute('class', 'table table-striped');
+    div.appendChild(tbl);
+    generateTableHead(tbl, tblheadings);
+    generateTable(tbl, result);
+    div.classList.remove('hidden')
+}

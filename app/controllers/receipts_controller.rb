@@ -2,6 +2,8 @@ class ReceiptsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def index
+        receipts = Receipt.all 
+        render json: receipts
     end 
 
     def new
