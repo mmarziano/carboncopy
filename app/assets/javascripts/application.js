@@ -319,7 +319,8 @@ function restart() {
     form.classList.add('hidden');
     showResetLink();
     showCreateOrgForm();
-    showSearch();
+    showReceiptForm();
+    showReceipt();
     hideResults();
     hideError();
     hideReceiptResults();
@@ -778,7 +779,7 @@ function listReceipts(data, org) {
     tbl.setAttribute('class', 'table table-striped');
     div.appendChild(tbl);
     generateReceiptTableHead(tbl, tblheadings);
-    generateReceiptTable(tbl, result);
+    generateReceiptTable(tbl, result, org);
     div.classList.remove('hidden')
 }
 
@@ -793,7 +794,7 @@ function generateReceiptTableHead(tbl, data) {
     }
   }
 
-  function generateReceiptTable(table, data) {
+  function generateReceiptTable(table, data, org) {
       let tbody = table.appendChild(document.createElement('tbody'));
       for (let i = 0; i < data.length; i++) {
         let link = document.createElement('a');
@@ -802,8 +803,7 @@ function generateReceiptTableHead(tbl, data) {
         link.innerHTML = `${data[i].name}` 
         link.addEventListener('click', function(e){
             e.preventDefault();
-            console.log(data[i])
-            viewReceipt(findOrg(data[i]), data[i]);
+            viewReceipt(org, data[i]);
         });
       
         let row = tbody.insertRow();
