@@ -219,7 +219,7 @@ function showViewReceipts(org) {
         hideNext();
         hidePrevious();
         resetStep();
-        listReceipts(org);
+       getReceipts(org);
     })
  
 }
@@ -350,27 +350,14 @@ function getOrganizations() {
     .then(json => searchResults(json))
 }
 
-function searchReceipts(data, org) {
-    let receipts = [];
-    data.map((item) => receipts.push(item));
-    let result = receipts.filter(function(item) {
-        if (item.organization_id === org.id) {
-            return item;
-        } 
-    }); 
-    return result;
-}
 
 function getReceipts(org) {
     let receipts = [];
     let url = 'http://localhost:3000/receipts';
     return fetch(url)
     .then(response => response.json())
-    .then(json => searchReceipts(json, org))
+    .then(json => listReceipts(json, org))
 }
-
-
-
 
 function createOrganization(){
     hidePin();
@@ -756,12 +743,19 @@ function findOrg(input) {
 }
 
 
-function listReceipts(org) {
+function listReceipts(data, org) {
+    let receipts = [];
+    
+    data.map((item) => receipts.push(item));
+    let result = receipts.filter(function(item) {
+        if (item.organization_id === org.id) {
+            return item;
+        } 
+    }); 
     showResults();
     let s = document.querySelector('#search-results');
     s.classList.add('hidden')
     let div = document.querySelector('#receipts-results');
-    let result = getReceipts(org);
     let tblheadings = ['ID', 'Recipient', 'Issued On', 'Description', 'Amount']
     let tbl = document.createElement('table');
     tbl.setAttribute('class', 'table table-striped');
@@ -783,9 +777,9 @@ function generateReceiptTableHead(tbl, data) {
   }
 
   function generateReceiptTable(table, data) {
-      console.log(data)
       let tbody = table.appendChild(document.createElement('tbody'));
       for (let i = 0; i < data.length; i++) {
+          console.log(data[i])
         let link = document.createElement('a');
         link.setAttribute('style', 'color: rgb(240, 8, 143)')
         link.href =  `/receipts/${data[i].id}`;
