@@ -216,16 +216,23 @@ function showViewReceipts(org) {
     view.classList.remove('hidden');
     view.addEventListener('click', function(e) {
         e.preventDefault();
-        hideNext();
-        hidePrevious();
         resetStep();
        getReceipts(org);
     })
- 
 }
 
 function hideViewReceipts() {
     let view = document.querySelector('#view-receipts');
+    view.classList.add('hidden');
+}
+
+function showReceiptResults() {
+    let view = document.querySelector('#receipts-results');
+    view.classList.remove('hidden');
+}
+
+function hideReceiptResults() {
+    let view = document.querySelector('#receipts-results');
     view.classList.add('hidden');
 }
 
@@ -315,6 +322,9 @@ function restart() {
     showSearch();
     hideResults();
     hideError();
+    hideReceiptResults();
+    let preview = document.querySelector('#preview-receipt');
+    preview.classList.add('hidden');
     let query = document.querySelector('#name')
     query.value = '';
     let selected = document.querySelector('#selected');
@@ -573,6 +583,8 @@ class  Organization {
 }
 
   function viewReceipt(org, receipt) {
+    let clear = document.querySelector('#preview-receipt');
+    clear.innerHTML = "";
     hideCard();
     hidePin();
     hideResetLink();
@@ -689,10 +701,10 @@ class  Organization {
     let button = document.createElement('button');
     button.setAttribute('class', 'btn btn-info');
     button.setAttribute('id', 'save-receipt')
-    button.innerText = "Email Receipt";
+    button.innerText = "Start Over";
     button.addEventListener('click', function(e){
         e.preventDefault();
-        
+        restart();
     })
     footer.append(button);
 
@@ -739,13 +751,18 @@ function findOrg(input) {
     let url = `http://localhost:3000/organizations/${id}`;
     return fetch(url)
     .then(response => response.json())
-    .then(info => console.log(info))
+    .then(info => setOrg(info))
+}
+
+function setOrg(data) {
+    return data;
 }
 
 
 function listReceipts(data, org) {
+    let clear = document.querySelector('#receipts-results');
+    clear.innerHTML = "";
     let receipts = [];
-    
     data.map((item) => receipts.push(item));
     let result = receipts.filter(function(item) {
         if (item.organization_id === org.id) {
@@ -756,7 +773,7 @@ function listReceipts(data, org) {
     let s = document.querySelector('#search-results');
     s.classList.add('hidden')
     let div = document.querySelector('#receipts-results');
-    let tblheadings = ['ID', 'Recipient', 'Issued On', 'Description', 'Amount']
+    let tblheadings = ['ID', 'Recipient', 'Description', 'Amount', 'Issued On']
     let tbl = document.createElement('table');
     tbl.setAttribute('class', 'table table-striped');
     div.appendChild(tbl);
@@ -785,15 +802,16 @@ function generateReceiptTableHead(tbl, data) {
         link.innerHTML = `${data[i].name}` 
         link.addEventListener('click', function(e){
             e.preventDefault();
-            viewReceipt(findOrg(data[i], data[i]));
+            console.log(data[i])
+            viewReceipt(findOrg(data[i]), data[i]);
         });
       
         let row = tbody.insertRow();
         for (let key in data[i]) {
-            if (key === 'name') {
+            if (key === 'name' && key !== 'organization_id') {
                 let cell = row.insertCell();
                 cell.appendChild(link)
-            } else {
+            } else if (key !== 'organization_id') {
                 let cell = row.insertCell();
                 let text = document.createTextNode(data[i][key]);
                 cell.appendChild(text);
