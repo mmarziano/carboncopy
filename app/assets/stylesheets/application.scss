@@ -238,68 +238,6 @@ td {
     padding: 60px 30px 0 0
 }
 
-/*------------------------------------------------------------------
-[5.2.1 Steps Counts / .steps-count]
-*/
-.steps-count {
-    font-weight: bold;
-    font-size: 13px;
-    text-align: right;
-}
-
-/*------------------------------------------------------------------
-[5.2.2 Steps / .marz-steps]
-*/
-.marz-steps .step {
-    padding-left: 60px;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    margin-top: -80px;
-    opacity: 0;
-    visibility: hidden;
-    transition: .5s;
-    -webkit-transform: translateY(30px);
-    transform: translateY(30px);
-}
-.step.step-active {
-    transform: none;
-    visibility: visible;
-    opacity: 1;
-}
-.step-hide {
-    -webkit-transform: translateY(-50px) !important;
-    transform: translateY(-50px) !important;
-}
-.marz-steps .step-confirm {
-    position: initial;
-    top: initial;
-    margin-top: 0;
-    padding-top: 30px;
-    overflow-x: hidden;
-    display: none;
-}
-.marz-steps .step-confirm.step-active {
-    display: block;
-}
-.step-label { 
-    font-size:40px; 
-    margin-bottom:20px; 
-    font-weight:300; 
-    font-size:32px; 
-}
-
-.marz-steps .checkbox-inline, .marz-steps .radio-inline{
-    font-size:16px; 
-    font-weight:300;
-    padding-left:25px;
-    line-height: 20px;
-    margin-right: 20px;
-    margin-bottom:10px;
-}
-.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline { 
-    margin-left:0;
-}
 
 
 /*------------------------------------------------------------------

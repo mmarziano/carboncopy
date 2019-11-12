@@ -65,14 +65,11 @@
         </div>
 
         <%# ---Create Receipt---%>
-        <div id="choice" class="hidden text-center">
-            <button type="button" class="btn marz-button btn-lg" id="single-category" >Single Category Payment</button>
-            <button type="button" class="btn marz-button btn-lg" id="multiple-category" >Multiple Categories Payment</button>
-        </div>
 
         <div id="receipt" class="hidden">
         <h3>Receipt Details</h3>
-        <button type="button" class="btn marz-button btn-lg hidden" id="reset-receipt" style="float:right">Reset Receipt</button></br>
+        <button type="button" class="btn marz-button btn-lg hidden" id="reset-receipt" style="float:right">Reset Receipt</button>
+        <button type="button" class="btn btn-info btn-lg hidden" id="view-receipts" style="float:right; margin-right: 10px;">View All Receipts</button></br>
         <%= form_for Receipt.new, remote: true, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
             <div id="organization-group" class="hidden">
                 <%= f.label :organization_id, 'Organization' %>
@@ -142,6 +139,7 @@
 
     <div class="col-lg-10 mb-10 hidden" id="card-results">
         <div id="search-results" class="table hidden"></div>
+        <div id="receipts-results" class="table hidden"></div>
     </div>
 
 

@@ -170,25 +170,6 @@ function hidePrevious() {
     previous.classList.add('hidden');
 }
 
-function showNextMultiple() {
-    let next = document.querySelector('#next-multiple');
-    next.classList.remove('hidden');
-}
-
-function hideNextMultiple() {
-    let next = document.querySelector('#next-multiple');
-    next.classList.add('hidden');
-}
-
-function showPreviousMultiple() {
-    let previous = document.querySelector('#previous-multiple');
-    previous.classList.remove('hidden');
-}
-
-function hidePreviousMultiple() {
-    let previous = document.querySelector('#previous-multiple');
-    previous.classList.add('hidden');
-}
 
 function showSaveReceipt() {
     let div = document.querySelector('#save-receipt');
@@ -219,10 +200,8 @@ function showResetReceipt(input, receipt) {
         e.preventDefault();
         hideNext();
         hidePrevious();
-        hideNextMultiple();
         hidePreviousMultiple();
         resetStep();
-        selectType(org());  
     })
  
 }
@@ -231,6 +210,25 @@ function hideResetReceipt() {
     let reset = document.querySelector('#reset-receipt');
     reset.classList.add('hidden');
 }
+
+function showViewReceipts(org) {
+    let view = document.querySelector('#view-receipts');
+    view.classList.remove('hidden');
+    view.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideNext();
+        hidePrevious();
+        resetStep();
+        listReceipts(org);
+    })
+ 
+}
+
+function hideViewReceipts() {
+    let view = document.querySelector('#view-receipts');
+    view.classList.add('hidden');
+}
+
 
 function hideOneCategoryReceiptFormElements() {
     let elements = [];
@@ -352,6 +350,28 @@ function getOrganizations() {
     .then(json => searchResults(json))
 }
 
+function searchReceipts(data, org) {
+    let receipts = [];
+    data.map((item) => receipts.push(item));
+    let result = receipts.filter(function(item) {
+        if (item.organization_id === org.id) {
+            return item;
+        } 
+    }); 
+    return result;
+}
+
+function getReceipts(org) {
+    let receipts = [];
+    let url = 'http://localhost:3000/receipts';
+    return fetch(url)
+    .then(response => response.json())
+    .then(json => searchReceipts(json, org))
+}
+
+
+
+
 function createOrganization(){
     hidePin();
     hideSearch();
@@ -461,6 +481,7 @@ function generateTableHead(tbl, data) {
     hideError();
     hideSaveReceipt();
     showResetReceipt(org, receipt);
+    showViewReceipts(org, receipt);
     let step = 2;
 
     let organization = document.querySelector('#receipt_organization_id');
@@ -735,23 +756,50 @@ function findOrg(input) {
 }
 
 
-function listReceipts(data) {
-    console.log(data)
+function listReceipts(org) {
     showResults();
-    let div = document.querySelector('#search-results');
-    let receipts = [];
-    data.map((item) => receipts.push(item));
-    let query = document.querySelector('#name').value
-    let result = receipts.filter(function(item) {
-        if (item.organization_id === organization.id) {
-            return item;
-        } 
-    }); 
-    let tblheadings = ['', 'Name', 'Address', 'City', 'State', 'Zipcode']
+    let s = document.querySelector('#search-results');
+    s.classList.add('hidden')
+    let div = document.querySelector('#receipts-results');
+    let result = getReceipts(org);
+    let tblheadings = ['ID', 'Recipient', 'Issued On', 'Description', 'Amount']
     let tbl = document.createElement('table');
     tbl.setAttribute('class', 'table table-striped');
     div.appendChild(tbl);
-    generateTableHead(tbl, tblheadings);
-    generateTable(tbl, result);
+    generateReceiptTableHead(tbl, tblheadings);
+    generateReceiptTable(tbl, result);
     div.classList.remove('hidden')
 }
+
+function generateReceiptTableHead(tbl, data) {
+    let thead = tbl.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(key);
+      th.appendChild(text);
+      row.appendChild(th);
+    }
+  }
+
+  function generateReceiptTable(table, data) {
+      console.log(data)
+      let tbody = table.appendChild(document.createElement('tbody'));
+      for (let i = 0; i < data.length; i++) {
+        let link = document.createElement('a');
+        link.setAttribute('style', 'color: rgb(240, 8, 143)')
+        link.href =  `/receipts/${data[i].id}`;
+        link.innerHTML = `${data[i].name}` 
+        link.addEventListener('click', function(e){
+            e.preventDefault();
+            
+        });
+      
+        let row = tbody.insertRow();
+        for (let key in data[i]) {
+            let cell = row.insertCell();
+                let text = document.createTextNode(data[i][key]);
+                cell.appendChild(text);
+        };
+      };
+  };
