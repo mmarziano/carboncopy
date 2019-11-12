@@ -811,7 +811,7 @@ function generateReceiptTableHead(tbl, data) {
             if (key === 'name' && key !== 'organization_id') {
                 let cell = row.insertCell();
                 cell.appendChild(link)
-            } else if (key !== 'organization_id') {
+            } else if (key === 'id' || key === 'category_label_1' || key === 'category_amt_1' || key === 'receipt_date') {
                 let cell = row.insertCell();
                 let text = document.createTextNode(data[i][key]);
                 cell.appendChild(text);

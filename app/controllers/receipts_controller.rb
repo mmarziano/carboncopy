@@ -3,7 +3,7 @@ class ReceiptsController < ApplicationController
 
     def index
         receipts = Receipt.all 
-        render json: receipts, only: [:id, :name, :receipt_date, :category_label_1, :category_amt_1, :organization_id]
+        render json: receipts
     end 
 
     def new
