@@ -779,21 +779,26 @@ function generateReceiptTableHead(tbl, data) {
   function generateReceiptTable(table, data) {
       let tbody = table.appendChild(document.createElement('tbody'));
       for (let i = 0; i < data.length; i++) {
-          console.log(data[i])
         let link = document.createElement('a');
         link.setAttribute('style', 'color: rgb(240, 8, 143)')
         link.href =  `/receipts/${data[i].id}`;
         link.innerHTML = `${data[i].name}` 
         link.addEventListener('click', function(e){
             e.preventDefault();
-            
+            viewReceipt(findOrg(data[i], data[i]));
         });
       
         let row = tbody.insertRow();
         for (let key in data[i]) {
-            let cell = row.insertCell();
+            if (key === 'name') {
+                let cell = row.insertCell();
+                cell.appendChild(link)
+            } else {
+                let cell = row.insertCell();
                 let text = document.createTextNode(data[i][key]);
                 cell.appendChild(text);
+            }
+            
         };
       };
   };
