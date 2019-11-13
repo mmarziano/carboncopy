@@ -28,9 +28,9 @@ function attachListeners() {
     let quickStart = document.querySelector('#start-button');
     quickStart.addEventListener('click', function(e) {
         e.preventDefault();
-        start();
         clearError();
         hideError();
+        start();
     })
 
     let search = document.querySelector('#submit-search');
@@ -146,7 +146,7 @@ function showReceipt() {
 }
 
 function hideReceipt() {
-    let receipt = document.querySelector('#new_receipt_form');
+    let receipt = document.querySelector('#receipt_form');
     receipt.classList.add('hidden');
 }
 
@@ -198,10 +198,9 @@ function showResetReceipt(input, receipt) {
     reset.classList.remove('hidden');
     reset.addEventListener('click', function(e) {
         e.preventDefault();
-        hideNext();
-        hidePrevious();
-        hidePreviousMultiple();
         resetStep();
+        hideReceipt();
+        startSingleReceipt(input);
     })
  
 }
@@ -328,9 +327,27 @@ function restart() {
     preview.classList.add('hidden');
     let query = document.querySelector('#name')
     query.value = '';
-    let selected = document.querySelector('#selected');
-    selected.remove();
+    // let selected = document.querySelector('#selected');
+    // selected.remove();
     hidePin();
+}
+
+function restartReceipt(org) {
+    hideCard();
+    showResetLink();
+    showReceiptForm();
+    showReceipt();
+    hideResults();
+    hideError();
+    hideReceiptResults();
+    let preview = document.querySelector('#preview-receipt');
+    preview.classList.add('hidden');
+    let query = document.querySelector('#name')
+    query.value = '';
+    // let selected = document.querySelector('#selected');
+    // selected.remove();
+    hidePin();
+    startSingleReceipt(org);
 }
 
 
@@ -463,7 +480,7 @@ function generateTableHead(tbl, data) {
   }
 
   function resetStep() {
-      step = 0;
+      let step = 2;
       return step;
   }
 
@@ -705,7 +722,7 @@ class  Organization {
     button.innerText = "Start Over";
     button.addEventListener('click', function(e){
         e.preventDefault();
-        restart();
+        restartReceipt(org);
     })
     footer.append(button);
 
