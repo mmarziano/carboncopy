@@ -1,4 +1,6 @@
 class OrganizationsController < ApplicationController
+    skip_before_action :verify_authenticity_token
+    
     def index
         organizations = Organization.all
         render json: organizations, only: [:id, :name, :address, :city, :state, :zipcode, :pin]

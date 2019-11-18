@@ -18,6 +18,7 @@ excel_file.sheet(0)
   city = excel_file.cell(line, 'C')
   state = excel_file.cell(line, 'D')
   zipcode = excel_file.cell(line, 'E')
-  pin = '1234'
-  Organization.create!(name: name, address: address, city: city, state: state, zipcode: zipcode, pin: pin)
+  billing_email = 'billing@email.com'
+  pin = '123456'
+  Organization.create!(name: name, address: address, city: city, state: state, zipcode: zipcode, billing_email: billing_email, pin: pin)
 end

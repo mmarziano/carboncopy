@@ -17,8 +17,6 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-let step = 0;
-let receipt = {};
 
 window.addEventListener('DOMContentLoaded', (event) => {
     attachListeners();
@@ -50,10 +48,19 @@ function attachListeners() {
     let newOrg = document.querySelector('#create_new');
     newOrg.addEventListener('click', function(e){
         e.preventDefault();
-        createOrganization();
+        hidePin();
+        hideSearch();
+        let form = document.querySelector('#create_org');
+        form.classList.remove('hidden');
     })    
 
+    let createOrg = document.querySelector('#create_org_submit');
+    createOrg.addEventListener('click', function(e){
+        createOrganization();
+    })
+
 };
+
 
 function showCard() {
     let flipcard = document.querySelector('.flip-card')
@@ -388,15 +395,11 @@ function getReceipts(org) {
 }
 
 function createOrganization(){
-    hidePin();
-    hideSearch();
-    let form = document.querySelector('#create_org');
-    form.classList.remove('hidden');
     let url = 'http://localhost:3000/organizations';
         options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'appliction/x-www-form-urlencoded',
                 'Accept': 'application/json'
             },
             body: new FormData(document.querySelector('#create_org_form'))
@@ -409,10 +412,6 @@ function createOrganization(){
               showError();
             }
         })   
-        .then(info => console.log(info))
-        .catch((error) => {
-            console.log(error)
-          }); 
 }
 
 
