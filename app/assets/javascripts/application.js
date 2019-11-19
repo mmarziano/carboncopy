@@ -18,9 +18,14 @@
 //= require_tree .
 
 
+
+
+
+
 window.addEventListener('DOMContentLoaded', (event) => {
     attachListeners();
 });
+
 
 function attachListeners() {
     let quickStart = document.querySelector('#start');
@@ -28,6 +33,7 @@ function attachListeners() {
         e.preventDefault();
         clearError();
         hideError();
+        quickStart.classList.add('hidden')
         start();
     })
 
@@ -56,7 +62,9 @@ function attachListeners() {
 
     let createOrg = document.querySelector('#create_org_submit');
     createOrg.addEventListener('click', function(e){
-        alert('here')
+        let form = document.querySelector('#create_org');
+        form.classList.add('hidden');
+        start();
     })
 
 };
@@ -80,6 +88,11 @@ function hideSearch() {
 function showSearch() {
     let orgSearch = document.querySelector('#org-search');
     orgSearch.classList.remove('hidden');
+}
+
+function clearSearch() {
+    let orgSearch = document.querySelector('#org-search');
+    orgSearch.children[2].name.value = '';
 }
 
 function hideCreateOrgForm() {
@@ -316,6 +329,8 @@ function start() {
     showResetLink();
     showCreateOrgForm();
     showSearch();
+    clearSearch();
+    hideResults();
     hideError();
 }
 
@@ -407,6 +422,7 @@ function createOrganization(){
         return fetch(url, options)
         .then((response) => {
             if (response.ok) {
+              alert('Business/Organization successfully created!')
               return response.json();
             } else {
               showError();
