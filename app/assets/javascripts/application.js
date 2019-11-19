@@ -56,7 +56,7 @@ function attachListeners() {
 
     let createOrg = document.querySelector('#create_org_submit');
     createOrg.addEventListener('click', function(e){
-        createOrganization();
+        alert('here')
     })
 
 };
