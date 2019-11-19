@@ -320,6 +320,8 @@ function start() {
     hideError();
     hidePin();
     hideReceiptForm();
+    let preview = document.querySelector('#preview-receipt');
+    preview.classList.add('hidden');
 }
 
 function restart() {
@@ -600,7 +602,6 @@ class  Organization {
   function viewReceipt(org, receipt) {
     let clear = document.querySelector('#preview-receipt');
     clear.innerHTML = "";
-    // hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
