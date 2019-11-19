@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function attachListeners() {
-    let quickStart = document.querySelector('#start-button');
+    let quickStart = document.querySelector('#start');
     quickStart.addEventListener('click', function(e) {
         e.preventDefault();
         clearError();
@@ -62,15 +62,15 @@ function attachListeners() {
 };
 
 
-function showCard() {
-    let flipcard = document.querySelector('.flip-card')
-    flipcard.classList.remove('hidden');
-}
+// function showCard() {
+//     let flipcard = document.querySelector('.flip-card')
+//     flipcard.classList.remove('hidden');
+// }
 
-function hideCard() {
-    let flipcard = document.querySelector('.flip-card')
-    flipcard.classList.add('hidden');
-}
+// function hideCard() {
+//     let flipcard = document.querySelector('.flip-card')
+//     flipcard.classList.add('hidden');
+// }
 
 function hideSearch() {
     let orgSearch = document.querySelector('#org-search');
@@ -312,7 +312,7 @@ function showOneCategoryReceiptFormElements() {
 }
 
 function start() {
-    hideCard();
+    // hideCard();
     showResetLink();
     showCreateOrgForm();
     showSearch();
@@ -320,7 +320,7 @@ function start() {
 }
 
 function restart() {
-    hideCard();
+    // hideCard();
     let form = document.querySelector('#create_org');
     form.classList.add('hidden');
     showResetLink();
@@ -340,7 +340,7 @@ function restart() {
 }
 
 function restartReceipt(org) {
-    hideCard();
+    // hideCard();
     showResetLink();
     showReceiptForm();
     showReceipt();
@@ -487,7 +487,7 @@ function generateTableHead(tbl, data) {
     let receipt = {};
     let getReceipt = () => {return receipt};
     showReceiptForm();   
-    hideCard();
+    // hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
@@ -602,7 +602,7 @@ class  Organization {
   function viewReceipt(org, receipt) {
     let clear = document.querySelector('#preview-receipt');
     clear.innerHTML = "";
-    hideCard();
+    // hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();

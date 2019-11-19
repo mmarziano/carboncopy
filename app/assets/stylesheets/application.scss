@@ -339,8 +339,8 @@ td {
         padding: 60px 15px 30px
     }
     
-    .marz-signup-testimonial { 
-        height:360px;  
+    .receipt {
+        width: 70%;
     }
 }
     
@@ -469,7 +469,7 @@ td {
 /* Receipt Image */
 
 .receipt {
-    width: 400px;
+    max-width: 80%;
     height: auto;
     margin: auto;
 }
