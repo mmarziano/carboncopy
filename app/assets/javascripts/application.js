@@ -487,7 +487,6 @@ function generateTableHead(tbl, data) {
     let receipt = {};
     let getReceipt = () => {return receipt};
     showReceiptForm();   
-    // hideCard();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
@@ -503,6 +502,7 @@ function generateTableHead(tbl, data) {
     receipt.organization_id = org.id;
     let date = document.querySelector('#receipt_receipt_date');
     date.value = new Date(Date.now()).toLocaleString();
+    receipt.receipt_date = date.value
     let name = document.querySelector('#name-group');
     name.classList.remove('hidden');
     let next = document.querySelector('#next');
@@ -560,6 +560,7 @@ function generateTableHead(tbl, data) {
         showSaveReceipt(receipt);
         let save = document.querySelector('#save-receipt');
         save.addEventListener('click', function(e){
+            console.log(receipt)
             viewReceipt(org, receipt);
         })
     });
