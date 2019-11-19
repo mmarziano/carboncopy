@@ -19,12 +19,9 @@
 
 
 
-
-
-
-window.addEventListener('DOMContentLoaded', (event) => {
+window.onload = (event) => {
     attachListeners();
-});
+};
 
 
 function attachListeners() {
@@ -69,16 +66,6 @@ function attachListeners() {
 
 };
 
-
-// function showCard() {
-//     let flipcard = document.querySelector('.flip-card')
-//     flipcard.classList.remove('hidden');
-// }
-
-// function hideCard() {
-//     let flipcard = document.querySelector('.flip-card')
-//     flipcard.classList.add('hidden');
-// }
 
 function hideSearch() {
     let orgSearch = document.querySelector('#org-search');
@@ -325,17 +312,17 @@ function showOneCategoryReceiptFormElements() {
 }
 
 function start() {
-    // hideCard();
     showResetLink();
     showCreateOrgForm();
     showSearch();
     clearSearch();
     hideResults();
     hideError();
+    hidePin();
+    hideReceiptForm();
 }
 
 function restart() {
-    // hideCard();
     let form = document.querySelector('#create_org');
     form.classList.add('hidden');
     showResetLink();
@@ -355,7 +342,6 @@ function restart() {
 }
 
 function restartReceipt(org) {
-    // hideCard();
     showResetLink();
     showReceiptForm();
     showReceipt();
@@ -471,12 +457,8 @@ function generateTableHead(tbl, data) {
   function authenticate(data) {
     showPin();
     hideResults();
-    let header = document.createElement('h4');
-        header.setAttribute('id', 'selected');
-        header.innerHTML = data.name;
     hideSearch();
     let pin = document.querySelector('#authenticate-pin'); 
-    pin.appendChild(header);
     let orgPin = () => data.pin;
     let orgId = document.querySelector('#organization_id');
         orgId.value = data.id;
@@ -731,15 +713,6 @@ class  Organization {
     total.innerText = "Total: "
     total.append(` $${sum}`);
     footer.append(total)
-    let button = document.createElement('button');
-    button.setAttribute('class', 'btn btn-info');
-    button.setAttribute('id', 'save-receipt')
-    button.innerText = "Start Over";
-    button.addEventListener('click', function(e){
-        e.preventDefault();
-        restartReceipt(org);
-    })
-    footer.append(button);
 
     preview.appendChild(body);
     body.appendChild(recipient);
