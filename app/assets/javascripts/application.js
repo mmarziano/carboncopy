@@ -242,6 +242,16 @@ function hideReceiptResults() {
     view.classList.add('hidden');
 }
 
+function showPreview() {
+    let next = document.querySelector('#preview-receipt');
+    next.classList.remove('hidden');
+}
+
+function hidePreview() {
+    let next = document.querySelector('#preview-receipt');
+    next.classList.add('hidden');
+}
+
 
 function hideOneCategoryReceiptFormElements() {
     let elements = [];
@@ -320,8 +330,8 @@ function start() {
     hideError();
     hidePin();
     hideReceiptForm();
-    let preview = document.querySelector('#preview-receipt');
-    preview.classList.add('hidden');
+    hideReceiptResults();
+    hidePreview();
 }
 
 function restart() {
@@ -334,8 +344,7 @@ function restart() {
     hideResults();
     hideError();
     hideReceiptResults();
-    let preview = document.querySelector('#preview-receipt');
-    preview.classList.add('hidden');
+    hidePreview();
     let query = document.querySelector('#name')
     query.value = '';
     // let selected = document.querySelector('#selected');
@@ -350,8 +359,7 @@ function restartReceipt(org) {
     hideResults();
     hideError();
     hideReceiptResults();
-    let preview = document.querySelector('#preview-receipt');
-    preview.classList.add('hidden');
+    hidePreview();
     let query = document.querySelector('#name')
     query.value = '';
     // let selected = document.querySelector('#selected');
@@ -363,6 +371,7 @@ function restartReceipt(org) {
 
 function searchResults(data) {
     showResults();
+    hidePreview();
     let div = document.querySelector('#search-results');
     let orgs = [];
     data.map((item) => orgs.push(item));
@@ -560,7 +569,6 @@ function generateTableHead(tbl, data) {
         showSaveReceipt(receipt);
         let save = document.querySelector('#save-receipt');
         save.addEventListener('click', function(e){
-            console.log(receipt)
             viewReceipt(org, receipt);
         })
     });
@@ -611,8 +619,8 @@ class  Organization {
     hideResetReceipt();
     hideReceiptForm();
     hideOneCategoryReceiptFormElements();
+    showPreview();
     let preview = document.querySelector('#preview-receipt');
-    preview.classList.remove('hidden');
     let div = document.createElement('div');
     div.setAttribute('class', 'heading');
     let h2 = document.createElement('h2');
@@ -707,7 +715,7 @@ class  Organization {
     date.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     date.innerText = `Issued On:`;
     let datespan = span();
-    datespan.innerText = receipt.receipt_date;
+    datespan.innerText = receipt.created_at;
     date.append(datespan);
     let total = document.createElement('h1');
     total.setAttribute('class', 'total');
@@ -768,6 +776,7 @@ function setOrg(data) {
 
 
 function listReceipts(data, org) {
+    console.log(data)
     let clear = document.querySelector('#receipts-results');
     clear.innerHTML = "";
     let receipts = [];
@@ -818,7 +827,7 @@ function generateReceiptTableHead(tbl, data) {
             if (key === 'name' && key !== 'organization_id') {
                 let cell = row.insertCell();
                 cell.appendChild(link)
-            } else if (key === 'id' || key === 'category_label_1' || key === 'category_amt_1' || key === 'receipt_date') {
+            } else if (key === 'id' || key === 'category_label_1' || key === 'category_amt_1' || key === 'created_at') {
                 let cell = row.insertCell();
                 let text = document.createTextNode(data[i][key]);
                 cell.appendChild(text);
