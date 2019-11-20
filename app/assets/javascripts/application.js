@@ -127,6 +127,12 @@ function showPin() {
     pin.classList.remove('hidden');
 }
 
+function clearPin() {
+    let pin = document.querySelector('#pin');
+    pin.value = ''
+}
+
+
 function hideResults() {
     let card = document.querySelector('#card-results');
     card.classList.add('hidden');
@@ -155,6 +161,13 @@ function showReceipt() {
 function hideReceipt() {
     let receipt = document.querySelector('#receipt_form');
     receipt.classList.add('hidden');
+}
+
+function clearReceipt() {
+    let receipt = document.querySelector('#receipt_form');
+    for (let i = 0; i < receipt.length; i++) {
+            receipt[i].value = '';
+    }
 }
 
 function showNext() {
@@ -332,6 +345,8 @@ function start() {
     hideReceiptForm();
     hideReceiptResults();
     hidePreview();
+    clearReceipt();
+    clearPin();
 }
 
 function restart() {
