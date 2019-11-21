@@ -164,11 +164,11 @@ function hideReceipt() {
 }
 
 function clearReceipt() {
-    hideReceipt();
     let receipt = document.querySelector('#receipt_form')
-    for (let i = 0; i < receipt.length; i++) {
+    showSaveReceipt();
+    for (let i = 3; i < receipt.length - 2; i++) {
             receipt[i].value = '';
-    }
+    }   
 }
 
 function showNext() {
@@ -213,18 +213,18 @@ function hideReceiptTypeChoice() {
     div.classList.add('hidden');
 }
 
-// function showResetReceipt(input, receipt) {
-//     let org = () => input;
-//     let reset = document.querySelector('#reset-receipt');
-//     reset.classList.remove('hidden');
-//     reset.addEventListener('click', function(e) {
-//         e.preventDefault();
-//         resetStep();
-//         clearReceipt();
-//         restartReceipt(input);
-//     })
+function showResetReceipt(input, receipt) {
+    let org = () => input;
+    let reset = document.querySelector('#reset-receipt');
+    reset.classList.remove('hidden');
+    reset.addEventListener('click', function(e) {
+        e.preventDefault();
+        resetStep();
+        clearReceipt();
+        restartReceipt(input);
+    })
  
-// }
+}
 
 function hideResetReceipt() {
     let reset = document.querySelector('#reset-receipt');
@@ -581,6 +581,7 @@ function generateTableHead(tbl, data) {
     let button = document.querySelector('#create_receipt_submit');
     button.addEventListener('click', function(e){
         e.preventDefault();
+        showResetReceipt();
         showOneCategoryReceiptFormElements();
         button.classList.add('hidden');
         showSaveReceipt(receipt);
@@ -800,7 +801,7 @@ function listReceipts(data, org) {
     newButton.innerText = "Issue New Receipt"
     newButton.addEventListener('click', function(e){
         e.preventDefault();
-        startSingleReceipt(org);
+        startSingleReceipt(org, resetStep());
     })
     let receipts = [];
     data.map((item) => receipts.push(item));
