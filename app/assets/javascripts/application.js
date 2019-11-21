@@ -164,7 +164,8 @@ function hideReceipt() {
 }
 
 function clearReceipt() {
-    let receipt = document.querySelector('#receipt_form');
+    hideReceipt();
+    let receipt = document.querySelector('#receipt_form')
     for (let i = 0; i < receipt.length; i++) {
             receipt[i].value = '';
     }
@@ -212,18 +213,18 @@ function hideReceiptTypeChoice() {
     div.classList.add('hidden');
 }
 
-function showResetReceipt(input, receipt) {
-    let org = () => input;
-    let reset = document.querySelector('#reset-receipt');
-    reset.classList.remove('hidden');
-    reset.addEventListener('click', function(e) {
-        e.preventDefault();
-        resetStep();
-        hideReceipt();
-        startSingleReceipt(input);
-    })
+// function showResetReceipt(input, receipt) {
+//     let org = () => input;
+//     let reset = document.querySelector('#reset-receipt');
+//     reset.classList.remove('hidden');
+//     reset.addEventListener('click', function(e) {
+//         e.preventDefault();
+//         resetStep();
+//         clearReceipt();
+//         restartReceipt(input);
+//     })
  
-}
+// }
 
 function hideResetReceipt() {
     let reset = document.querySelector('#reset-receipt');
@@ -336,6 +337,7 @@ function showOneCategoryReceiptFormElements() {
 
 function start() {
     showResetLink();
+    resetStep();
     showCreateOrgForm();
     showSearch();
     clearSearch();
@@ -350,8 +352,7 @@ function start() {
 }
 
 function restart() {
-    let form = document.querySelector('#create_org');
-    form.classList.add('hidden');
+    hideCreateOrgForm();
     showResetLink();
     showCreateOrgForm();
     showReceiptForm();
@@ -360,14 +361,15 @@ function restart() {
     hideError();
     hideReceiptResults();
     hidePreview();
+    clearReceipt();
     let query = document.querySelector('#name')
     query.value = '';
-    // let selected = document.querySelector('#selected');
-    // selected.remove();
+    showReceipt();
     hidePin();
+    startSingleReceipt();
 }
 
-function restartReceipt(org) {
+function restartReceipt(org, step) {
     showResetLink();
     showReceiptForm();
     showReceipt();
@@ -377,10 +379,8 @@ function restartReceipt(org) {
     hidePreview();
     let query = document.querySelector('#name')
     query.value = '';
-    // let selected = document.querySelector('#selected');
-    // selected.remove();
     hidePin();
-    startSingleReceipt(org);
+    startSingleReceipt(org, step);
 }
 
 
@@ -494,7 +494,7 @@ function generateTableHead(tbl, data) {
         e.preventDefault();
         let userPin = document.querySelector('#pin').value;
         if (orgPin() === userPin.toString()) {
-            startSingleReceipt(org());
+            startSingleReceipt(org(), 2);
         } else {
             alert("Sorry! Pin does not match. Please try again.")
         }
@@ -507,20 +507,21 @@ function generateTableHead(tbl, data) {
       return step;
   }
 
-  function startSingleReceipt(org) {  
+  function startSingleReceipt(org, start) {
+    let step = start;  
     let receipt = {};
     let getReceipt = () => {return receipt};
     showReceiptForm();   
+    showReceipt();
     hidePin();
     hideResetLink();
     hideCreateOrgForm();
     hideSearch();  
     hideError();
     hideSaveReceipt();
-    showResetReceipt(org, receipt);
     showViewReceipts(org, receipt);
-    let step = 2;
-
+    hideResults();
+    hidePreview();
     let organization = document.querySelector('#receipt_organization_id');
     organization.value = org.id;
     receipt.organization_id = org.id;
@@ -570,6 +571,7 @@ function generateTableHead(tbl, data) {
             button.classList.add('hidden')
             step--;
         } else {
+            
             previous.classList.remove('hidden'); 
             let elements = hideOneCategoryReceiptFormElements();
             elements[step].classList.remove('hidden')
@@ -791,9 +793,15 @@ function setOrg(data) {
 
 
 function listReceipts(data, org) {
-    console.log(data)
     let clear = document.querySelector('#receipts-results');
     clear.innerHTML = "";
+    let newButton = document.createElement('button');
+    newButton.setAttribute('class', 'btn marz-button btn-lg');
+    newButton.innerText = "Issue New Receipt"
+    newButton.addEventListener('click', function(e){
+        e.preventDefault();
+        startSingleReceipt(org);
+    })
     let receipts = [];
     data.map((item) => receipts.push(item));
     let result = receipts.filter(function(item) {
@@ -812,6 +820,7 @@ function listReceipts(data, org) {
     generateReceiptTableHead(tbl, tblheadings);
     generateReceiptTable(tbl, result, org);
     div.classList.remove('hidden')
+    div.appendChild(newButton)
 }
 
 function generateReceiptTableHead(tbl, data) {

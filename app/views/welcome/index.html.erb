@@ -60,7 +60,7 @@
 
         <div id="receipt" class="hidden">
         <h3>Receipt Details</h3>
-        <button type="button" class="btn marz-button btn-lg hidden" id="reset-receipt" style="float:right">Reset Receipt</button>
+        <a href='#' onclick="start();return false;" class="btn marz-button btn-lg hidden" id="reset-receipt" style="float:right">Reset Receipt</a>
         <button type="button" class="btn btn-info btn-lg hidden" id="view-receipts" style="float:right; margin-right: 10px;">View All Receipts</button></br>
         <%= form_for Receipt.new, remote: true, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
             <div id="organization-group" class="hidden">
