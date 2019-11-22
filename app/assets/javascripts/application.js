@@ -337,6 +337,8 @@ function start() {
     showResetLink();
     resetStep();
     showCreateOrgForm();
+    let form = document.querySelector('#create_org');
+    form.classList.add('hidden');
     showSearch();
     clearSearch();
     hideResults();
@@ -457,7 +459,8 @@ function createOrganization(){
             } else {
               showError();
             }
-        })   
+        })
+        .then((data) => console.log(data))   
 }
 
 
