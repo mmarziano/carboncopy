@@ -42,10 +42,10 @@ function attachListeners() {
        getOrganizations();
     })
  
-    let reset = document.querySelector('#reset');
-    reset.addEventListener('click', function(e){
+    let resetLink = document.querySelector('#reset');
+    resetLink.addEventListener('click', function(e){
         e.preventDefault();
-        restart();
+        reset();
     })
 
     let newOrg = document.querySelector('#create_new');
@@ -337,6 +337,23 @@ function start() {
     showResetLink();
     resetStep();
     showCreateOrgForm();
+    showSearch();
+    clearSearch();
+    hideResults();
+    hideError();
+    hidePin();
+    hideReceiptForm();
+    hideReceiptResults();
+    hidePreview();
+    clearReceipt();
+    clearPin();
+}
+
+function reset() {
+    showResetLink();
+    resetStep();
+    let form = document.querySelector('#create_org');
+    form.classList.add('hidden');
     showSearch();
     clearSearch();
     hideResults();
