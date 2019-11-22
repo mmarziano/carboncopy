@@ -213,15 +213,13 @@ function hideReceiptTypeChoice() {
     div.classList.add('hidden');
 }
 
-function showResetReceipt(input, receipt) {
-    let org = () => input;
+function showResetReceipt(org, receipt) {
     let reset = document.querySelector('#reset-receipt');
     reset.classList.remove('hidden');
     reset.addEventListener('click', function(e) {
         e.preventDefault();
         resetStep();
-        clearReceipt();
-        restartReceipt(input);
+        restartReceipt(org, resetStep());
     })
  
 }
@@ -370,17 +368,20 @@ function restart() {
 }
 
 function restartReceipt(org, step) {
-    showResetLink();
+    hideResetLink();
+    hideCreateOrgForm();
     showReceiptForm();
     showReceipt();
+    clearReceipt();
     hideResults();
     hideError();
     hideReceiptResults();
     hidePreview();
+    hideSearch();
+    showSaveReceipt();
     let query = document.querySelector('#name')
     query.value = '';
     hidePin();
-    startSingleReceipt(org, step);
 }
 
 
@@ -581,13 +582,13 @@ function generateTableHead(tbl, data) {
     let button = document.querySelector('#create_receipt_submit');
     button.addEventListener('click', function(e){
         e.preventDefault();
-        showResetReceipt();
+        showResetReceipt(org);
         showOneCategoryReceiptFormElements();
         button.classList.add('hidden');
         showSaveReceipt(receipt);
         let save = document.querySelector('#save-receipt');
         save.addEventListener('click', function(e){
-            viewReceipt(org, receipt);
+            viewReceipt(org, receipt)
         })
     });
 
@@ -627,6 +628,16 @@ class  Organization {
 }
 
   function viewReceipt(org, receipt) {
+    let view = document.createElement('button');
+    view.setAttribute('class', 'btn btn-info btn-lg');
+    view.setAttribute('id', 'view-receipts');
+    view.setAttribute('style', 'float:right')
+    view.innerText = "Issue New Receipt"
+    view.addEventListener('click', function(e){
+        e.preventDefault();
+        clearReceipt();
+        startSingleReceipt(org, resetStep());
+    })
     let clear = document.querySelector('#preview-receipt');
     clear.innerHTML = "";
     hidePin();
@@ -651,6 +662,7 @@ class  Organization {
     let city = document.createElement('p');
     city.innerText = `${org.city}, ${org.state} ${org.zipcode}`;
     city.setAttribute('style', 'color: #fff; font-size: 16px;');
+    div.appendChild(view)
     div.appendChild(h2)
     div.appendChild(p)
     div.appendChild(city)
@@ -733,7 +745,8 @@ class  Organization {
     date.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     date.innerText = `Issued On:`;
     let datespan = span();
-    datespan.innerText = receipt.created_at;
+    receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
+    datespan.innerText = receipt.receipt_date;
     date.append(datespan);
     let total = document.createElement('h1');
     total.setAttribute('class', 'total');
@@ -759,7 +772,7 @@ class  Organization {
     
   }
 
-function saveReceipt(receipt) {
+function saveReceipt(org, receipt) {
     receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
     let url = 'http://localhost:3000/receipts';
     options = {
@@ -777,7 +790,7 @@ function saveReceipt(receipt) {
           showError();
         }
     })   
-    .then(info => viewReceipt(info)) 
+    .then(info => viewReceipt(org, info)) 
 }
 
 function findOrg(input) {
@@ -801,6 +814,7 @@ function listReceipts(data, org) {
     newButton.innerText = "Issue New Receipt"
     newButton.addEventListener('click', function(e){
         e.preventDefault();
+        clearReceipt();
         startSingleReceipt(org, resetStep());
     })
     let receipts = [];
