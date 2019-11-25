@@ -92,6 +92,8 @@ function Search(){
     s.value = "Search";
     s.addEventListener('click', function(e){
         e.preventDefault();
+        hideResults();
+        clearSearch();
         getOrganizations();
         }); 
     
@@ -176,6 +178,11 @@ function hideResults() {
 function showResults() {
     let card = document.querySelector('#card-results');
     card.classList.remove('hidden');
+}
+
+function clearSearch() {
+    let result = document.querySelector('#search-results');
+    result.innerHTML = '';
 }
 
 function showReceiptForm() {
