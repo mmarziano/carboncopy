@@ -1,0 +1,144 @@
+
+    <div class="col-lg-10 mb-10 card">
+        <%#---Receipt start---%>
+        <div class="text-center">
+            <a href='/' id="reset" class="hidden" style="float: right;">Reset</a>
+            <a href='/' id="create_new" class="hidden" style="float: right; margin-right: 10px">Create New</a>
+            
+            <img class="receipt img-responsive" src="assets/receipt.png" id="start" alt="receipt">
+        </div> 
+        
+        <%# ---Organization search---%>
+
+        <div id="org-search" class="hidden">
+            <h3>Search for Business/Organization</h3><br>
+            <%= form_tag('search', method: 'get', class: 'org-search-form') do %>
+                <%= text_field_tag :name, params[:name], options = {placeholder: 'Enter name...', style:"border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"}%>
+                <%= submit_tag("Search", class: "btn marz-button", id: "submit-search") %>
+            <% end %>
+        </div>
+
+        <%# ---Pin authentication input---%>
+
+        <div id="authenticate-pin" class="hidden">
+            <h3>Supply PIN To Issue Receipt</h3><br>
+            <%= form_tag('validate', method: 'get', class: 'pin') do %>
+                <%= hidden_field_tag 'organization_id'  %>
+                <%= text_field_tag :pin, params[:pin], options = {class: 'inputs', style:"width: 50%;"}%>
+                <%= submit_tag("Submit", class: "btn marz-button", id: "submit-pin") %>
+            <% end %>
+        </div> 
+
+        <%# ---Create New Organization--- %>
+
+        <div id="create_org" class="hidden">
+            <h3>Create New Business/Organization</h3>
+            <%= form_for Organization.new, remote: true, html: {id: :create_org_form } do |f| %>
+                <%= f.label :name %>
+                <%= f.text_field :name, class: "form-control"%></br>
+                <%= f.label :addresss %>
+                <%= f.text_field :address, class: "form-control"%></br>
+                <%= f.label :city %>
+                <%= f.text_field :city, class: "form-control"%></br>
+                <%= f.label :state %>
+                <%= f.text_field :state, class: "form-control"%></br>
+                <%= f.label :zipcode %>
+                <%= f.text_field :zipcode, class: "form-control"%></br>
+                <%= f.label :phone %>
+                <%= f.text_field :phone, class: "form-control"%></br>
+                <%= f.label :billing_email %>
+                <%= f.email_field :billing_email, class: "form-control"%></br>
+                <%= f.label :audit_email %>
+                <%= f.email_field :audit_email, class: "form-control"%></br>
+                <%= f.label :pin %>
+                <%= f.text_field :pin, class: "form-control"%></br>
+                <%= f.submit class: "btn marz-button", id: "create_org_submit" %>
+            <% end %>        
+        </div>
+
+        <%# ---Create Receipt---%>
+
+        <div id="receipt" class="hidden">
+        <h3>Receipt Details</h3>
+        <a href='#' onclick="start();return false;" class="btn marz-button btn-lg hidden" id="reset-receipt" style="float:right">Reset Receipt</a>
+        <button type="button" class="btn btn-info btn-lg hidden" id="view-receipts" style="float:right; margin-right: 10px;">View All Receipts</button></br>
+        <%= form_for Receipt.new, remote: true, html: {id: :receipt_form, class: 'new_receipt' } do |f| %>
+            <div id="organization-group" class="hidden">
+                <%= f.label :organization_id, 'Organization' %>
+                <%= f.text_field :organization_id, class: "form-control inputs", readonly: true%></br>
+            </div>
+            <div id="date-group" class="hidden">
+                <%= f.label :receipt_date, 'Receipt Issued On' %>
+                <%= f.text_field :receipt_date, class: "form-control inputs", readonly: true%></br>
+            </div>
+            <div id="name-group" class="hidden">
+                <%= f.label :name, 'Recipient Name' %>
+                <%= f.text_field :name, class: "form-control inputs"%></br>
+            </div>
+            <div id="email-group" class="hidden">
+                <%= f.label :email, 'Recipient Email' %>
+                <%= f.text_field :email, class: "form-control inputs"%></br>
+            </div>
+            <div id="phone-group" class="hidden">
+                <%= f.label :phone, 'Recipient Phone Number' %>
+                <%= f.text_field :phone, class: "form-control inputs"%></br>
+            </div>
+            <div id="secondary-name-group" class="hidden">
+                <%= f.label :secondary_name, 'Optional: Payment applied towards...' %>
+                <%= f.text_field :secondary_name, class: "form-control inputs"%></br>
+            </div>
+            <div id="secondary-id-group" class="hidden">
+                <%= f.label :secondary_id, 'Optional: Account ID' %>
+                <%= f.text_field :secondary_id, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-label-1-group" class="hidden">
+                <%= f.label :category_label_1, 'Payment Category Description' %>
+                <%= f.text_field :category_label_1, class: "form-control inputs"%></br>
+            </div>
+            <div id="category-amt-1-group" class="hidden">
+                <%= f.label :category_amt_1, 'Payment Amount' %>
+                <%= f.text_field :category_amt_1, class: "form-control inputs"%></br>
+            </div>
+            <div id="payment-method-group" class="hidden">
+                <%= f.label :payment_method, 'Payment Method' %>
+                <%= f.text_field :payment_method, class: "form-control inputs"%></br>
+            </div>
+            <div id="payment-method-note-group" class="hidden">
+                <%= f.label :payment_method_note, 'Optional: Payment Method Details' %>
+                <%= f.text_field :payment_method_note, class: "form-control inputs"%></br>
+            </div>
+            <div id="notes-group" class="hidden">
+                <%= f.label :notes, 'Notes' %>
+                <%= f.text_area :notes, class: "form-control inputs"%></br>
+            </div>
+            <div id="received-by-group" class="hidden">
+                <%= f.label :received_by, "Received By" %>
+                <%= f.text_field :received_by, class: "form-control inputs"%></br>
+            </div>
+                <%= f.submit "Preview Receipt", class: "btn marz-button hidden receipt-submit", id: "create_receipt_submit" %>
+                <%= f.submit "Record Receipt", class: "btn btn-success hidden receipt-submit", id: "save-receipt" %>
+                
+        <% end %>    
+            <a href="/" id="previous" class="hidden" style="float: left; margin-right: 10px">&#10508; Previous Step</a>  
+            <a href="/" id="next" class="hidden" style="float: left; margin-right: 10px">Next Step &#10509;</a>
+            
+        </div> 
+
+        <%# ---Preview Receipt---%>
+
+        <div id="preview-receipt" class="hidden"></div>
+
+    </div>
+
+    <div class="col-lg-10 mb-10 hidden" id="card-results">
+        <div id="search-results" class="table hidden"></div>
+        <div id="receipts-results" class="table hidden"></div>
+    </div>
+
+
+
+
+
+
+
+

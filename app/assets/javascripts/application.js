@@ -31,16 +31,16 @@ function attachListeners() {
         clearError();
         hideError();
         quickStart.classList.add('hidden')
-        start();
+        Search();
     })
 
-    let search = document.querySelector('#submit-search');
-    search.addEventListener('click', function(e) {
-       e.preventDefault();
-       let div = document.querySelector('#search-results');
-       div.innerHTML = "";
-       getOrganizations();
-    })
+    // let search = document.querySelector('#submit-search');
+    // search.addEventListener('click', function(e) {
+    //    e.preventDefault();
+    //    let div = document.querySelector('#search-results');
+    //    div.innerHTML = "";
+    //    getOrganizations();
+    // })
  
     let resetLink = document.querySelector('#reset');
     resetLink.addEventListener('click', function(e){
@@ -48,39 +48,74 @@ function attachListeners() {
         reset();
     })
 
-    let newOrg = document.querySelector('#create_new');
-    newOrg.addEventListener('click', function(e){
-        e.preventDefault();
-        hidePin();
-        hideSearch();
-        let form = document.querySelector('#create_org');
-        form.classList.remove('hidden');
-    })    
+    // let newOrg = document.querySelector('#create_new');
+    // newOrg.addEventListener('click', function(e){
+    //     e.preventDefault();
+    //     hidePin();
+    //     hideSearch();
+    //     let form = document.querySelector('#create_org');
+    //     form.classList.remove('hidden');
+    // })    
 
-    let createOrg = document.querySelector('#create_org_submit');
-    createOrg.addEventListener('click', function(e){
-        let form = document.querySelector('#create_org');
-        form.classList.add('hidden');
-        start();
-    })
+    // let createOrg = document.querySelector('#create_org_submit');
+    // createOrg.addEventListener('click', function(e){
+    //     let form = document.querySelector('#create_org');
+    //     form.classList.add('hidden');
+    //     start();
+    // })
 
 };
 
+function Search(){
+    let form = document.querySelector('#org-search-form');
+    let h3 = document.createElement('h3');
+    h3.innerHTML = "Search for Business/Organization"
+    form.appendChild(h3);
 
-function hideSearch() {
-    let orgSearch = document.querySelector('#org-search');
-    orgSearch.classList.add('hidden');
-}
+    let f = document.createElement("form");
+    f.setAttribute('method',"get");
+    f.setAttribute('action',"/search");
+    
+    //creates input element
+    let i = document.createElement("input");
+    i.type = "text";
+    i.name = "org_name";
+    i.id = "org_name";
+    i.placeholder = "Enter organization name..."
+    i.style = "padding-top: 15px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"
+    
+    //creates submit button
+    var s = document.createElement("input");
+    s.type = "submit";
+    s.style = "margin-left: 10px;"
+    s.setAttribute('class', "btn marz-button")
+    s.value = "Search";
+    s.addEventListener('click', function(e){
+        e.preventDefault();
+        getOrganizations();
+        }); 
+    
+    // add all elements to the form
+    f.appendChild(i);
+    f.appendChild(s);
 
-function showSearch() {
-    let orgSearch = document.querySelector('#org-search');
-    orgSearch.classList.remove('hidden');
-}
+    form.appendChild(f)
+};
 
-function clearSearch() {
-    let orgSearch = document.querySelector('#org-search');
-    orgSearch.children[2].name.value = '';
-}
+// function hideSearch() {
+//     let orgSearch = document.querySelector('#org-search');
+//     orgSearch.classList.add('hidden');
+// }
+
+// function showSearch() {
+//     let orgSearch = document.querySelector('#org-search');
+//     orgSearch.classList.remove('hidden');
+// }
+
+// function clearSearch() {
+//     let orgSearch = document.querySelector('#org-search');
+//     orgSearch.children[2].name.value = '';
+// }
 
 function hideCreateOrgForm() {
     let newOrg = document.querySelector('#create_new');
@@ -334,83 +369,28 @@ function showOneCategoryReceiptFormElements() {
 }
 
 function start() {
-    showResetLink();
-    resetStep();
-    showCreateOrgForm();
-    let form = document.querySelector('#create_org');
-    form.classList.add('hidden');
-    showSearch();
-    clearSearch();
-    hideResults();
-    hideError();
-    hidePin();
-    hideReceiptForm();
-    hideReceiptResults();
-    hidePreview();
-    clearReceipt();
-    clearPin();
+    
 }
 
 function reset() {
-    showResetLink();
-    resetStep();
-    let form = document.querySelector('#create_org');
-    form.classList.add('hidden');
-    showSearch();
-    clearSearch();
-    hideResults();
-    hideError();
-    hidePin();
-    hideReceiptForm();
-    hideReceiptResults();
-    hidePreview();
-    clearReceipt();
-    clearPin();
+    
 }
 
 function restart() {
-    hideCreateOrgForm();
-    showResetLink();
-    showCreateOrgForm();
-    showReceiptForm();
-    showReceipt();
-    hideResults();
-    hideError();
-    hideReceiptResults();
-    hidePreview();
-    clearReceipt();
-    let query = document.querySelector('#name')
-    query.value = '';
-    showReceipt();
-    hidePin();
-    startSingleReceipt();
+    
 }
 
 function restartReceipt(org, step) {
-    hideResetLink();
-    hideCreateOrgForm();
-    showReceiptForm();
-    showReceipt();
-    clearReceipt();
-    hideResults();
-    hideError();
-    hideReceiptResults();
-    hidePreview();
-    hideSearch();
-    showSaveReceipt();
-    let query = document.querySelector('#name')
-    query.value = '';
-    hidePin();
+    
 }
 
 
 function searchResults(data) {
     showResults();
-    hidePreview();
     let div = document.querySelector('#search-results');
     let orgs = [];
     data.map((item) => orgs.push(item));
-    let query = document.querySelector('#name').value
+    let query = document.querySelector('#org_name').value
     let result = orgs.filter(function(item) {
         if (item.name.toLowerCase().includes(query.toLowerCase())) {
             return item;
