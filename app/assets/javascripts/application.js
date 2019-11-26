@@ -216,7 +216,8 @@ function createOrgForm() {
     s.value = "Create Organization";
     s.addEventListener('click', function(e){
         e.preventDefault();
-        alert('here')
+        let org = new Organization(iName.value, iAddress.value, iCity.value, iState.value, iZipcode.value, iPhone.value, iBillingEmail.value, iAuditEmail.value, iPin.value)
+        createOrganization(org);
         }); 
     
     // add all elements to the form
@@ -558,15 +559,15 @@ function getReceipts(org) {
     .then(json => listReceipts(json, org))
 }
 
-function createOrganization(){
+function createOrganization(org){
     let url = 'http://localhost:3000/organizations';
         options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'appliction/x-www-form-urlencoded',
+                'Content-Type': 'appliction/json',
                 'Accept': 'application/json'
             },
-            body: new FormData(document.querySelector('#create_org_form'))
+            body: JSON.stringify(org)
         }
         return fetch(url, options)
         .then((response) => {
@@ -750,17 +751,16 @@ class  Receipt {
 }
 
 class  Organization {
-    constructor(obj) {
-        this.name = obj.name;
-        this.address = obj.address;
-        this.audit_email = obj.audit_email;
-        this.billing_email = obj.billing_email;
-        this.id = obj.id;
-        this.city = obj.city;
-        this.phone = obj.phone;
-        this.pin = obj.pin;
-        this.state = obj.state;
-        this.zipcode = obj.zipcode;
+    constructor(name, address, city, state, zipcode, phone, billing_email, audit_email, pin) {
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.phone = phone;
+        this.billing_email = billing_email;
+        this.audit_email = audit_email;
+        this.pin = pin;
     }
 }
 
