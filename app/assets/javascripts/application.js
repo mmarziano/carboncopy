@@ -564,7 +564,7 @@ function createOrganization(org){
         options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'appliction/json',
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify(org)
