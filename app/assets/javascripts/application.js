@@ -109,6 +109,8 @@ function Search(){
     s.addEventListener('click', function(e){
         e.preventDefault();
         hideResults();
+        clearMessage();
+        hideMessage();
         clearSearch();
         getOrganizations();
         }); 
@@ -604,6 +606,9 @@ function createOrgResults(result){
     } else {
         p.innerHTML = "Organization successfully created."
         msg.append(p)
+        let form = document.querySelector('#create_org_form')
+        form.classList.add('hidden')
+        showSearch();
     }
     msg.classList.remove('hidden')
 
