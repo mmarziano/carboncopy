@@ -14,11 +14,11 @@ class OrganizationsController < ApplicationController
         organization = Organization.new(organization_params)
 
         if organization.save
-            flash[:notice] = "Organization/Business successfully created!"
             render json: organization
         else 
-            flash[:alert] = organization.errors.full_messages if organization.errors.any?
-            redirect_to '/'
+            if organization.errors.any?
+                render json: organization.errors.full_messages
+            end
         end
     end 
 

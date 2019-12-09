@@ -77,6 +77,8 @@ function Search(){
     reset.innerHTML = "Reset";
     reset.addEventListener('click', function(e){
         e.preventDefault();
+        hideResults();
+        clearSearch();
     })
 
     let form = document.querySelector('#org-search-form');
@@ -271,17 +273,17 @@ function showResetLink() {
 }
 
 function showError(){
-    let error = document.querySelector('#error');
+    let error = document.querySelector('#message');
     error.classList.remove('hidden');
 }
 
 function hideError(){
-        let error = document.querySelector('#error');
+        let error = document.querySelector('#message');
         error.classList.add('hidden');
 }
 
 function clearError(){
-    let error = document.querySelector('#error');
+    let error = document.querySelector('#message');
     error.innerHTML = '';
 }
 
@@ -543,6 +545,13 @@ function searchResults(data) {
     div.classList.remove('hidden')
 }
 
+function handleErrors(response) {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
+}
+
 function getOrganizations() {
     let url = 'http://localhost:3000/organizations';
     return fetch(url)
@@ -569,18 +578,26 @@ function createOrganization(org){
             },
             body: JSON.stringify(org)
         }
-        return fetch(url, options)
-        .then((response) => {
-            if (response.ok) {
-              alert('Business/Organization successfully created!')
-              return response.json();
-            } else {
-              showError();
-            }
-        })
-        .then((data) => console.log(data))   
+        fetch(url, options)
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(json => createOrgResults(json))
+        .catch(error => console.log(error) );
 }
 
+function createOrgResults(result){
+    let msg = document.getElementById('message');
+    let p = document.createElement('p');
+    p.class = ('alert alert-danger');
+    if (Array.isArray(result)) {
+        p.innerHTML = "The following errors have prevented this action:"
+    } else {
+        p.innerHTML = "Organization successfully created."
+    }
+    
+    msg.classList.remove('hidden')
+    msg.append(p)
+}
 
 function generateTableHead(tbl, data) {
     let thead = tbl.createTHead();

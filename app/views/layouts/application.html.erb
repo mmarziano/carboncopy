@@ -20,20 +20,6 @@
                   <a href='#' onclick="start();return false;" class="btn marz-button btn-lg" id="startover">Start Over</a>
                 </div>
                 <div class="marz-signup-right col-md-9 col-sm-9" style="height: 867px;">
-
-                <div id="error">
-                  <% if notice %>
-                    <p class="alert alert-success"><%= notice %></p>
-                    <% end %>
-                    <% if alert %>
-                        <p class="alert alert-danger">The following errors have prevented this action:</p>
-                        <ul>
-                            <% alert.each do |a| %>
-                            <li><%= a %></li>
-                            <% end %>
-                        </ul>
-                    <% end %>
-                </div>
                 
                   <div id="main">
                     <%= yield %>
