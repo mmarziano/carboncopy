@@ -28,8 +28,8 @@ function attachListeners() {
     let quickStart = document.querySelector('#start');
     quickStart.addEventListener('click', function(e) {
         e.preventDefault();
-        clearError();
-        hideError();
+        clearMessage();
+        hideMessage();
         quickStart.classList.add('hidden')
         Search();
     })
@@ -219,6 +219,8 @@ function createOrgForm() {
     s.addEventListener('click', function(e){
         e.preventDefault();
         let org = new Organization(iName.value, iAddress.value, iCity.value, iState.value, iZipcode.value, iPhone.value, iBillingEmail.value, iAuditEmail.value, iPin.value)
+        clearMessage();
+        hideMessage();
         createOrganization(org);
         }); 
     
@@ -272,19 +274,19 @@ function showResetLink() {
     reset.classList.remove('hidden');
 }
 
-function showError(){
-    let error = document.querySelector('#message');
-    error.classList.remove('hidden');
+function showMessage(){
+    let ermsgror = document.querySelector('#message');
+    msg.classList.remove('hidden');
 }
 
-function hideError(){
-        let error = document.querySelector('#message');
-        error.classList.add('hidden');
+function hideMessage(){
+        let msg = document.querySelector('#message');
+        msg.classList.add('hidden');
 }
 
-function clearError(){
-    let error = document.querySelector('#message');
-    error.innerHTML = '';
+function clearMessage(){
+    let msg = document.querySelector('#message');
+    msg.innerHTML = '';
 }
 
 function hidePin() {
@@ -588,15 +590,23 @@ function createOrganization(org){
 function createOrgResults(result){
     let msg = document.getElementById('message');
     let p = document.createElement('p');
-    p.class = ('alert alert-danger');
+    p.classList.add('alert');
     if (Array.isArray(result)) {
         p.innerHTML = "The following errors have prevented this action:"
+        msg.append(p);
+        let ul = document.createElement('ul');
+        for (i = 0; i < result.length; i++) {
+            let li = document.createElement('li');
+            li.innerHTML = result[i];
+            ul.appendChild(li)
+        }
+        msg.append(ul)
     } else {
         p.innerHTML = "Organization successfully created."
+        msg.append(p)
     }
-    
     msg.classList.remove('hidden')
-    msg.append(p)
+
 }
 
 function generateTableHead(tbl, data) {
@@ -673,7 +683,7 @@ function generateTableHead(tbl, data) {
     hideResetLink();
     hideCreateOrgForm();
     hideSearch();  
-    hideError();
+    hideMessage();
     hideSaveReceipt();
     showViewReceipts(org, receipt);
     hideResults();
@@ -798,7 +808,7 @@ class  Organization {
     hideResetLink();
     hideCreateOrgForm();
     hideSearch();  
-    hideError();
+    hideMessage();
     hideResetReceipt();
     hideReceiptForm();
     hideOneCategoryReceiptFormElements();
@@ -941,7 +951,7 @@ function saveReceipt(org, receipt) {
         if (response.ok) {
           return response.json();
         } else {
-          showError();
+          showMessage();
         }
     })   
     .then(info => viewReceipt(org, info)) 
