@@ -589,7 +589,7 @@ function generateTableHead(tbl, data) {
         clearSearch();
         let userPin = document.querySelector('#pin').value;
             if (data.pin === userPin.toString()) {
-                startReceipt(data, 2);
+                startReceipt(data);
             } else {
                 alert("Sorry! Pin does not match. Please try again.")
             }
@@ -600,12 +600,8 @@ function generateTableHead(tbl, data) {
     pin.appendChild(s);
   }
 
-  function resetStep() {
-      let step = 2;
-      return step;
-  }
 
-  function startReceipt(org, start) {
+  function startReceipt(org) {
     clearPin();
     hidePin();
 
@@ -712,13 +708,14 @@ function generateTableHead(tbl, data) {
     let s = document.createElement("input");
     s.type = "submit";
     s.setAttribute('class', "btn marz-button")
-    s.value = "Create Receipt";
+    s.value = "Preview Receipt";
     s.addEventListener('click', function(e){
         e.preventDefault();
-        let org = new Organization(iName.value, iAddress.value, iCity.value, iState.value, iZipcode.value, iPhone.value, iBillingEmail.value, iAuditEmail.value, iPin.value)
+        let date = new Date(Date.now()).toLocaleString();
+        let rec = new Receipt(iName.value, iEmail.value, iPhone.value, iAccountID.value, iDescription.value, iPaymentAmt.value, iPaymentMethod.value, iPaymentNote.value, iNotes.value, iReceivedBy.value, date, org.id)
         clearMessage();
         hideMessage();
-        createOrganization(org);
+        viewReceipt(org, rec);
         }); 
     
     // add all elements to the form
@@ -739,19 +736,19 @@ function generateTableHead(tbl, data) {
   
  
 class  Receipt {
-    constructor(obj) {
-        this.name = obj.name;
-        this.email = obj.email;
-        this.phone = obj.phone;
-        this.account_id = obj.account_id;
-        this.description = obj.description;
-        this.category_amt_1 = obj.category_amt_1;
-        this.payment_method = obj.payment_method;
-        this.payment_method_note = obj.payment_method_note;
-        this.notes = obj.notes;
-        this.received_by = obj.received_by;
-        this.receipt_date = obj.receipt_date;
-        this.organization_id = obj.organization_id
+    constructor(name, email, phone, account_id, description, category_amt_1, payment_method, payment_method_note, notes, received_by, receipt_date, organization_id) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.account_id = account_id;
+        this.description = description;
+        this.category_amt_1 = category_amt_1;
+        this.payment_method = payment_method;
+        this.payment_method_note = payment_method_note;
+        this.notes = notes;
+        this.received_by = received_by;
+        this.receipt_date = receipt_date;
+        this.organization_id = organization_id
     }
 }
 
@@ -784,12 +781,9 @@ class  Organization {
     clear.innerHTML = "";
     hidePin();
     hideResetLink();
-    hideCreateOrgForm();
     hideSearch();  
     hideMessage();
-    hideResetReceipt();
-    hideReceiptForm();
-    hideOneCategoryReceiptFormElements();
+    hideReceipt();
     showPreview();
     let preview = document.querySelector('#preview-receipt');
     let div = document.createElement('div');
@@ -829,24 +823,18 @@ class  Organization {
     let pspan = span();
     pspan.innerText = receipt.phone;
     phone.append(pspan);
-    let secondary = document.createElement('h4');
-    secondary.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
-    secondary.innerText = `Payment Applied Towards:`
-    let sspan = span();
-    sspan.innerText = receipt.secondary_name;
-    secondary.append(sspan);
     let id = document.createElement('h4');
     id.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     id.innerText = `Account ID:`
     let ispan = span();
-    ispan.innerText = receipt.secondary_id;
+    ispan.innerText = receipt.account_id;
     id.append(ispan);
-    let cat1 = document.createElement('h4');
-    cat1.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
-    cat1.innerText = `Payment Category:`
-    let cat1span = span();
-    cat1span.innerText = receipt.category_label_1;
-    cat1.append(cat1span);
+    let desc = document.createElement('h4');
+    desc.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
+    desc.innerText = `Payment Description:`
+    let descspan = span();
+    descspan.innerText = receipt.description;
+    desc.append(descspan);
     let amt1 = document.createElement('h4');
     amt1.setAttribute('style', "color:rgb(240, 8, 143); padding: 10px");
     amt1.innerText = `Payment Amount: `
@@ -895,15 +883,31 @@ class  Organization {
     total.setAttribute('style', 'float:right;')
     total.innerText = "Total: "
     total.append(` $${sum}`);
-    footer.append(total)
+    let savebtn = document.createElement('button');
+    savebtn.setAttribute('class', 'btn marz-button btn-lg');
+    savebtn.innerText = "Save Receipt"
+    savebtn.addEventListener('click', function(e){
+        e.preventDefault();
+        saveReceipt(org, receipt);
+    })
+    let startover = document.createElement('button');
+    startover.setAttribute('class', 'btn marz-button btn-lg');
+    startover.innerText = "Start Over"
+    startover.addEventListener('click', function(e){
+        e.preventDefault();
+        hidePreview();
+        startReceipt(org);
+    })
+    footer.append(total);
+    footer.append(savebtn);
+    footer.append(startover);
 
     preview.appendChild(body);
     body.appendChild(recipient);
     body.appendChild(email);
     body.appendChild(phone);
-    body.appendChild(secondary);
     body.appendChild(id);
-    body.appendChild(cat1);
+    body.appendChild(desc);
     body.appendChild(amt1);
     body.appendChild(method);
     body.appendChild(methodNotes);
@@ -915,7 +919,7 @@ class  Organization {
   }
 
 function saveReceipt(org, receipt) {
-    receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
+    // receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
     let url = 'http://localhost:3000/receipts';
     options = {
         method: 'POST',
@@ -957,7 +961,7 @@ function listReceipts(data, org) {
     newButton.addEventListener('click', function(e){
         e.preventDefault();
         clearReceipt();
-        startSingleReceipt(org, resetStep());
+        startReceipt(org);
     })
     let receipts = [];
     data.map((item) => receipts.push(item));
