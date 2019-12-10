@@ -30,9 +30,8 @@ ActiveRecord::Schema.define(version: 2019_10_28_235022) do
     t.string "name"
     t.string "email"
     t.string "phone"
-    t.string "secondary_name"
-    t.string "secondary_id"
-    t.string "category_label_1"
+    t.string "account_id"
+    t.string "description"
     t.decimal "category_amt_1", precision: 8, scale: 2
     t.string "notes"
     t.string "payment_method"
