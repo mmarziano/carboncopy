@@ -606,6 +606,12 @@ function generateTableHead(tbl, data) {
     h3.innerHTML = "Issue Receipt"
     receipt.appendChild(h3);
 
+    let p = document.createElement('p');
+    p.innerHTML = "Highlighted fields require input."
+    p.id = "form_error"
+    p.classList.add('hidden')
+    receipt.appendChild(p)
+
     let f = document.createElement("form");
     f.setAttribute('method',"post");
     f.setAttribute('action',"/receipts");
@@ -735,11 +741,13 @@ function validateFields() {
     let form = document.querySelector('#new_receipt');
     let inputs = form.elements 
     let labels = ["name", "email", "description", "category_amt_1", "payment_method", "received_by"]
-    for (r = 0; r < labels.length; r++) {
-        for (i = 0; i < inputs.length; i++) {
-            if (!inputs[i].name.includes(labels[r])) {
-                inputs[i].style = "padding: 20px; border: none; border: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px;"
-            }
+    for (r = 0; r < inputs.length - 1; r++) {
+        for (i = 0; i < labels.length; i++) {
+            if (labels.indexOf(inputs[r].name) != -1 && inputs[r].value == '') {
+                inputs[r].style = "padding: 20px; border: 1px solid rgb(240, 8, 143); background-color: #eee; width: 100%; margin-bottom: 20px;"
+                let msg = document.querySelector('#form_error')
+                msg.classList.remove('hidden')
+            } 
         }
     }
 }
