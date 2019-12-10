@@ -609,6 +609,7 @@ function generateTableHead(tbl, data) {
     let f = document.createElement("form");
     f.setAttribute('method',"post");
     f.setAttribute('action',"/receipts");
+    f.id = "new_receipt"
     
     //creates 'Name' input element
     let iName = document.createElement("input");
@@ -711,7 +712,7 @@ function generateTableHead(tbl, data) {
         let rec = new Receipt(iName.value, iEmail.value, iPhone.value, iAccountID.value, iDescription.value, iPaymentAmt.value, iPaymentMethod.value, iPaymentNote.value, iNotes.value, iReceivedBy.value, date, org.id)
         clearMessage();
         hideMessage();
-        viewReceipt(org, rec);
+        validateFields();
         }); 
     
     // add all elements to the form
@@ -729,6 +730,19 @@ function generateTableHead(tbl, data) {
 
     receipt.appendChild(f)
   }
+
+function validateFields() {
+    let form = document.querySelector('#new_receipt');
+    let inputs = form.elements 
+    let labels = ["name", "email", "description", "category_amt_1", "payment_method", "received_by"]
+    for (r = 0; r < labels.length; r++) {
+        for (i = 0; i < inputs.length; i++) {
+            if (!inputs[i].name.includes(labels[r])) {
+                inputs[i].style = "padding: 20px; border: none; border: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px;"
+            }
+        }
+    }
+}
   
  
 class  Receipt {
