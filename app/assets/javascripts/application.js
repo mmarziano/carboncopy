@@ -101,7 +101,7 @@ function Search(){
     i.style = "padding-top: 15px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"
     
     //creates submit button
-    var s = document.createElement("input");
+    let s = document.createElement("input");
     s.type = "submit";
     s.style = "margin-left: 10px;"
     s.setAttribute('class', "btn marz-button")
@@ -214,7 +214,7 @@ function createOrgForm() {
     iPin.style = "padding: 20px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px"
 
     //creates submit button
-    var s = document.createElement("input");
+    let s = document.createElement("input");
     s.type = "submit";
     s.setAttribute('class', "btn marz-button")
     s.value = "Create Organization";
@@ -655,17 +655,48 @@ function generateTableHead(tbl, data) {
     showPin();
     hideResults();
     hideSearch();
-    let pin = document.querySelector('#authenticate-pin'); 
-    let orgPin = () => data.pin;
+    // create form
+    let pin = document.querySelector('#authenticate-pin');
+    let h3 = document.createElement('h3');
+    h3.innerHTML = "Organization Pin/Password"
+    pin.appendChild(h3);
+
+    //creates input element
+    let i = document.createElement("input");
+    i.type = "text";
+    i.name = "pin";
+    i.id = "pin";
+    i.placeholder = "Enter organization pin to issue receipt..."
+    i.style = "padding-top: 15px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 90%;"
+    
+    //creates submit button
+    let s = document.createElement("button");
+    s.type = "submit";
+    s.style = "margin-left: 10px;"
+    s.setAttribute('class', "btn marz-button")
+    s.innerHTML = "Submit"
+    s.addEventListener('click', function(e){
+        e.preventDefault();
+        hideResults();
+        clearMessage();
+        hideMessage();
+        clearSearch();
+        alert('here')
+        }); 
+    
+    // add all elements to the form
+    pin.appendChild(i);
+    pin.appendChild(s);
+
+
     let orgId = document.querySelector('#organization_id');
-        orgId.value = data.id;
-    let org = () => data;    
+        orgId.value = data.id; 
     let submitPin = document.querySelector('#submit-pin');
     submitPin.addEventListener('click', function(e){
         e.preventDefault();
         let userPin = document.querySelector('#pin').value;
-        if (orgPin() === userPin.toString()) {
-            startSingleReceipt(org(), 2);
+        if (data.pin === userPin.toString()) {
+            startSingleReceipt(data, 2);
         } else {
             alert("Sorry! Pin does not match. Please try again.")
         }
