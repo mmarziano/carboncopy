@@ -681,27 +681,18 @@ function generateTableHead(tbl, data) {
         clearMessage();
         hideMessage();
         clearSearch();
-        alert('here')
+        let userPin = document.querySelector('#pin').value;
+        if (data.pin === userPin.toString()) {
+            alert ('correct')
+            //startSingleReceipt(data, 2);
+        } else {
+            alert("Sorry! Pin does not match. Please try again.")
+        }
         }); 
     
     // add all elements to the form
     pin.appendChild(i);
     pin.appendChild(s);
-
-
-    let orgId = document.querySelector('#organization_id');
-        orgId.value = data.id; 
-    let submitPin = document.querySelector('#submit-pin');
-    submitPin.addEventListener('click', function(e){
-        e.preventDefault();
-        let userPin = document.querySelector('#pin').value;
-        if (data.pin === userPin.toString()) {
-            startSingleReceipt(data, 2);
-        } else {
-            alert("Sorry! Pin does not match. Please try again.")
-        }
-    }); 
-
   }
 
   function resetStep() {
