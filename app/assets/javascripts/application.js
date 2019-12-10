@@ -335,10 +335,7 @@ function hideReceipt() {
 
 function clearReceipt() {
     let receipt = document.querySelector('#receipt')
-    showSaveReceipt();
-    for (let i = 3; i < receipt.length - 2; i++) {
-            receipt[i].value = '';
-    }   
+    receipt.innerHTML = ''
 }
 
 function showNext() {
@@ -604,7 +601,6 @@ function generateTableHead(tbl, data) {
   function startReceipt(org) {
     clearPin();
     hidePin();
-
     let receipt = document.querySelector('#receipt');
     let h3 = document.createElement('h3');
     h3.innerHTML = "Issue Receipt"
@@ -774,8 +770,10 @@ class  Organization {
     view.innerText = "Issue New Receipt"
     view.addEventListener('click', function(e){
         e.preventDefault();
+        hidePreview();
         clearReceipt();
-        startSingleReceipt(org, resetStep());
+        showReceipt();
+        startReceipt(org);
     })
     let clear = document.querySelector('#preview-receipt');
     clear.innerHTML = "";
@@ -884,19 +882,19 @@ class  Organization {
     total.innerText = "Total: "
     total.append(` $${sum}`);
     let savebtn = document.createElement('button');
-    savebtn.setAttribute('class', 'btn marz-button btn-lg');
+    savebtn.setAttribute('class', 'btn btn-success btn-lg');
     savebtn.innerText = "Save Receipt"
     savebtn.addEventListener('click', function(e){
         e.preventDefault();
         saveReceipt(org, receipt);
     })
     let startover = document.createElement('button');
-    startover.setAttribute('class', 'btn marz-button btn-lg');
-    startover.innerText = "Start Over"
+    startover.setAttribute('class', 'btn btn-info btn-lg');
+    startover.innerText = "Edit"
     startover.addEventListener('click', function(e){
         e.preventDefault();
         hidePreview();
-        startReceipt(org);
+        showReceipt();
     })
     footer.append(total);
     footer.append(savebtn);
