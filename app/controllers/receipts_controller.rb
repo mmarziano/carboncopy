@@ -38,6 +38,6 @@ class ReceiptsController < ApplicationController
     private 
 
     def receipt_params
-        params.require(:receipt).permit(:name, :email, :phone, :secondary_name, :secondary_id, :category_label_1, :category_amt_1, :payment_method, :payment_method_note, :notes, :received_by, :receipt_date, :organization_id)
+        params.require(:receipt).permit(:name, :email, :phone, :account_id, :description, :category_amt_1, :payment_method, :payment_method_note, :notes, :received_by, :receipt_date, :organization_id)
     end 
 end
