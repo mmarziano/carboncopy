@@ -608,6 +608,7 @@ function generateTableHead(tbl, data) {
 
     let p = document.createElement('p');
     p.innerHTML = "Highlighted fields require input."
+    p.style = "color: rgb(240, 8, 143)"
     p.id = "form_error"
     p.classList.add('hidden')
     receipt.appendChild(p)
@@ -744,7 +745,7 @@ function validateFields() {
     for (r = 0; r < inputs.length - 1; r++) {
         for (i = 0; i < labels.length; i++) {
             if (labels.indexOf(inputs[r].name) != -1 && inputs[r].value == '') {
-                inputs[r].style = "padding: 20px; border: 1px solid rgb(240, 8, 143); background-color: #eee; width: 100%; margin-bottom: 20px;"
+                inputs[r].style = "padding: 20px; border: 1px solid rgb(240, 236, 8); width: 100%; margin-bottom: 20px;"
                 let msg = document.querySelector('#form_error')
                 msg.classList.remove('hidden')
             } 
