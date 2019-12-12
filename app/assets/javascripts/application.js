@@ -623,6 +623,7 @@ function generateTableHead(tbl, data) {
     iName.type = "text";
     iName.name = "name";
     iName.id = "name";
+    iName.required = true;
     iName.setAttribute('class', 'form-control inputs');
     iName.placeholder = "Recipient Name...";
     iName.style = "padding: 20px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px"
@@ -632,6 +633,7 @@ function generateTableHead(tbl, data) {
     iEmail.type = "text";
     iEmail.name = "email";
     iEmail.id = "email";
+    iEmail.required = true; 
     iEmail.setAttribute('class', 'form-control inputs');
     iEmail.placeholder = "Recipient Email"
     iEmail.style = "padding: 20px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px"
@@ -659,6 +661,7 @@ function generateTableHead(tbl, data) {
     iDescription.type = "text";
     iDescription.name = "description";
     iDescription.id = "description";
+    iDescription.required = true;
     iDescription.setAttribute('class', 'form-control inputs');
     iDescription.placeholder = "Payment Description"
     iDescription.style = "padding: 20px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px"
@@ -668,6 +671,7 @@ function generateTableHead(tbl, data) {
     iPaymentAmt.type = "text";
     iPaymentAmt.name = "category_amt_1";
     iPaymentAmt.id = "category_amt_1";
+    iPaymentAmt.required = true;
     iPaymentAmt.setAttribute('class', 'form-control inputs');
     iPaymentAmt.placeholder = "Payment Amount"
     iPaymentAmt.style = "padding: 20px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px"
@@ -686,6 +690,7 @@ function generateTableHead(tbl, data) {
     iPaymentMethod.type = "text";
     iPaymentMethod.name = "payment_method";
     iPaymentMethod.id = "payment_method";
+    iPaymentMethod.required = true;
     iPaymentMethod.setAttribute('class', 'form-control inputs');
     iPaymentMethod.placeholder = "Payment Method"
     iPaymentMethod.style = "padding: 20px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px"
@@ -704,12 +709,14 @@ function generateTableHead(tbl, data) {
     iReceivedBy.type = "text";
     iReceivedBy.name = "received_by";
     iReceivedBy.id = "received_by";
+    iReceivedBy.required = true;
     iReceivedBy.setAttribute('class', 'form-control inputs');
     iReceivedBy.placeholder = "Received By"
     iReceivedBy.style = "padding: 20px; border: none; border-bottom: 2px solid rgb(240, 8, 143); width: 100%; margin-bottom: 20px"
     
     //creates submit button
     let s = document.createElement("input");
+    s.id = 'submit-receipt'
     s.type = "submit";
     s.setAttribute('class', "btn marz-button")
     s.value = "Preview Receipt";
@@ -719,7 +726,11 @@ function generateTableHead(tbl, data) {
         let rec = new Receipt(iName.value, iEmail.value, iPhone.value, iAccountID.value, iDescription.value, iPaymentAmt.value, iPaymentMethod.value, iPaymentNote.value, iNotes.value, iReceivedBy.value, date, org.id)
         clearMessage();
         hideMessage();
-        validateFields();
+            if (f.checkValidity() == true) {
+                viewReceipt(org, rec);
+            } else {
+                rec.validateFields();
+            }
         }); 
     
     // add all elements to the form
@@ -738,17 +749,27 @@ function generateTableHead(tbl, data) {
     receipt.appendChild(f)
   }
 
-function validateFields() {
+function validateFields(org, receipt) {
     let form = document.querySelector('#new_receipt');
+    let submit = document.querySelector('#submit-receipt');
     let inputs = form.elements 
-    let labels = ["name", "email", "description", "category_amt_1", "payment_method", "received_by"]
+    let labels = ["name", "email", "description", "category_amt_1", "payment_method", "received_by"];
+    let values = [];
     for (r = 0; r < inputs.length - 1; r++) {
         for (i = 0; i < labels.length; i++) {
             if (labels.indexOf(inputs[r].name) != -1 && inputs[r].value == '') {
                 inputs[r].style = "padding: 20px; border: 1px solid rgb(240, 236, 8); width: 100%; margin-bottom: 20px;"
                 let msg = document.querySelector('#form_error')
                 msg.classList.remove('hidden')
+                values.push(inputs[r].value)
+                receipt[inputs[r]] = inputs[r].value
             } 
+        }
+        if (values.length >= 6 && values.indexOf('') == -1) {
+            submit.addEventListener('click', function(e){
+                e.preventDefault();
+                alert('here')
+            })           
         }
     }
 }
@@ -769,6 +790,20 @@ class  Receipt {
         this.receipt_date = receipt_date;
         this.organization_id = organization_id
     }
+
+    validateFields() {
+        let form = document.querySelector('#new_receipt');
+        let inputs = form.elements 
+        let labels = ["name", "email", "description", "category_amt_1", "payment_method", "received_by"];
+            for (let i = 0; i < labels.length; i++) {
+                if (this[labels[i]] == '') {
+                    inputs[labels[i]].style = "padding: 20px; border: 2px solid rgb(240, 8, 8); width: 100%; margin-bottom: 20px;"
+                    let msg = document.querySelector('#form_error')
+                    msg.classList.remove('hidden')
+                } 
+            }
+        }
+
 }
 
 class  Organization {
