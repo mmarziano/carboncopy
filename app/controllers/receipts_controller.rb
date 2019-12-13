@@ -16,8 +16,9 @@ class ReceiptsController < ApplicationController
         if receipt.save
             render json: receipt
         else 
-            flash[:alert] = receipt.errors.full_messages if receipt.errors.any?
-            redirect_to '/'
+            if receipt.errors.any?
+                render json: receipt.errors.full_messages
+            end
         end
     end 
 
@@ -38,6 +39,6 @@ class ReceiptsController < ApplicationController
     private 
 
     def receipt_params
-        params.require(:receipt).permit(:name, :email, :phone, :account_id, :description, :category_amt_1, :payment_method, :payment_method_note, :notes, :received_by, :receipt_date, :organization_id)
+        params.permit(:name, :email, :phone, :account_id, :description, :category_amt_1, :payment_method, :payment_method_note, :notes, :received_by, :receipt_date, :organization_id)
     end 
 end

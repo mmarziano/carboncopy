@@ -748,31 +748,6 @@ function generateTableHead(tbl, data) {
 
     receipt.appendChild(f)
   }
-
-function validateFields(org, receipt) {
-    let form = document.querySelector('#new_receipt');
-    let submit = document.querySelector('#submit-receipt');
-    let inputs = form.elements 
-    let labels = ["name", "email", "description", "category_amt_1", "payment_method", "received_by"];
-    let values = [];
-    for (r = 0; r < inputs.length - 1; r++) {
-        for (i = 0; i < labels.length; i++) {
-            if (labels.indexOf(inputs[r].name) != -1 && inputs[r].value == '') {
-                inputs[r].style = "padding: 20px; border: 1px solid rgb(240, 236, 8); width: 100%; margin-bottom: 20px;"
-                let msg = document.querySelector('#form_error')
-                msg.classList.remove('hidden')
-                values.push(inputs[r].value)
-                receipt[inputs[r]] = inputs[r].value
-            } 
-        }
-        if (values.length >= 6 && values.indexOf('') == -1) {
-            submit.addEventListener('click', function(e){
-                e.preventDefault();
-                alert('here')
-            })           
-        }
-    }
-}
   
  
 class  Receipt {
@@ -975,24 +950,45 @@ class  Organization {
   }
 
 function saveReceipt(org, receipt) {
-    // receipt['receipt_date'] = new Date(Date.now()).toLocaleString();
     let url = 'http://localhost:3000/receipts';
     options = {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
         body: JSON.stringify(receipt),
     }
     fetch(url, options)
-    .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          showMessage();
+    .then(handleErrors)
+        .then(response => response.json())
+        .then(json => createReceiptResults(json, org))
+        .catch(error => console.log(error) );
+}
+
+function createReceiptResults(result, org){
+    let msg = document.getElementById('message');
+    let p = document.createElement('p');
+    p.classList.add('alert');
+    if (Array.isArray(result)) {
+        p.innerHTML = "The following errors have prevented this action:"
+        msg.append(p);
+        let ul = document.createElement('ul');
+        for (i = 0; i < result.length; i++) {
+            let li = document.createElement('li');
+            li.innerHTML = result[i];
+            ul.appendChild(li)
         }
-    })   
-    .then(info => viewReceipt(org, info)) 
+        msg.append(ul)
+    } else {
+        p.innerHTML = "Receipt successfully created."
+        msg.append(p)
+        let form = document.querySelector('#receipt')
+        form.classList.add('hidden')
+        listReceipts(result, org);
+    }
+    msg.classList.remove('hidden')
+
 }
 
 function findOrg(input) {
@@ -1009,6 +1005,7 @@ function setOrg(data) {
 
 
 function listReceipts(data, org) {
+ 
     let clear = document.querySelector('#receipts-results');
     clear.innerHTML = "";
     let newButton = document.createElement('button');
