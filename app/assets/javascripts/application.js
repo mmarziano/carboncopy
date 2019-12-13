@@ -722,8 +722,8 @@ function generateTableHead(tbl, data) {
     s.value = "Preview Receipt";
     s.addEventListener('click', function(e){
         e.preventDefault();
-        let date = new Date(Date.now()).toLocaleString();
-        let rec = new Receipt(iName.value, iEmail.value, iPhone.value, iAccountID.value, iDescription.value, iPaymentAmt.value, iPaymentMethod.value, iPaymentNote.value, iNotes.value, iReceivedBy.value, date, org.id)
+        // let date = new Date(Date.now()).toLocaleString();
+        let rec = new Receipt(iName.value, iEmail.value, iPhone.value, iAccountID.value, iDescription.value, iPaymentAmt.value, iPaymentMethod.value, iPaymentNote.value, iNotes.value, iReceivedBy.value, new Date(Date.now()).toLocaleString(), org.id)
         clearMessage();
         hideMessage();
             if (f.checkValidity() == true) {
@@ -967,6 +967,7 @@ function saveReceipt(org, receipt) {
 }
 
 function createReceiptResults(result, org){
+    hidePreview();
     let msg = document.getElementById('message');
     let p = document.createElement('p');
     p.classList.add('alert');
@@ -1005,7 +1006,8 @@ function setOrg(data) {
 
 
 function listReceipts(data, org) {
- 
+    console.log(data)
+    console.log(org)
     let clear = document.querySelector('#receipts-results');
     clear.innerHTML = "";
     let newButton = document.createElement('button');

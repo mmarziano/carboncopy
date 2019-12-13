@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_10_28_235022) do
     t.string "payment_method"
     t.string "payment_method_note"
     t.string "received_by"
-    t.date "receipt_date"
+    t.string "receipt_date"
     t.integer "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

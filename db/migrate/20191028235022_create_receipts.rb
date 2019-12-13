@@ -11,7 +11,7 @@ class CreateReceipts < ActiveRecord::Migration[5.2]
       t.string :payment_method
       t.string :payment_method_note
       t.string :received_by
-      t.date :receipt_date
+      t.string :receipt_date
       t.integer :organization_id
       t.timestamps
     end
