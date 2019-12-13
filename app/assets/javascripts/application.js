@@ -966,12 +966,12 @@ function saveReceipt(org, receipt) {
         .catch(error => console.log(error) );
 }
 
-function createReceiptResults(result, org){
+function createReceiptResults(receipt, org){
     hidePreview();
     let msg = document.getElementById('message');
     let p = document.createElement('p');
     p.classList.add('alert');
-    if (Array.isArray(result)) {
+    if (Array.isArray(receipt)) {
         p.innerHTML = "The following errors have prevented this action:"
         msg.append(p);
         let ul = document.createElement('ul');
@@ -986,18 +986,25 @@ function createReceiptResults(result, org){
         msg.append(p)
         let form = document.querySelector('#receipt')
         form.classList.add('hidden')
-        listReceipts(result, org);
+        getOrgReceipts(receipt, org);
     }
     msg.classList.remove('hidden')
 
 }
 
-function findOrg(input) {
-    let id = input.organization_id
-    let url = `http://localhost:3000/organizations/${id}`;
+function getOrgReceipts(receipt, org) {
+    let receipts = [];
+    let url = `http://localhost:3000/receipts`;
     return fetch(url)
     .then(response => response.json())
-    .then(info => setOrg(info))
+    .then((info) => {
+        let result = info.filter(function(rec) {
+            if(rec.organization_id === org.id) {
+                return rec;
+            }
+        });
+       listReceipts(result, org)
+    });
 }
 
 function setOrg(data) {
@@ -1007,9 +1014,9 @@ function setOrg(data) {
 
 function listReceipts(data, org) {
     console.log(data)
-    console.log(org)
     let clear = document.querySelector('#receipts-results');
     clear.innerHTML = "";
+    showReceiptResults();
     let newButton = document.createElement('button');
     newButton.setAttribute('class', 'btn marz-button btn-lg');
     newButton.innerText = "Issue New Receipt"
@@ -1018,13 +1025,13 @@ function listReceipts(data, org) {
         clearReceipt();
         startReceipt(org);
     })
-    let receipts = [];
-    data.map((item) => receipts.push(item));
-    let result = receipts.filter(function(item) {
-        if (item.organization_id === org.id) {
-            return item;
-        } 
-    }); 
+    // let receipts = [];
+    // data.map((item) => receipts.push(item));
+    // let result = receipts.filter(function(item) {
+    //     if (item.organization_id === org.id) {
+    //         return item;
+    //     } 
+    // }); 
     showResults();
     let s = document.querySelector('#search-results');
     s.classList.add('hidden')
@@ -1034,7 +1041,7 @@ function listReceipts(data, org) {
     tbl.setAttribute('class', 'table table-striped');
     div.appendChild(tbl);
     generateReceiptTableHead(tbl, tblheadings);
-    generateReceiptTable(tbl, result, org);
+    generateReceiptTable(tbl, data, org);
     div.classList.remove('hidden')
     div.appendChild(newButton)
 }
