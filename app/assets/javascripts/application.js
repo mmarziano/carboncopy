@@ -591,6 +591,7 @@ function generateTableHead(tbl, data) {
     clearPin();
     hidePin();
     hideReceiptResults();
+    hideMessage();
     showReceipt();
     let receipt = document.querySelector('#receipt');
     let h3 = document.createElement('h3');
@@ -989,7 +990,7 @@ function createReceiptResults(receipt, org){
         msg.append(p)
         let form = document.querySelector('#receipt')
         form.classList.add('hidden')
-        getOrgReceipts(receipt, org);
+        getOrgReceipts(org);
     }
     msg.classList.remove('hidden')
 
@@ -1073,7 +1074,6 @@ function generateReceiptTableHead(tbl, data) {
                 cell.appendChild(text);
             } else if (key === 'category_amt_1') {
                 let cell = row.insertCell();
-                console.log(data[i][key])
                 let amt = "$" + parseFloat(data[i][key]).toFixed(2)
                 let text = document.createTextNode(amt);
                 cell.appendChild(text);
