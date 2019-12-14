@@ -33,28 +33,30 @@ function attachListeners() {
         quickStart.classList.add('hidden')
         Search();
     })
- 
+    let begin = document.querySelector("#begin")
+    begin.addEventListener('click', function(e){
+        e.preventDefault();
+        clearMessage();
+        hideMessage();
+        clearPin();
+        hidePin();
+        clearReceipt();
+        hideReceipt();
+        clearReceiptResults();
+        hideReceiptResults();
+        let result = document.querySelector('#search-results');
+        result.innerHTML = '';
+        hideResults();
+        let orgSearch = document.querySelector('#org-search-form');
+        orgSearch.innerHTML = '';
+        orgSearch.classList.remove('hidden');
+        Search();
+    })
     let resetLink = document.querySelector('#reset');
     resetLink.addEventListener('click', function(e){
         e.preventDefault();
         reset();
     })
-
-    // let newOrg = document.querySelector('#create_new');
-    // newOrg.addEventListener('click', function(e){
-    //     e.preventDefault();
-    //     hidePin();
-    //     hideSearch();
-    //     let form = document.querySelector('#create_org');
-    //     form.classList.remove('hidden');
-    // })    
-
-    // let createOrg = document.querySelector('#create_org_submit');
-    // createOrg.addEventListener('click', function(e){
-    //     let form = document.querySelector('#create_org');
-    //     form.classList.add('hidden');
-    //     start();
-    // })
 
 };
 
@@ -251,20 +253,6 @@ function showSearch() {
     orgSearch.classList.remove('hidden');
 }
 
-// function clearSearch() {
-//     let orgSearch = document.querySelector('#org-search');
-//     orgSearch.children[2].name.value = '';
-// }
-
-// function hideCreateOrgForm() {
-//     let newOrg = document.querySelector('#create_new');
-//     newOrg.classList.add('hidden');
-// }
-
-// function showCreateOrgForm() {
-//     let newOrg = document.querySelector('#create_new');
-//     newOrg.classList.remove('hidden');
-// }
 
 function hideResetLink() {
     let reset = document.querySelector('#reset');
@@ -302,8 +290,8 @@ function showPin() {
 }
 
 function clearPin() {
-    let pin = document.querySelector('#pin');
-    pin.value = ''
+    let pin = document.querySelector('#authenticate-pin');
+    pin.innerHTML = ''
 }
 
 
@@ -338,53 +326,6 @@ function clearReceipt() {
     receipt.innerHTML = ''
 }
 
-function showNext() {
-    let next = document.querySelector('#next');
-    next.classList.remove('hidden');
-}
-
-function hideNext() {
-    let next = document.querySelector('#next');
-    next.classList.add('hidden');
-}
-
-function showPrevious() {
-    let previous = document.querySelector('#previous');
-    previous.classList.remove('hidden');
-}
-
-function hidePrevious() {
-    let previous = document.querySelector('#previous');
-    previous.classList.add('hidden');
-}
-
-
-function showSaveReceipt() {
-    let div = document.querySelector('#save-receipt');
-    div.classList.remove('hidden');
-}
-
-function hideSaveReceipt() {
-    let div = document.querySelector('#save-receipt');
-    div.classList.add('hidden');
-}
-
-function showResetReceipt(org, receipt) {
-    let reset = document.querySelector('#reset-receipt');
-    reset.classList.remove('hidden');
-    reset.addEventListener('click', function(e) {
-        e.preventDefault();
-        resetStep();
-        restartReceipt(org, resetStep());
-    })
- 
-}
-
-function hideResetReceipt() {
-    let reset = document.querySelector('#reset-receipt');
-    reset.classList.add('hidden');
-}
-
 function showViewReceipts(org) {
     let view = document.querySelector('#view-receipts');
     view.classList.remove('hidden');
@@ -408,6 +349,11 @@ function showReceiptResults() {
 function hideReceiptResults() {
     let view = document.querySelector('#receipts-results');
     view.classList.add('hidden');
+}
+
+function clearReceiptResults() {
+    let view = document.querySelector('#receipts-results');
+    view.innerHTML = '';
 }
 
 function showPreview() {
@@ -919,23 +865,26 @@ class  Organization {
     total.innerText = "Total: "
     total.append(` $${sum}`);
     let savebtn = document.createElement('button');
-    savebtn.setAttribute('class', 'btn btn-success btn-lg');
-    savebtn.innerText = "Save Receipt"
-    savebtn.addEventListener('click', function(e){
-        e.preventDefault();
-        saveReceipt(org, receipt);
-    })
+        savebtn.setAttribute('class', 'btn btn-success btn-lg');
+        savebtn.innerText = "Save Receipt"
+        savebtn.addEventListener('click', function(e){
+            e.preventDefault();
+            saveReceipt(org, receipt);
+        });
     let startover = document.createElement('button');
-    startover.setAttribute('class', 'btn btn-info btn-lg');
-    startover.innerText = "Edit"
-    startover.addEventListener('click', function(e){
-        e.preventDefault();
-        hidePreview();
-        showReceipt();
-    })
+        startover.setAttribute('class', 'btn btn-info btn-lg');
+        startover.innerText = "Edit"
+        startover.addEventListener('click', function(e){
+            e.preventDefault();
+            hidePreview();
+            showReceipt();
+        })
+    if (receipt.id == '' || receipt.id == null || receipt.id == undefined) {
+        footer.append(savebtn);
+        footer.append(startover);
+    }
+
     footer.append(total);
-    footer.append(savebtn);
-    footer.append(startover);
 
     preview.appendChild(body);
     body.appendChild(recipient);
