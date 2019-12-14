@@ -1067,9 +1067,15 @@ function generateReceiptTableHead(tbl, data) {
             if (key === 'name' && key !== 'organization_id') {
                 let cell = row.insertCell();
                 cell.appendChild(link)
-            } else if (key === 'id' || key === 'description' || key === 'category_amt_1' || key === 'receipt_date') {
+            } else if (key === 'id' || key === 'description' || key === 'receipt_date') {
                 let cell = row.insertCell();
                 let text = document.createTextNode(data[i][key]);
+                cell.appendChild(text);
+            } else if (key === 'category_amt_1') {
+                let cell = row.insertCell();
+                console.log(data[i][key])
+                let amt = "$" + parseFloat(data[i][key]).toFixed(2)
+                let text = document.createTextNode(amt);
                 cell.appendChild(text);
             }
             
