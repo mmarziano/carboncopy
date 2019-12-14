@@ -369,17 +369,6 @@ function hideSaveReceipt() {
     div.classList.add('hidden');
 }
 
-
-function showReceiptTypeChoice() {
-    let div = document.querySelector('#choice');
-    div.classList.remove('hidden');
-}
-
-function hideReceiptTypeChoice() {
-    let div = document.querySelector('#choice');
-    div.classList.add('hidden');
-}
-
 function showResetReceipt(org, receipt) {
     let reset = document.querySelector('#reset-receipt');
     reset.classList.remove('hidden');
@@ -601,6 +590,8 @@ function generateTableHead(tbl, data) {
   function startReceipt(org) {
     clearPin();
     hidePin();
+    hideReceiptResults();
+    showReceipt();
     let receipt = document.querySelector('#receipt');
     let h3 = document.createElement('h3');
     h3.innerHTML = "Issue Receipt"
@@ -783,7 +774,7 @@ class  Receipt {
         let labels = ["name", "email", "description", "category_amt_1", "payment_method", "received_by"];
             for (let i = 0; i < labels.length; i++) {
                 if (this[labels[i]] == '') {
-                    inputs[labels[i]].style = "padding: 20px; border: 2px solid rgb(240, 8, 8); width: 100%; margin-bottom: 20px;"
+                    inputs[labels[i]].style = "padding: 20px; border: 2px solid rgb(240, 255, 28); width: 100%; margin-bottom: 20px;"
                     let msg = document.querySelector('#form_error')
                     msg.classList.remove('hidden')
                 } 
@@ -1076,7 +1067,7 @@ function generateReceiptTableHead(tbl, data) {
             if (key === 'name' && key !== 'organization_id') {
                 let cell = row.insertCell();
                 cell.appendChild(link)
-            } else if (key === 'id' || key === 'category_label_1' || key === 'category_amt_1' || key === 'receipt_date') {
+            } else if (key === 'id' || key === 'description' || key === 'category_amt_1' || key === 'receipt_date') {
                 let cell = row.insertCell();
                 let text = document.createTextNode(data[i][key]);
                 cell.appendChild(text);
