@@ -47,6 +47,8 @@ function attachListeners() {
         let result = document.querySelector('#search-results');
         result.innerHTML = '';
         hideResults();
+        clearCreateOrg();
+        hideCreateOrg();
         let orgSearch = document.querySelector('#org-search-form');
         orgSearch.innerHTML = '';
         orgSearch.classList.remove('hidden');
@@ -125,6 +127,7 @@ function Search(){
 };
 
 function createOrgForm() {
+    showCreateOrg();
     let form = document.querySelector('#create_org_form');
     let h3 = document.createElement('h3');
     h3.innerHTML = "Create New Organization"
@@ -294,6 +297,20 @@ function clearPin() {
     pin.innerHTML = ''
 }
 
+function showCreateOrg() {
+    let form = document.querySelector('#create_org_form')
+    form.classList.remove('hidden')
+}
+
+function hideCreateOrg() {
+    let form = document.querySelector('#create_org_form')
+    form.classList.add('hidden')
+}
+
+function clearCreateOrg() {
+    let form = document.querySelector('#create_org_form')
+    form.innerHTML = ''
+}
 
 function hideResults() {
     let card = document.querySelector('#card-results');
