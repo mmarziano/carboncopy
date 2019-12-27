@@ -60,7 +60,49 @@ function attachListeners() {
         reset();
     })
 
+    let sort = document.querySelector('#sort');
+    sort.addEventListener('click', function(e){
+        e.preventDefault();
+        getSortReceipts();
+    })
+
 };
+
+function getSortReceipts() {
+    let receipts = [];
+    let url = 'http://localhost:3000/receipts';
+    return fetch(url)
+    .then(response => response.json())
+    .then(json => sortByName(json))
+}
+
+function sortByName(json){
+    json.sort(function(a, b) {
+        var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      
+        // names must be equal
+        return 0;
+      });
+      makeList(json)
+}
+
+function makeList(json){
+    let list = document.querySelector('#list')
+    let ul = document.createElement('ul')
+    for (let i = 0; i < json.length; i++) {
+        let li = document.createElement('li')
+        li.innerHTML = json[i].name
+        ul.appendChild(li)
+    }
+    list.append(ul)
+}
 
 function Search(){
     let create = document.createElement('a');
@@ -495,7 +537,7 @@ function generateTableHead(tbl, data) {
         let row = tbody.insertRow();
         for (let key in data[i]) {
             let cell = row.insertCell();
-            if (key !== 'id' && key !== 'name' && key !== 'pin') {
+            if (key !== 'id' && key !== 'name' && key !== 'pin' && key !== 'receipts') {
                 let text = document.createTextNode(data[i][key]);
                 cell.appendChild(text);
             } 
@@ -507,6 +549,7 @@ function generateTableHead(tbl, data) {
   };
 
   function authenticate(data) {
+      console.log(data)
     showPin();
     hideResults();
     hideSearch();
