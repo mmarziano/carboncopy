@@ -68,41 +68,43 @@ function attachListeners() {
 
 };
 
-function getSortReceipts() {
-    let receipts = [];
-    let url = 'http://localhost:3000/receipts';
-    return fetch(url)
-    .then(response => response.json())
-    .then(json => sortByName(json))
-}
+//Following functions add a sort button to homepage
 
-function sortByName(json){
-    json.sort(function(a, b) {
-        var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-        var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
+// function getSortReceipts() {
+//     let receipts = [];
+//     let url = 'http://localhost:3000/receipts';
+//     return fetch(url)
+//     .then(response => response.json())
+//     .then(json => sortByName(json))
+// }
+
+// function sortByName(json){
+//     json.sort(function(a, b) {
+//         var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+//         var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+//         if (nameA < nameB) {
+//           return -1;
+//         }
+//         if (nameA > nameB) {
+//           return 1;
+//         }
       
-        // names must be equal
-        return 0;
-      });
-      makeList(json)
-}
+//         // names must be equal
+//         return 0;
+//       });
+//       makeList(json)
+// }
 
-function makeList(json){
-    let list = document.querySelector('#list')
-    let ul = document.createElement('ul')
-    for (let i = 0; i < json.length; i++) {
-        let li = document.createElement('li')
-        li.innerHTML = json[i].name
-        ul.appendChild(li)
-    }
-    list.append(ul)
-}
+// function makeList(json){
+//     let list = document.querySelector('#list')
+//     let ul = document.createElement('ul')
+//     for (let i = 0; i < json.length; i++) {
+//         let li = document.createElement('li')
+//         li.innerHTML = json[i].name
+//         ul.appendChild(li)
+//     }
+//     list.append(ul)
+// }
 
 function Search(){
     let create = document.createElement('a');
